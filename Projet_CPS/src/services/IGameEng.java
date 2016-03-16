@@ -17,14 +17,14 @@ public interface IGameEng {
 	
 	/**
 	 * PRE:
-	 * 	score(G) require gameOver(G)
+	 * 	score() require gameOver()
 	 */
 	int score();
 	
 	/**
 	 * PRE:
-	 * 	obstacle(G, x, y) require 0 <= x < Level::height(level(G)) ^
-	 * 								0 <= y < Level::width(level(G))
+	 * 	obstacle(x, y) require 0 <= x < level().height() ^ 
+	 * 		               0 <= y < level().width()
 	 */
 	boolean obstacle(int x, int y);
 	boolean gameOver();
@@ -32,14 +32,14 @@ public interface IGameEng {
 	// CONSTRUCTORS
 	/**
 	 * PRE:
-	 * 	init(L, sc, ss) require sc > 0 ^ ss > 0 	
+	 * 	init(sc, ss) require sc > 0 ^ ss > 0 	
 	 */
 	void init(Level lvl, int sc, int ss);
 	
 	// OPERATORS
 	/**
 	 * PRE:
-	 *  addLemming(G, l) require spawned() < sizeColony(G)
+	 *  addLemming(l) require spawned() < sizeColony()
 	 * POST:
 	 * 	spawned() == spawned()@pre + 1
 	 * 	colony.size() == colony()@pre.size() + 1
@@ -49,7 +49,7 @@ public interface IGameEng {
 	
 	/**
 	 * PRE:
-	 * 	killLemming(G, ln) require 0 <= ln < sizeColony(G)
+	 * 	killLemming(ln) require 0 <= ln < sizeColony()
 	 * POST:
 	 * 	colony().size() == colony()@pre.size() - 1
 	 * 	for (int i=0; i < colony()@pre.size(); i++)
@@ -60,7 +60,7 @@ public interface IGameEng {
 
 	/**
 	 * PRE:
-	 * 	saveLemming(G, ln) require 0 <= ln < sizeColony(G)
+	 * 	saveLemming(ln) require 0 <= ln < sizeColony()
 	 * POST:
 	 * 	nbSauves() == nbSauves()@pre + 1
 	 * 	colony().size() == colony()@pre.size() - 1
@@ -80,7 +80,7 @@ public interface IGameEng {
 	
 	/**
 	 * PRE:
-	 * 	init(L, sc, ss) require sc > 0 ^ ss > 0
+	 * 	init(sc, ss) require sc > 0 ^ ss > 0
 	 * POST:
 	 * 	spawnSpeed() == ss
 	 * 	sizeColony() == sc
@@ -90,9 +90,9 @@ public interface IGameEng {
 	
 	/**
 	 * [invariants]
-	 * 	gameOver(G) min= |colony(G)| == 0
-	 * 	score(G) min= nbSauves(G) / tours(G)
-	 * 	0 <= spawned(G) < sizeColony(G)
-	 * 	0 <= nbSauves(G) < sizeColony(G)
+	 * 	gameOver() min= |colony()| == 0
+	 * 	score() min= nbSauves() / tours()
+	 * 	0 <= spawned() < sizeColony()
+	 * 	0 <= nbSauves() < sizeColony()
 	 */
 }
