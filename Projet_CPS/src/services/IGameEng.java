@@ -101,10 +101,10 @@ public interface IGameEng {
 	*      getLemm: [gameEng] *int -> Lemming
 	*	   sizeColony: [gameEng] -> int
 	*      spawned: [gameEng] -> int
-    *      spawnSpeed: [gameEng] -> int
-    *      level: [gameEng] -> Level
-    *      tours: [gameEng] -> int
-    *	   nbSauves: [gameEng] -> int
+	*      spawnSpeed: [gameEng] -> int
+	*      level: [gameEng] -> Level
+	*      tours: [gameEng] -> int
+	*	   nbSauves: [gameEng] -> int
 	*  Constructors:
 	*      init: Level * int * int-> [gameEng]
 	*  Operators:
