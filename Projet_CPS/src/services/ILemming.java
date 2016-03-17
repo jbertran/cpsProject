@@ -56,6 +56,27 @@ public interface ILemming {
      */
     void step();
     
+    
+    /**
+	*
+	*   Service: Lemming
+	*   Types: int, bool, enum Status{WALK, FALL, BUILD, FLOAT, BOMB, STOP, BASH},enum Direction{DROITIER,GAUCHER}
+	*   Observators:
+	*      getX: [Lemming] -> int
+	*      getY: [Lemming] -> int
+	*	   getNumber: [Lemming] ->int
+	*      getDir(): [Lemming] -> Direction
+    *      getStatus(): [Lemming] -> Status
+    *      timeFalling(): [Lemming] -> int
+    *      gameEngine(): [Lemming] -> [gameEngine];
+	*  Constructors:
+	*      init: [gameEngine] -> [Lemming]
+	*  Operators:
+	*      changeDir: [Lemming] -> [Lemming]
+	*      setStatus: [Lemming] * Status -> [Lemming]
+	*      step: [Lemming] -> [Lemming]
+	*    
+	*/
     /**
 	 * [invariants]
 	 * 
@@ -69,14 +90,14 @@ public interface ILemming {
 	 * [changeDir]
 	 * 	getX(changeDir(Le))=getX(Le);
 	 *  getY(changeDir(Le))=getY(Le);
-	 *  getDir(changeDir(Le))!= getDir(Le);
+	 *   if(getDir(Le)==DROITIER)then getDir(changeDir(Le))=GAUCHER else getDir(changeDir(Le))=DROITIER;
 	 *  getStatus(changeDir(Le))=getStatus(Le);
 	 *  timeFalling(changeDir(Le))=timeFalling(Le);
 	 *  
 	 * [setStatus]
 	 * 	getX(setStatus(Le,s))=getX(Le);
 	 *  getY(setStatus(Le,s))=getY(Le);
-	 *  getDir(setStatus(Le,s))!= getDir(Le);
+	 *  getDir(setStatus(Le,s))= getDir(Le);
 	 *  getStatus(setStatus(Le,s))=s;
 	 *  timeFalling(setStatus(Le,s))=timeFalling(Le);
 	 *  

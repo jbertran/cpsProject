@@ -88,19 +88,46 @@ public interface IGameEng {
 	 */
 	void loadLevel(Level lvl, int sc, int ss);
 	
+	
+	
+	
+	
+	
+	/**
+	*
+	*   Service: GameEng
+	*   Types: int, bool
+	*   Observators:
+	*      getLemm: [gameEng] *int -> Lemming
+	*	   sizeColony: [gameEng] -> int
+	*      spawned: [gameEng] -> int
+    *      spawnSpeed: [gameEng] -> int
+    *      level: [gameEng] -> Level
+    *      tours: [gameEng] -> int
+    *	   nbSauves: [gameEng] -> int
+	*  Constructors:
+	*      init: Level * int * int-> [gameEng]
+	*  Operators:
+	*      addLemming: [gameEng] * Lemming -> [gameEng]
+	*      killLemming: [gameEng] * int -> [gameEng]
+	*      saveLemming: [gameEng] * int -> [gameEng]
+	*      step: [gameEng] -> [gameEng]
+	*	   loadLevel: Level * int * int -> [gameEng]
+	*    
+	*/
 	/**
 	 * [invariants]
 	 * 	gameOver() min= |colony()| == 0
 	 * 	score() min= nbSauves() / tours()
 	 * 	0 <= spawned() < sizeColony()
 	 * 	0 <= nbSauves() < sizeColony()
- * [init]
+	 *  obstacle(G,x,y)) minimisation = Level::nature(x,y)!=EMPTY;
+     * [init]
 	 * 	sizeColony(init(G,sc,ss))=sc
 	 *  spawnSpeed(init(G,sc,ss))=ss
 	 *  spawned(init(G,sc,ss))=0
 	 *  tours(init(G,sc,ss))=0
 	 *  nbSauves(init(G,sc,ss))=0
-	 *  obstacle(init(G,sc,ss),x,y)=false;
 	 *  
 	 * [addLeming]
 	 * 	sizeColony(addLeming(G,L,numero))=sizeColony(G)
@@ -108,7 +135,6 @@ public interface IGameEng {
 	 *  spawned(addLeming(G,L,numero))=spawned(G)
 	 *  tours(addLeming(G,L,numero)=tours(G)
 	 *  nbSauves(addLeming(G,L,sc,ss))=0
-	 *  obstacle(addLeming(G,L,sc,ss),x,y)=obstacle(G,x,y);
 	 * 
 	 * 
 	 * [killLeming]
@@ -117,7 +143,6 @@ public interface IGameEng {
 	 *  spawned(killLeming(G,L,numero))=spawned(G)
 	 *  tours(killLeming(G,L,numero)=tours(G)
 	 *  nbSauves(killLeming(G,L,sc,ss))=nbSauves(G)
-	 *  obstacle(killLeming(G,L,sc,ss),x,y)=obstacle(G,x,y);
 	 * 
 	 * [step]
 	 * 	sizeColony(step(G))=sizeColony(G)
@@ -131,7 +156,6 @@ public interface IGameEng {
 	 *  spawned(loadLevel(G,L,sc,ss))=0
 	 *  tours(loadLevel(G,L,sc,ss))=0
 	 *  nbSauves(loadLevel(G,L,sc,ss))=0
-	 *  obstacle(loadLevel(G,L,sc,ss),x,y)=false;
 	 * 
 	 * 
 	 */

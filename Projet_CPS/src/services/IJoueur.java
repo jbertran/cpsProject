@@ -13,6 +13,22 @@ public interface IJoueur {
 	void spendToken(int lemm, Status s);
 	void reset();
 	
+	
+	
+	/**
+	*
+	*   Service: Joueur
+	*   Types: int, bool, enum Status{WALK, FALL, BUILD, FLOAT, BOMB, STOP, BASH}
+	*   Observators:
+	*      nbTokens: [Joueur] * Status-> Joueur
+	*  Constructors:
+	*      init: -> [Joueur]
+	*  Operators:
+	*      spendToken: [Joueur] *int * Status -> [Joueur]
+	*         pre SpendToken(lemm,s),s) require nbTokens(s)>0
+	*     reset: [Level] -> [Level]
+	*/
+	
 	/**
 	 * [invariants]
 	 * 

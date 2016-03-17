@@ -72,6 +72,38 @@ public interface ILevel {
 	 */
 	void build(int x, int y);
 	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	*
+	*   Service: Level
+	*   Types: int, bool, enum Nature{DIRT, METAL, EMPTY}
+	*   Observators:
+	*      height: [Level] -> int
+	*      width: [Level] -> int
+	*      editing: [Level] -> bool
+	*      nature: [Level] * int * int -> Nature
+	*	   entree_x: [Level] -> int
+	*      entree_y: [Level] -> int
+	*      sortie_x: [Level] -> int
+	*      sortie_y: [Level] -> int
+	*  Constructors:
+	*      init: -> [Level]
+	*  Operators:
+	*      setNature: [Level] *int * int * Nature -> [Level]
+	*         pre setNature(L, x, y, n) require 0 <= x <= width(L) ^ 0 <= y <= height(L) ^ editing(L)
+	*     goPlay: [Level] -> [Level]
+	*     remove: [Level] * int * int -> [Level]
+	*         pre remove(L, x, y) require 0 <= x <= width(L) ^ 0 <= y <= height(L) ^ nature(L, x, y) = DIRT ^ not(editing(L))
+	*     build: [Level] * int * int -> [Level]
+	*         pre build(L, x, y) require 0 <= x <= width(L) ^ 0 <= y <= height(L) ^ nature(L, x, y) = EMPTY ^ not(editing(L))
+	*/
+	
 	// OBSERVATIONS 
 	/**
 	 * [invariants]
