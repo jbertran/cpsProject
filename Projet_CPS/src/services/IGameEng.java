@@ -94,5 +94,45 @@ public interface IGameEng {
 	 * 	score() min= nbSauves() / tours()
 	 * 	0 <= spawned() < sizeColony()
 	 * 	0 <= nbSauves() < sizeColony()
+ * [init]
+	 * 	sizeColony(init(G,sc,ss))=sc
+	 *  spawnSpeed(init(G,sc,ss))=ss
+	 *  spawned(init(G,sc,ss))=0
+	 *  tours(init(G,sc,ss))=0
+	 *  nbSauves(init(G,sc,ss))=0
+	 *  obstacle(init(G,sc,ss),x,y)=false;
+	 *  
+	 * [addLeming]
+	 * 	sizeColony(addLeming(G,L,numero))=sizeColony(G)
+	 *  spawnSpeed(addLeming(G,L,numero)=spawnSpeed(G)
+	 *  spawned(addLeming(G,L,numero))=spawned(G)
+	 *  tours(addLeming(G,L,numero)=tours(G)
+	 *  nbSauves(addLeming(G,L,sc,ss))=0
+	 *  obstacle(addLeming(G,L,sc,ss),x,y)=obstacle(G,x,y);
+	 * 
+	 * 
+	 * [killLeming]
+	 * 	sizeColony(killLeming(G,L,numero))=sizeColony(G)
+	 *  spawnSpeed(killLeming(G,L,numero)=spawnSpeed(G)
+	 *  spawned(killLeming(G,L,numero))=spawned(G)
+	 *  tours(killLeming(G,L,numero)=tours(G)
+	 *  nbSauves(killLeming(G,L,sc,ss))=nbSauves(G)
+	 *  obstacle(killLeming(G,L,sc,ss),x,y)=obstacle(G,x,y);
+	 * 
+	 * [step]
+	 * 	sizeColony(step(G))=sizeColony(G)
+	 *  spawnSpeed(step(G))=spawnSpeed(G)
+	 *  tours(step(G))=tours(G)+1
+	 * 
+	 * 
+	 * [loadLevel]
+	 * 	sizeColony(loadLevel(G,L,sc,ss))=sc
+	 *  spawnSpeed(loadLevel(G,L,sc,ss))=ss
+	 *  spawned(loadLevel(G,L,sc,ss))=0
+	 *  tours(loadLevel(G,L,sc,ss))=0
+	 *  nbSauves(loadLevel(G,L,sc,ss))=0
+	 *  obstacle(loadLevel(G,L,sc,ss),x,y)=false;
+	 * 
+	 * 
 	 */
 }

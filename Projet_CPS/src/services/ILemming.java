@@ -55,4 +55,33 @@ public interface ILemming {
      *          getX() == getX()@pre; getY() == getY()@pre + 1;
      */
     void step();
+    
+    /**
+	 * [invariants]
+	 * 
+	 * [init]
+	 * 	getX(init(Le,G))=gameEngine::entree_X()
+	 *  getY(init(Le,G))=gameEngine::entree_Y()
+	 *  getDir(init(Le,G))=DROITIER;
+	 *  getStatus(init(Le,G))=TOMBEUR;
+	 *  timeFalling(init(Le,G))=0;
+	 *  
+	 * [changeDir]
+	 * 	getX(changeDir(Le))=getX(Le);
+	 *  getY(changeDir(Le))=getY(Le);
+	 *  getDir(changeDir(Le))!= getDir(Le);
+	 *  getStatus(changeDir(Le))=getStatus(Le);
+	 *  timeFalling(changeDir(Le))=timeFalling(Le);
+	 *  
+	 * [setStatus]
+	 * 	getX(setStatus(Le,s))=getX(Le);
+	 *  getY(setStatus(Le,s))=getY(Le);
+	 *  getDir(setStatus(Le,s))!= getDir(Le);
+	 *  getStatus(setStatus(Le,s))=s;
+	 *  timeFalling(setStatus(Le,s))=timeFalling(Le);
+	 *  
+	 * [step]
+	 * 
+	 * 
+	 */
 }
