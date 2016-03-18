@@ -1,17 +1,18 @@
 package services;
 
-import java.util.List;
+import implem.Level;
 
 public interface IGameEng {
 	
 	// OBSERVATORS
 	
-	List<Lemming> colony();
-	Lemming getLemm(int ln);
+	ILemming[] colony();
+	ILemming getLemm(int ln);
 	int sizeColony();
 	int spawned();
 	int spawnSpeed();
-	Level level();
+	ILevel level();
+	ILevel levelInit();
 	int tours();
 	int nbSauves();
 	
@@ -34,7 +35,7 @@ public interface IGameEng {
 	 * PRE:
 	 * 	init(sc, ss) require sc > 0 ^ ss > 0 	
 	 */
-	void init(Level lvl, int sc, int ss);
+	void init(ILevel lvl, int sc, int ss);
 	
 	// OPERATORS
 	/**
@@ -45,7 +46,7 @@ public interface IGameEng {
 	 * 	colony.size() == colony()@pre.size() + 1
 	 * 	getLemm(l.getNumber()) == l
 	 */
-	void addLemming(Lemming l);
+	void addLemming(ILemming l);
 	
 	/**
 	 * PRE:
@@ -86,11 +87,11 @@ public interface IGameEng {
 	 * 	sizeColony() == sc
 	 * 	level() == lvl
 	 */
-	void loadLevel(Level lvl, int sc, int ss);
+	void loadLevel(ILevel lvl, int sc, int ss);
 	
 	
 	
-	
+	int nextLemNo();
 	
 	
 	/**

@@ -6,7 +6,7 @@ public interface IJoueur {
 	int nbTokens(Status s);
 	
 	// CONSTRUCTORS
-	void init();
+	void init(IGameEng gE);
 	
 	// OPERATORS
 	/* /pre : nbTokens(J,s)>0 */

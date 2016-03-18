@@ -76,10 +76,12 @@
 * __Types__: int, bool, enum Nature {DIRT, METAL, EMPTY}, Lemming, Set<Lemming>
 * __Observators__:
 	* colony : [GameEng] → Set<Lemming>
+	* nextLemNo : [GameEng] → int
 	* getLemm : [GameEng] * int → Lemming
 	* sizeColony : [GameEng] → int
 	* spawned : [GameEng] → int
 	* spawnSpeed : [GameEng] → int
+	* levelInit : [GameEng] → Level
 	* level : [GameEng] → Level
 	* tours : [GameEng] → int
 	* nbSauves : [GameEng] → int
@@ -109,11 +111,13 @@
 		* 	0 ≤ nbSauves() < sizeColony()
 		*  obstacle(G,x,y)) min = Level::nature(x,y)!=EMPTY;
 	* [init]
-	 	* 	sizeColony(init(G,sc,ss))=sc
-	 	*  spawnSpeed(init(G,sc,ss))=ss
-	 	*  spawned(init(G,sc,ss))=0
-	 	*  tours(init(G,sc,ss))=0
-	 	*  nbSauves(init(G,sc,ss))=0
+	 	*  sizeColony(init(L,sc,ss))=sc
+	 	*  spawnSpeed(init(L,sc,ss))=ss
+	 	*  spawned(init(L,sc,ss))=0
+	 	*  tours(init(L,sc,ss))=0
+	 	*  nbSauves(init(L,sc,ss))=0
+		*  level(init(L,sc,ss)) = L
+		*  levelInit(init(L,sc,ss)) = L
 	* [addLeming]
 	 	* 	sizeColony(addLeming(G,L,numero))=sizeColony(G)
 	 	*  spawnSpeed(addLeming(G,L,numero)=spawnSpeed(G)
@@ -158,11 +162,13 @@
 * __Observations__:
 	* [invariants]
 	* [init]
-	  	* 	getX(init(Le,G))=gameEngine::entree_X()
-	  	*  getY(init(Le,G))=gameEngine::entree_Y()
-	  	*  getDir(init(Le,G))=DROITIER;
-	  	*  getStatus(init(Le,G))=TOMBEUR;
-	  	*  timeFalling(init(Le,G))=0;
+	  	*  getX(init(G))=gameEngine::entree_X()
+	  	*  getY(init(G))=gameEngine::entree_Y()
+	  	*  getDir(init(G))=DROITIER;
+	  	*  getStatus(init(G))=TOMBEUR;
+	  	*  timeFalling(init(G))=0;
+		*  GameEng::nextLemNo(gameEngine(init(G))) = GameEng::nextLemNo(G) + 1
+		*  getNumber(init(G)) = GameEng::nextLemNo(G)
 	* [changeDir]
 	  	* 	getX(changeDir(Le))=getX(Le);
 	  	*  getY(changeDir(Le))=getY(Le);
@@ -202,13 +208,25 @@
 * __Types__: int, bool, enum Status{WALK, FALL, BUILD, FLOAT, BOMB, STOP, BASH}
 * __Observators__: 
 	* nbTokens: [Joueur] * Status-> Joueur
+	* gameEngine: [Joueur] -> GameEng
 * __Constructors__:
-	* init: -> [Joueur]
+	* init: GameEng -> [Joueur]
 * __Operators__:
 	* spendToken: [Joueur] *int * Status -> [Joueur]
 		* pre spendToken(lemm, s) require nbTokens(s)>0
 	* reset: [Level] -> [Level]
-
+* __Observations__:
+	* [invariants]
+		* \forall s in Status: nbTokens(J, s) > 0
+		* gameEngine(reset(J)) min= GameEng::loadlevel(GameEng::levelInit(gameEngine(J)))
+	* [init]
+		* nbTokens(init(G), s) = 10 \forall s in Status
+		* gameEngine(init(G)) = G
+	* [spendToken]
+		* nbTokens(spendToken(J, s), s) = nbTokens(J, s) - 1
+		* nbTokens(spendToken(J, s), st) = nbTokens(J, st) \forall st != s in Status
+	* [reset]
+		* nbTokens(init(G), s) = 10 \forall s in Status
 
 ```sh
 $ pandoc spec.md -s -o spec.html
