@@ -5,60 +5,60 @@ import services.ILemming;
 import services.ILevel;
 
 public class GameEngineDecorateur implements IGameEng{
-	IGameEng delegates;
+	IGameEng delegate;
 	
 	public GameEngineDecorateur(IGameEng delegates){
-		this.delegates=delegates;
+		this.delegate=delegates;
 	}
 
 	@Override
 	public ILemming[] colony() {
-		return delegates.colony();
+		return delegate.colony();
 	}
 
 	@Override
 	public ILemming getLemm(int ln) {
-		return delegates.getLemm(ln);
+		return delegate.getLemm(ln);
 	}
 
 	@Override
 	public int sizeColony() {
-		return delegates.sizeColony();
+		return delegate.sizeColony();
 	}
 
 	@Override
 	public int spawned() {
-		return delegates.spawned();
+		return delegate.spawned();
 	}
 
 	@Override
 	public int spawnSpeed() {
-		return delegates.spawnSpeed();
+		return delegate.spawnSpeed();
 	}
 
 	@Override
 	public ILevel level() {
-		return delegates.level();
+		return delegate.level();
 	}
 
 	@Override
 	public ILevel levelInit() {
-		return delegates.levelInit();
+		return delegate.levelInit();
 	}
 
 	@Override
 	public int tours() {
-		return delegates.tours();
+		return delegate.tours();
 	}
 
 	@Override
 	public int nbSauves() {
-		return delegates.nbSauves();
+		return delegate.nbSauves();
 	}
 
 	@Override
 	public int score() {
-		return delegates.score();
+		return delegate.score();
 	}
 
 	@Override
@@ -68,48 +68,48 @@ public class GameEngineDecorateur implements IGameEng{
 
 	@Override
 	public boolean gameOver() {
-		return delegates.gameOver();
+		return delegate.gameOver();
 	}
 
 	@Override
 	public void init(ILevel lvl, int sc, int ss) {
-		delegates.init(lvl, sc, ss);
+		delegate.init(lvl, sc, ss);
 		
 	}
 
 	@Override
 	public void addLemming(ILemming l) {
-		delegates.addLemming(l);
+		delegate.addLemming(l);
 		
 	}
 
 	@Override
 	public void killLemming(int ln) {
-		delegates.killLemming(ln);
+		delegate.killLemming(ln);
 		
 	}
 
 	@Override
 	public void saveLemming(int ln) {
-		delegates.saveLemming(ln);
+		delegate.saveLemming(ln);
 		
 	}
 
 	@Override
 	public void step() {
-		delegates.step();
+		delegate.step();
 		
 	}
 
 	@Override
 	public void loadLevel(ILevel lvl, int sc, int ss) {
-		delegates.loadLevel(lvl, sc, ss);
+		delegate.loadLevel(lvl, sc, ss);
 		
 	}
 
 	@Override
 	public int nextLemNo() {
-		return delegates.nextLemNo();
+		return delegate.nextLemNo();
 	}
 
 }

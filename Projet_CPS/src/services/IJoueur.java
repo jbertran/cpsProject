@@ -4,6 +4,7 @@ public interface IJoueur {
 	
 	// OBSERVATORS
 	int nbTokens(Status s);
+	IGameEng gameEngine();
 	
 	// CONSTRUCTORS
 	void init(IGameEng gE);

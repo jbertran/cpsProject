@@ -161,6 +161,9 @@
   	*      step: [Lemming] → [Lemming]
 * __Observations__:
 	* [invariants]
+		* getX(L) >= 0
+		* getY(L) >= 0
+		* 0 <= getNumber(L) < GameEng::sizeColony(gameEngine(L))
 	* [init]
 	  	*  getX(init(G))=gameEngine::entree_X()
 	  	*  getY(init(G))=gameEngine::entree_Y()
@@ -217,7 +220,7 @@
 	* reset: [Level] -> [Level]
 * __Observations__:
 	* [invariants]
-		* \forall s in Status: nbTokens(J, s) > 0
+		* \forall s in Status: nbTokens(J, s) >= 0
 		* gameEngine(reset(J)) min= GameEng::loadlevel(GameEng::levelInit(gameEngine(J)))
 	* [init]
 		* nbTokens(init(G), s) = 10 \forall s in Status

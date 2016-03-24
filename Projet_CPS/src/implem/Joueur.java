@@ -36,4 +36,9 @@ public class Joueur implements IJoueur{
 				gameEngine.sizeColony(), gameEngine.spawnSpeed());
 	}
 
+	@Override
+	public IGameEng gameEngine() {
+		return gameEngine;
+	}
+
 }

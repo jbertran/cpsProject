@@ -7,68 +7,68 @@ import services.Status;
 
 public class LemmingDecorateur implements ILemming{
 	
-	ILemming delegates;
+	ILemming delegate;
 	
 	public LemmingDecorateur(ILemming delegates){
-		this.delegates=delegates;
+		this.delegate=delegates;
 	}
 
 	@Override
 	public int getX() {
-		return delegates.getX();
+		return delegate.getX();
 	}
 
 	@Override
 	public int getY() {
-		return delegates.getY();
+		return delegate.getY();
 	}
 
 	@Override
 	public int getNumber() {
-		return delegates.getNumber();
+		return delegate.getNumber();
 	}
 
 	@Override
 	public Direction getDir() {
-		return delegates.getDir();
+		return delegate.getDir();
 	}
 
 	@Override
 	public Status getStatus() {
-		return delegates.getStatus();
+		return delegate.getStatus();
 	}
 
 	@Override
 	public int timeFalling() {
-		return delegates.timeFalling();
+		return delegate.timeFalling();
 	}
 
 	@Override
 	public IGameEng gameEngine() {
-		return delegates.gameEngine();
+		return delegate.gameEngine();
 	}
 
 	@Override
 	public void init(IGameEng gE) {
-		delegates.init(gE);
+		delegate.init(gE);
 		
 	}
 
 	@Override
 	public void changeDir() {
-		delegates.changeDir();
+		delegate.changeDir();
 		
 	}
 
 	@Override
 	public void setStatus(Status s) {
-		delegates.setStatus(s);
+		delegate.setStatus(s);
 		
 	}
 
 	@Override
 	public void step() {
-		delegates.step();
+		delegate.step();
 		
 	}
 
