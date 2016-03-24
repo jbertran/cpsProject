@@ -63,21 +63,18 @@ public class LemmingContrat extends LemmingDecorateur{
 	}
 	
 	public void init(IGameEng gE) {
-		int expre = gE.level().entree_x();
-		int eypre = gE.level().entree_y();
+		int nextlpre = gE.peekNextLemNo();
 		// Invariants
 		checkInvariants();
 		super.init(gE);
 		// Invariants
 		checkInvariants();
 		// POST
-		if (getX(init(G))=gameEngine::entree_X()
-				getY(init(G))=gameEngine::entree_Y()
-				getDir(init(G))=DROITIER;
-		getStatus(init(G))=TOMBEUR;
-		timeFalling(init(G))=0;
-		GameEng::nextLemNo(gameEngine(init(G))) = GameEng::nextLemNo(G) + 1
-				getNumber(init(G)) = GameEng::nextLemNo(G)
+		if (!(getX() == gameEngine().level().entree_x() && getY() == gameEngine().level().entree_y()
+				&& getDir() == Direction.DROITE && getStatus() == Status.FALL && timeFalling() == 0
+				&& getNumber() == gameEngine().peekNextLemNo() 
+				&& nextlpre + 1 == gameEngine().peekNextLemNo()))
+			throw new Error("Lemming: Initialization error");
 	}
 
 	public void changeDir() {

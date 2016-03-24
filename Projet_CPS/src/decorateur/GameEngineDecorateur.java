@@ -112,4 +112,9 @@ public class GameEngineDecorateur implements IGameEng{
 		return delegate.nextLemNo();
 	}
 
+	@Override
+	public int peekNextLemNo() {
+		return delegate.peekNextLemNo();
+	}
+
 }

@@ -177,4 +177,9 @@ public class GameEngine implements IGameEng {
 		return b.toString();
 	}
 
+	@Override
+	public int peekNextLemNo() {
+		return nextLemNo();
+	}
+
 }

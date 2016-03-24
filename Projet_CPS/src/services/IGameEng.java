@@ -92,7 +92,7 @@ public interface IGameEng {
 	
 	
 	int nextLemNo();
-	
+	int peekNextLemNo();
 	
 	/**
 	*

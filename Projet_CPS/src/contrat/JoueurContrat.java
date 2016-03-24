@@ -40,12 +40,15 @@ public class JoueurContrat extends JoueurDecorateur{
 	
 	public void spendToken(int lemm, Status s) {
 		int nbpre = nbTokens(s);
+		// PRE
+		if (!(nbTokens(s) > 0))
+			throw new Error("Joueur: token not spendable");
 		// Invariants
 		checkInvariants();
 		super.spendToken(lemm, s);
 		// Invariants
 		checkInvariants();
-		if (!(nbTokens(s) == nbpre - 1) || nbTokens(s) == 0)
+		if (!(nbTokens(s) == nbpre - 1))
 			throw new Error("Joueur: token spend error");
 		if (!(gameEngine().getLemm(lemm).getStatus() == s))
 			throw new Error("Joueur: token spend lemming stat error");
