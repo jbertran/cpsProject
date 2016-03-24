@@ -1,8 +1,8 @@
 package contrat;
 
-import Error.InvariantError;
-import Error.PostConditionError;
-import Error.PreConditionError;
+import error.InvariantError;
+import error.PostConditionError;
+import error.PreConditionError;
 import services.ILevel;
 import services.Nature;
 import decorateur.LevelDecorateur;
