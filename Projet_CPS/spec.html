@@ -1,0 +1,359 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<h1 id="level">Level</h1>
+<ul>
+<li><strong>Service</strong>: Level</li>
+<li><strong>Types</strong>: int, bool, enum Nature{DIRT, METAL, EMPTY}</li>
+<li><strong>Observators</strong>:
+<ul>
+<li>height: <a href="#level">Level</a> → int</li>
+<li>width: <a href="#level">Level</a> → int</li>
+<li>editing: <a href="#level">Level</a> → bool</li>
+<li>nature: <a href="#level">Level</a> * int * int → Nature</li>
+</ul></li>
+<li><strong>Constructors</strong>:
+<ul>
+<li>init: → <a href="#level">Level</a></li>
+</ul></li>
+<li><strong>Operators</strong>:
+<ul>
+<li>setNature: <a href="#level">Level</a> <em>int </em> int * Nature → <a href="#level">Level</a>
+<ul>
+<li>pre setNature(L, x, y, n) require 0 ≤ x ≤ width(L) ∧ 0 ≤ y ≤ height(L) ∧ editing(L)</li>
+</ul></li>
+<li>goPlay: <a href="#level">Level</a> → <a href="#level">Level</a></li>
+<li>remove: <a href="#level">Level</a> * int * int → <a href="#level">Level</a>
+<ul>
+<li>pre remove(L, x, y) require 0 ≤ x ≤ width(L) ∧ 0 ≤ y ≤ height(L) ∧ nature(L, x, y) = DIRT ∧ not(editing(L))</li>
+</ul></li>
+<li>build: <a href="#level">Level</a> * int * int → <a href="#level">Level</a>
+<ul>
+<li>pre build(L, x, y) require 0 ≤ x ≤ width(L) ∧ 0 ≤ y ≤ height(L) ∧ nature(L, x, y) = EMPTY ∧ not(editing(L))</li>
+</ul></li>
+</ul></li>
+<li><strong>Observations</strong>:
+<ul>
+<li>[invariants]
+<ul>
+<li>height(L) &gt; 0; width(L) &gt; 0</li>
+</ul></li>
+<li>[init]
+<ul>
+<li>width(init(h, w)) = w;</li>
+<li>height(init(h, w)) = h;</li>
+<li>editing(init(h, w)) = true;</li>
+<li>entree_x(init(h,w))= null;</li>
+<li>entree_y(init(h,w))= null;</li>
+<li>sortie_x(init(h,w))= null;</li>
+<li>sortie_y(init(h,w))= null;</li>
+<li>nature(L,x,y)= DIRT;</li>
+</ul></li>
+<li>[setNature]
+<ul>
+<li>width(setNature(L,x,y))=width(L)</li>
+<li>height(setNature(L,x,y))=height(L)</li>
+<li>editing(setNature(L,x,y))=true;</li>
+<li>entree_x(setNature(L,x,y))= null;</li>
+<li>entree_y(setNature(L,x,y))= null;</li>
+<li>sortie_x(setNature(L,x,y))= null;</li>
+<li>sortie_y(setNature(L,x,y))= null;</li>
+<li>nature(setNature(L, x, y, n), x, y) = n;</li>
+<li>nature(setNature(L, x, y, n), i, j) = nature(L, i, j) forall (i, j) != (x, y)</li>
+</ul></li>
+<li>[goPlay]
+<ul>
+<li>width(goPlay(L))=width(L)</li>
+<li>height(goPlay(L))=height(L)</li>
+<li>editing(goPlay(L)) = false;</li>
+<li>entree_x(goPlay(L, , xe, ye, xs, ys)) == xe;</li>
+<li>entree_y(goPlay(L, , xe, ye, xs, ys)) == ye;</li>
+<li>sortie_x(goPlay(L, , xe, ye, xs, ys)) == xs;</li>
+<li>sortie_y(goPlay(L, , xe, ye, xs, ys)) == ys;</li>
+<li>for i in (0..height(L)), nature(goPlay(L, xe, ye, xs, ys), i, 0) == METAL ^ nature(goPlay(L, xe, ye, xs, ys), i, width(L)-1) == METAL</li>
+<li>for j in (0..width(L)), nature(goPlay(L, xe, ye, xs, ys), 0, j) == METAL ^ nature(goPlay(L, xe, ye, xs, ys), height(L)-1, j) == METAL</li>
+</ul></li>
+<li>[remove]
+<ul>
+<li>width(remove(L,x,y))=width(L)</li>
+<li>height(remove(L,x,y))=height(L)</li>
+<li>editing(remove(L,x,y)) = false;</li>
+<li>entree_x(remove(L,x,y)) = entree_x(L)</li>
+<li>entree_y(remove(L,x,y)) = entree_y(L)</li>
+<li>sortie_x(remove(L,x,y)) = sortie_x(L)</li>
+<li>sortie_y(remove(L,x,y)) = sortie_y(L)</li>
+<li>nature(remove(L, x, y), x, y) == EMPTY</li>
+<li>nature(remove(L, x, y), i, j) == nature(L, i, j) forall (i, j) != (x, y)</li>
+</ul></li>
+<li>[build]
+<ul>
+<li>width(build(L,x,y))=width(L)</li>
+<li>height(build(L,x,y))=height(L)</li>
+<li>editing(build(L,x,y)) = false;</li>
+<li>entree_x(build(L,x,y)) = entree_x(L)</li>
+<li>entree_y(build(L,x,y)) = entree_y(L)</li>
+<li>sortie_x(build(L,x,y)) = sortie_x(L)</li>
+<li>sortie_y(build(L,x,y)) = sortie_y(L)</li>
+<li>nature(build(L, x, y), x, y) == DIRT</li>
+<li>nature(build(L, x, y), i, j) == nature(L, i, j) forall (i, j) != (x, y)</li>
+</ul></li>
+</ul></li>
+</ul>
+<h1 id="gameeng">GameEng</h1>
+<ul>
+<li><strong>Service</strong>: GameEng</li>
+<li><strong>Types</strong>: int, bool, enum Nature {DIRT, METAL, EMPTY}, Lemming, Set<Lemming></li>
+<li><strong>Observators</strong>:
+<ul>
+<li>colony : <a href="#gameeng">GameEng</a> → Set<Lemming></li>
+<li>nextLemNo : <a href="#gameeng">GameEng</a> → int</li>
+<li>peekNextLemNo : <a href="#gameeng">GameEng</a> → int</li>
+<li>getLemm : <a href="#gameeng">GameEng</a> * int → Lemming</li>
+<li>sizeColony : <a href="#gameeng">GameEng</a> → int</li>
+<li>spawned : <a href="#gameeng">GameEng</a> → int</li>
+<li>spawnSpeed : <a href="#gameeng">GameEng</a> → int</li>
+<li>levelInit : <a href="#gameeng">GameEng</a> → Level</li>
+<li>level : <a href="#gameeng">GameEng</a> → Level</li>
+<li>tours : <a href="#gameeng">GameEng</a> → int</li>
+<li>nbSauves : <a href="#gameeng">GameEng</a> → int</li>
+<li>score : <a href="#gameeng">GameEng</a> → score
+<ul>
+<li>pre score(G) require gameOver(G)</li>
+</ul></li>
+<li>gameOver : <a href="#gameeng">GameEng</a> → bool</li>
+<li>obstacle : <a href="#gameeng">GameEng</a> * int * int → bool
+<ul>
+<li>pre obstacle(G, x, y) require 0 ≤ x &lt; Level::height(level(G)) ∧ 0 ≤ y &lt; Level::height(level(G))</li>
+</ul></li>
+</ul></li>
+<li><strong>Constructors</strong>:
+<ul>
+<li>init : Level, int, int → <a href="#gameeng">GameEng</a>
+<ul>
+<li>pre init(lvl, sc, ss) require sc &gt; 0 ∧ ss &gt; 0</li>
+</ul></li>
+</ul></li>
+<li><strong>Operators</strong>:
+<ul>
+<li>addLemming : <a href="#gameeng">GameEng</a> * Lemming → <a href="#gameeng">GameEng</a>
+<ul>
+<li>pre addLemming(G, l) require spawned(G) &lt; sizeColony(G)</li>
+</ul></li>
+<li>killLemming: <a href="#gameeng">GameEng</a> * int → <a href="#gameeng">GameEng</a>
+<ul>
+<li>pre killLemming(G, ln) require 0 ≤ ln &lt; sizeColony(G)</li>
+</ul></li>
+<li>saveLemming: <a href="#gameeng">GameEng</a> * int → <a href="#gameeng">GameEng</a>
+<ul>
+<li>pre saveLemming(G, ln) require 0 ≤ ln &lt; sizeColony(G)</li>
+</ul></li>
+<li>step: <a href="#gameeng">GameEng</a> → <a href="#gameeng">GameEng</a></li>
+<li>loadLevel: <a href="#gameeng">GameEng</a> * Level * int * int → <a href="#gameeng">GameEng</a>
+<ul>
+<li>pre loadLevel(G, lvl, sc, ss) require sc &gt; 0 ∧ ss &gt; 0</li>
+</ul></li>
+</ul></li>
+<li><strong>Observations</strong>:
+<ul>
+<li>[invariants]
+<ul>
+<li>gameOver() min= |colony()| == 0</li>
+<li>score() min= nbSauves() / tours()</li>
+<li>0 ≤ spawned() &lt; sizeColony()</li>
+<li>0 ≤ nbSauves() &lt; sizeColony()</li>
+<li>obstacle(G,x,y)) min = Level::nature(x,y)!=EMPTY;</li>
+</ul></li>
+<li>[init]
+<ul>
+<li>sizeColony(init(L,sc,ss))=sc</li>
+<li>spawnSpeed(init(L,sc,ss))=ss</li>
+<li>spawned(init(L,sc,ss))=0</li>
+<li>tours(init(L,sc,ss))=0</li>
+<li>nbSauves(init(L,sc,ss))=0</li>
+<li>level(init(L,sc,ss)) = L</li>
+<li>levelInit(init(L,sc,ss)) = L</li>
+</ul></li>
+<li>[addLeming]
+<ul>
+<li>sizeColony(addLeming(G,L,numero))=sizeColony(G)</li>
+<li>spawnSpeed(addLeming(G,L,numero)=spawnSpeed(G)</li>
+<li>spawned(addLeming(G,L,numero))=spawned(G)</li>
+<li>tours(addLeming(G,L,numero)=tours(G)</li>
+<li>nbSauves(addLeming(G,L,sc,ss))=0</li>
+</ul></li>
+<li>[killLeming]
+<ul>
+<li>sizeColony(killLeming(G,L,numero))=sizeColony(G)</li>
+<li>spawnSpeed(killLeming(G,L,numero)=spawnSpeed(G)</li>
+<li>spawned(killLeming(G,L,numero))=spawned(G)</li>
+<li>tours(killLeming(G,L,numero)=tours(G)</li>
+<li>nbSauves(killLeming(G,L,sc,ss))=nbSauves(G)</li>
+</ul></li>
+<li>[step]
+<ul>
+<li>sizeColony(step(G))=sizeColony(G)</li>
+<li>spawnSpeed(step(G))=spawnSpeed(G)</li>
+<li>tours(step(G))=tours(G)+1</li>
+</ul></li>
+<li>[loadLevel]
+<ul>
+<li>sizeColony(loadLevel(G,L,sc,ss))=sc</li>
+<li>spawnSpeed(loadLevel(G,L,sc,ss))=ss</li>
+<li>spawned(loadLevel(G,L,sc,ss))=0</li>
+<li>tours(loadLevel(G,L,sc,ss))=0</li>
+<li>nbSauves(loadLevel(G,L,sc,ss))=0</li>
+</ul></li>
+</ul></li>
+</ul>
+<h1 id="lemming">Lemming</h1>
+<ul>
+<li><strong>Service</strong>: Lemming</li>
+<li><strong>Types</strong>: int, bool, enum Status{WALK, FALL, BUILD, FLOAT, BOMB, STOP, BASH},enum Direction{DROITIER,GAUCHER}</li>
+<li><strong>Observators</strong>:
+<ul>
+<li>getX: <a href="#lemming">Lemming</a> → int</li>
+<li>getY: <a href="#lemming">Lemming</a> → int</li>
+<li>getNumber: <a href="#lemming">Lemming</a> →int</li>
+<li>getDir(): <a href="#lemming">Lemming</a> → Direction</li>
+<li>getStatus(): <a href="#lemming">Lemming</a> → Status</li>
+<li>timeFalling(): <a href="#lemming">Lemming</a> → int</li>
+<li>gameEngine(): <a href="#lemming">Lemming</a> → [gameEngine];</li>
+</ul></li>
+<li><strong>Constructors</strong>:
+<ul>
+<li>init: [gameEngine] → <a href="#lemming">Lemming</a></li>
+</ul></li>
+<li><strong>Operators</strong>:
+<ul>
+<li>changeDir: <a href="#lemming">Lemming</a> → <a href="#lemming">Lemming</a></li>
+<li>setStatus: <a href="#lemming">Lemming</a> * Status → <a href="#lemming">Lemming</a></li>
+<li>step: <a href="#lemming">Lemming</a> → <a href="#lemming">Lemming</a></li>
+</ul></li>
+<li><strong>Observations</strong>:
+<ul>
+<li>[invariants]
+<ul>
+<li>getX(L) &gt;= 0</li>
+<li>getY(L) &gt;= 0</li>
+<li>0 &lt;= getNumber(L) &lt; GameEng::sizeColony(gameEngine(L))</li>
+</ul></li>
+<li>[init]
+<ul>
+<li>getX(init(G))=gameEngine::entree_X()</li>
+<li>getY(init(G))=gameEngine::entree_Y()</li>
+<li>getDir(init(G))=DROITIER;</li>
+<li>getStatus(init(G))=TOMBEUR;</li>
+<li>timeFalling(init(G))=0;</li>
+<li>GameEng::nextLemNo(gameEngine(init(G))) = GameEng::nextLemNo(G) + 1</li>
+<li>getNumber(init(G)) = GameEng::nextLemNo(G)</li>
+</ul></li>
+<li>[changeDir]
+<ul>
+<li>getX(changeDir(Le))=getX(Le);</li>
+<li>getY(changeDir(Le))=getY(Le);</li>
+<li>if(getDir(Le)==DROITIER)then getDir(changeDir(Le))=GAUCHER else getDir(changeDir(Le))=DROITIER;</li>
+<li>getStatus(changeDir(Le))=getStatus(Le);</li>
+<li>timeFalling(changeDir(Le))=timeFalling(Le);</li>
+</ul></li>
+<li>[setStatus]
+<ul>
+<li>getX(setStatus(Le,s))=getX(Le);</li>
+<li>getY(setStatus(Le,s))=getY(Le);</li>
+<li>getDir(setStatus(Le,s))= getDir(Le);</li>
+<li>getStatus(setStatus(Le,s))=s;</li>
+<li>timeFalling(setStatus(Le,s))=timeFalling(Le);</li>
+</ul></li>
+<li>[step]
+<ul>
+<li>getStatus(L) = Marcheur ⇒
+<ul>
+<li>Level::Nature(GameEng::level(gameEngine(L)), getX(L), getY(L)+1) = EMPTY ⇒
+<ul>
+<li>getStatus(step(L)) = Tombeur</li>
+<li>getX(L) = getX(step(L))</li>
+<li>getY(L) = getY(step(L))</li>
+</ul></li>
+<li>Level::Nature(GameEng::level(gameEngine(L)), getX(L), getY(L)+1) != EMPTY ⇒
+<ul>
+<li>getDir(L) = Droite ⇒
+<ul>
+<li>Level::Nature(GameEng::level(gameEngine(L)), getX(L)+1, getY(L)) != EMPTY v Level::Nature(GameEng::level(gameEngine(L)), getX(L)+1, getY(L)-1) != EMPTY ⇒ getDir(step(L)) = changeDir(L)</li>
+<li>Level::Nature(GameEng::level(gameEngine(L)), getX(L)+1, getY(L)) = EMPTY ∧ Level::Nature(GameEng::level(gameEngine(L)), getX(L)+1, getY(L)-1) = EMPTY ⇒ getX(step(L) = getX(L)+1</li>
+</ul></li>
+<li>idem pour lemming gaucher</li>
+</ul></li>
+</ul></li>
+<li>getStatus(L) = Tombeur ⇒
+<ul>
+<li>Level::Nature(GameEng::level(gameEngine(L)), getX(L), getY(L)+1) != EMPTY ⇒
+<ul>
+<li>timeFalling(L) &lt; 8 ⇒
+<ul>
+<li>getStatus(step(L)) = Marcheur</li>
+<li>timeFalling(step(L)) = 0</li>
+</ul></li>
+<li>timeFalling(L) ≥ 8 ⇒ gameEngine(step(L)) = GameEng::killLemming(getNumber(L))</li>
+</ul></li>
+<li>Level::Nature(GameEng::level(gameEngine(L)), getX(L), getY(L)+1) = EMPTY ⇒
+<ul>
+<li>getX(step(L)) = getX(L)</li>
+<li>getY(step(L)) = getY(L) + 1</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<h1 id="joueur">Joueur</h1>
+<ul>
+<li><strong>Service</strong>: Joueur</li>
+<li><strong>Types</strong>: int, bool, enum Status{WALK, FALL, BUILD, FLOAT, BOMB, STOP, BASH}</li>
+<li><strong>Observators</strong>:
+<ul>
+<li>nbTokens: <a href="#joueur">Joueur</a> * Status-&gt; Joueur</li>
+<li>gameEngine: <a href="#joueur">Joueur</a> -&gt; GameEng</li>
+</ul></li>
+<li><strong>Constructors</strong>:
+<ul>
+<li>init: GameEng -&gt; <a href="#joueur">Joueur</a></li>
+</ul></li>
+<li><strong>Operators</strong>:
+<ul>
+<li>spendToken: <a href="#joueur">Joueur</a> <em>int </em> Status -&gt; <a href="#joueur">Joueur</a>
+<ul>
+<li>pre spendToken(lemm, s) require nbTokens(s)&gt;0</li>
+</ul></li>
+<li>reset: <a href="#level">Level</a> -&gt; <a href="#level">Level</a></li>
+</ul></li>
+<li><strong>Observations</strong>:
+<ul>
+<li>[invariants]
+<ul>
+<li>s in Status: nbTokens(J, s) &gt;= 0</li>
+<li>gameEngine(reset(J)) min= GameEng::loadlevel(GameEng::levelInit(gameEngine(J)))</li>
+</ul></li>
+<li>[init]
+<ul>
+<li>nbTokens(init(G), s) = 10 s in Status</li>
+<li>gameEngine(init(G)) = G</li>
+</ul></li>
+<li>[spendToken]
+<ul>
+<li>nbTokens(spendToken(J, s), s) = nbTokens(J, s) - 1</li>
+<li>nbTokens(spendToken(J, s), st) = nbTokens(J, st) st != s in Status</li>
+</ul></li>
+<li>[reset]
+<ul>
+<li>nbTokens(init(G), s) = 10 s in Status</li>
+</ul></li>
+</ul></li>
+</ul>
+<pre class="sh"><code>$ pandoc spec.md -s -o spec.html</code></pre>
+</body>
+</html>
