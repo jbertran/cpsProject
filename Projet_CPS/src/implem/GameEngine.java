@@ -168,9 +168,9 @@ public class GameEngine implements IGameEng {
 		res[level().entree_x()][level().entree_y()] = 'E';
 		res[level().sortie_x()][level().sortie_y()] = 'S';
 		StringBuilder b = new StringBuilder();
-		for (int i = 0; i < level().width(); i++) {
-			for (int j = 0; j < level().height(); j++) {
-				b.append(res[i][j]);
+		for (int i = 0; i < level().height(); i++) {
+			for (int j = 0; j < level().width(); j++) {
+				b.append(res[j][i]);
 			}
 			b.append("\n");
 		}
