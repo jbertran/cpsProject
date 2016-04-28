@@ -12,43 +12,52 @@ public class Lemming implements ILemming{
 	IGameEng gameEngine;
 	Direction dir;
 	Status stat;
+	int timeBashing;
+	int timeExploding;
+	boolean isBomber;
+	boolean minedown;
 
-	@Override
 	public int getX() {
 		return x;
 	}
 
-	@Override
+
 	public int getY() {
 		return y;
 	}
 
-	@Override
+
 	public int getNumber() {
 		return number;
 	}
 
-	@Override
+
 	public Direction getDir() {
 		return dir;
 	}
 
-	@Override
+
 	public Status getStatus() {
 		return stat;
 	}
+	public boolean isBomber(){
+		return isBomber;
+	}
+	
+	public void setBomber(){
+		isBomber=true;
+	}
 
-	@Override
 	public int timeFalling() {
 		return timeFalling;
 	}
 
-	@Override
+
 	public IGameEng gameEngine() {
 		return gameEngine;
 	}
 
-	@Override
+
 	public void init(IGameEng gE) {
 		gameEngine = gE;
 		stat = Status.FALL;
@@ -57,19 +66,23 @@ public class Lemming implements ILemming{
 		x = gE.level().entree_x();
 		y = gE.level().entree_y();
 		timeFalling = 0;
+		timeBashing = 0;
+		minedown=true;
+		timeExploding=0;
+		isBomber=false;
 	}
 
-	@Override
+
 	public void changeDir() {
 		dir = ((dir == Direction.DROITE) ? Direction.GAUCHE : Direction.DROITE);
 	}
 
-	@Override
+
 	public void setStatus(Status s) {
 		stat = s;
 	}
 
-	@Override
+
 	public void step() {
 		if (getX() == gameEngine().level().sortie_x() && 
 				getY() == gameEngine().level().sortie_y())
@@ -102,9 +115,107 @@ public class Lemming implements ILemming{
 				else 
 					y += 1;
 				break;
+
+			case MINER:
+				if(minedown){
+					if(this.gameEngine().level().nature(this.x, y+1)==Nature.METAL ){
+						stat= Status.WALK;
+						break;
+					}else{
+						this.gameEngine().level().remove(this.x, this.y+1);
+						y+=1;
+						minedown=!minedown;
+					}
+					if( this.gameEngine().level().nature(this.x, y+1)==Nature.METAL){
+						stat= Status.WALK;
+						break;
+					}else{
+						this.gameEngine().level().remove(this.x, this.y+1);
+						y+=1;
+					}
+				}else{
+					if(dir==Direction.DROITE){
+						if(this.gameEngine().level().nature(this.x+1, y)==Nature.METAL 
+								|| this.gameEngine().level().nature(this.x+1, y-1)==Nature.METAL){
+							stat= Status.WALK;
+							break;
+						}else{
+							minedown=!minedown;
+							this.gameEngine().level().remove(this.x+1, this.y);
+							this.gameEngine().level().remove(this.x+1, this.y-1);
+							x+=1;
+						}
+					}else{
+						if(this.gameEngine().level().nature(this.x-1, y)==Nature.METAL 
+								|| this.gameEngine().level().nature(this.x-1, y-1)==Nature.METAL){
+							stat= Status.WALK;
+							break;
+						}else{
+							minedown=!minedown;
+							this.gameEngine().level().remove(this.x-1, this.y);
+							this.gameEngine().level().remove(this.x-1, this.y-1);
+							x-=1;
+						}
+					}
+				}
+				break;
+
+			case STOP:
+				this.gameEngine().level().build(this.x, this.y);
+				this.gameEngine().level().build(this.x, this.y-1);
+				this.gameEngine().killLemming(this.number);
+				break;
+
+			case BASH:
+				if(this.timeBashing>19){
+					timeBashing=0;
+					stat = Status.WALK;
+					break;	
+				}
+				if(this.gameEngine().level().nature(this.x, this.y+1)==Nature.EMPTY){
+					stat = Status.FALL;
+					break;
+				}
+				if(this.dir==Direction.DROITE){
+					if(this.gameEngine().level().nature(this.x+1, y)==Nature.METAL ||
+							this.gameEngine().level().nature(this.x+1, y-1)==Nature.METAL
+							|| this.gameEngine().level().nature(this.x+1, y-2)==Nature.METAL){
+						stat=Status.WALK;
+						break;
+					}
+					this.gameEngine().level().remove(this.x+1, y);
+					this.gameEngine().level().remove(this.x+1, y-1);
+					this.gameEngine().level().remove(this.x+1, y-2);
+					x += 1;
+				}else{
+					if(this.gameEngine().level().nature(this.x-1, y)==Nature.METAL ||
+							this.gameEngine().level().nature(this.x-1, y-1)==Nature.METAL
+							|| this.gameEngine().level().nature(this.x-1, y-2)==Nature.METAL){
+						stat=Status.WALK;
+						break;
+					}
+					this.gameEngine().level().remove(this.x-1, y);
+					this.gameEngine().level().remove(this.x-1, y-1);
+					this.gameEngine().level().remove(this.x-1, y-2);
+					x -= 1;
+				}
+				break;
+
 			default:
 				System.out.println("Shit.");
 				break;
+			}
+			if(isBomber){
+				timeExploding++;
+				if(timeExploding>4){
+					for(int i=x-2;i<(x-2)+5;i++){
+						for(int j=y-1;j<(y-1)+3;j++){
+							if(gameEngine.level().nature(i, j)==Nature.DIRT)
+								gameEngine.level().remove(i, j);
+						}
+					}
+					gameEngine.killLemming(number);
+				}
 			}
 		}
 	}
