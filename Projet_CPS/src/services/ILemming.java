@@ -55,6 +55,7 @@ public interface ILemming {
      *          getX() == getX()@pre; getY() == getY()@pre + 1;
      */
     void step();
+	void setBomber();
     
     
     /**
