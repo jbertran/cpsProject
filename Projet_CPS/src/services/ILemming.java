@@ -9,8 +9,11 @@ public interface ILemming {
     Direction getDir();
     Status getStatus();
     int timeFalling();
+    int timeBashing();
+    int timeExploding();
     IGameEng gameEngine();
-	
+    boolean isMiningDown();
+    boolean isBomber();
     // CONSTRUCTORS
     void init(IGameEng gE);
 	
@@ -53,9 +56,73 @@ public interface ILemming {
      *             gameEngine().colony()@pre.size() == gameEngine().colony().size() - 1
      *      else
      *          getX() == getX()@pre; getY() == getY()@pre + 1;
+     *          
+     *   else if (Status == STOP)
+     *   	gameEngine().level().nature(getX(), getY()) == DIRT
+     *   		&& gameEngine().level().nature(getX(), getY()-1) == Dirt
+     *   			&& gameEngine().getLemm(getNumber())==null
+     *   
+     *   else if (Status == Miner)
+     *   	if(!isMiningDown())
+     *   			if(gameEngine().level().nature(getX()@pre, getY()@pre+1)@pre!=Nature.METAL)then
+     *   				gameEngine().level().nature(getX()@pre, getY()@pre+1)==Nature.EMPTY && getY()==getY()@pre+1
+     *   				if(gameEngine().level().nature(getX()@pre, getY()@pre+2)@pre!=Nature.METAL)then
+     *   					gameEngine().level().nature(getX()@pre, getY()@pre+2)==Nature.EMPTY && getY()==getY()@pre+2
+     *  
+     *   	else
+	 *			if(getDir()@pre == Droite)
+	 *				if(gameEngine().level()nature(getX()@pre+1,getY()@pre)@pre!=Nature.Metal
+	 *					&& gameEngine().level()nature(getX()@pre+1,getY()@pre-1)@pre!=Nature.Metal)then
+	 *						gameEngine().level()nature(getX()@pre+1,getY()@pre)==Nature.Dirt &&
+	 *							gameEngine().level()nature(getX()@pre+1,getY()-1@pre)==Nature.Dirt
+	 *			else
+	 *				if(gameEngine().level()nature(getX()@pre-1,getY()@pre)@pre!=Nature.Metal
+	 *					&& gameEngine().level()nature(getX()@pre-1,getY()@pre-1)@pre!=Nature.Metal)then
+	 *						gameEngine().level()nature(getX()@pre-1,getY()@pre)==Nature.Dirt &&
+	 *							gameEngine().level()nature(getX()@pre-1,getY()-1@pre)==Nature.Dirt
+	 *
+     *   else if (Status == BASH)
+     *   	if(timeBashing()<19)
+     *   		if(getDir()@pre == Droite)
+     *   			if (gameEngine().level().nature(getX()@pre+1, getY()@pre)@pre!=Nature.METAL &&
+	 *						gameEngine().level().nature(getX()@pre+1, getY()@pre-1)@pre!=Nature.METAL
+	 *							&& gameEngine().level().nature(getX()@pre+1, getY()@pre-2)@pre!=Nature.METAL) then
+	 *								gameEngine().level().nature(getX()@pre+1, getY()@pre)==Nature.EMPTY &&
+	 *									gameEngine().level().nature(getX()@pre+1, getY()@pre-1)==Nature.EMPTY
+	 *										&& gameEngine().level().nature(getX()@pre+1, getY()@pre-2)==Nature.EMPTY
+	 *					
+     *   		else
+     *   		if (gameEngine().level().nature(getX()@pre-1, getY()@pre)@pre!=Nature.METAL &&
+	 *						gameEngine().level().nature(getX()@pre-1, getY()@pre-1)@pre!=Nature.METAL
+	 *							&& gameEngine().level().nature(getX()@pre-1, getY()@pre-2)@pre!=Nature.METAL) then
+	 *								gameEngine().level().nature(getX()@pre-1, getY()@pre)==Nature.EMPTY &&
+	 *									gameEngine().level().nature(getX()@pre-1, getY()@pre-1)==Nature.EMPTY
+	 *										&& gameEngine().level().nature(getX()@pre-1, getY()@pre-2)==Nature.EMPTY
+     *   
+     *   if(isBomber())
+     *   	timeExploding()=timeExploding()@pre+1
+     *   	if(timeExploding()>4)
+     *   	for(i = getX()-2 to getX()-2)+5)
+	 *			for(j=this.getY()-1 to j<(this.getY()-1)+3)
+	 *						if(i>=0 && i<=15 && j>=0 && j<=15)
+	 *							if(gameEngine().level().nature(i, j)@pre==Nature.METAL)
+	 *								gameEngine().level().nature(i, j)==Nature.METAL)
+	 *							else
+	 *								gameEngine().level().nature(i, j)==Nature.EMPTY)
      */
     void step();
+    
+    
+    /**
+     *  POST :
+     * 	isBomber()==true;
+     */
 	void setBomber();
+
+    
+   
+
+
     
     
     /**
@@ -102,6 +169,12 @@ public interface ILemming {
 	 *  getStatus(setStatus(Le,s))=s;
 	 *  timeFalling(setStatus(Le,s))=timeFalling(Le);
 	 *  
+	 * [setBomber]
+	 * 	getX(setBomber(Le))=getX(Le);
+	 *  getY(setBomber(Le))=getY(Le);
+	 *  getDir(setBomber(Le))= getDir(Le);
+	 *  getStatus(setBomber(Le))=s;
+	 *  timeFalling(setBomber(Le))=timeFalling(Le);
 	 * [step]
 	 * 
 	 * 
