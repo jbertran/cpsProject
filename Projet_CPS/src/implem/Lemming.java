@@ -52,11 +52,20 @@ public class Lemming implements ILemming{
 		return timeFalling;
 	}
 
-
+	public int timeBashing() {
+		return timeBashing;
+	}
+	
+	public boolean isMiningDown(){
+		return minedown;
+	}
+	
+	public int timeExploding() {
+		return timeExploding;
+	}
 	public IGameEng gameEngine() {
 		return gameEngine;
 	}
-
 
 	public void init(IGameEng gE) {
 		gameEngine = gE;
@@ -199,6 +208,7 @@ public class Lemming implements ILemming{
 					this.gameEngine().level().remove(this.x-1, y-2);
 					x -= 1;
 				}
+				timeBashing++;
 				break;
 
 			default:
