@@ -184,6 +184,10 @@ public class GameEngineContrat extends GameEngineDecorateur{
 		checkInvariants();
 		return super.nextLemNo();
 	}
+	
+	public String toString(){
+		return super.toString();
+	}
 
 
 }
