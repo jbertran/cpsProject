@@ -23,7 +23,6 @@ public class LemmingDecorateur implements ILemming{
 		return delegate.getY();
 	}
 
-	
 	public int getNumber() {
 		return delegate.getNumber();
 	}
@@ -42,7 +41,15 @@ public class LemmingDecorateur implements ILemming{
 	public int timeFalling() {
 		return delegate.timeFalling();
 	}
-
+	public int timeBashing(){
+		return delegate.timeBashing();
+	}
+	public boolean isMiningDown(){
+		return delegate.isMiningDown();
+	}
+	public int timeExploding(){
+		return delegate.timeExploding();
+	}
 	
 	public IGameEng gameEngine() {
 		return delegate.gameEngine();
@@ -72,9 +79,13 @@ public class LemmingDecorateur implements ILemming{
 		
 	}
 
-
+	public boolean isBomber(){
+		return delegate.isBomber();
+	}
 	public void setBomber() {
 		delegate.setBomber();
 	}
-
+	public String toString(){
+		return delegate.toString();
+	}
 }
