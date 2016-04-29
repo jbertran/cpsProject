@@ -9,6 +9,7 @@ public interface ILemming {
     Direction getDir();
     Status getStatus();
     int timeFalling();
+    int fallingRate();
     int timeBashing();
     int timeExploding();
     IGameEng gameEngine();
@@ -28,35 +29,49 @@ public interface ILemming {
 
     /**
      * POST:
+     *  fallingRate() = i 
+     */
+    void setFallingRate(int i);
+    
+    /**
+     * POST:
      *  getStatus() == s
      */
     void setStatus(Status s);
     /**
      * POST:
      *   if (Status == Marcheur)
-     *      if (gameEngine().level().nature(getX()@Pre, getY()@Pre + 1) == VIDE) 
+     *      if (!gameEngine().obstacle(getX()@Pre, getY()@Pre + 1)) 
      *          getStatus() == Tombeur; getX() == getX()@pre; gety() == getY()@pre
      *      else if (getDir()@pre == Droite)
-     *          if (gameEngine().level().nature(getX()@pre + 1, getY()@pre) != VIDE &&
-     *              gameEngine().level().nature(getX()@pre + 1, getY()@pre - 1) != VIDE)
-     *             getDir() == Gauche; getX() == getX()@pre; gety() == getY()@pre;
+     *          if (!gameEngine().obstacle(getX()@pre + 1, getY()@pre) &&
+     *              !gameEngine().obstacle(getX()@pre + 1, getY()@pre - 1))
+     *              getX() == getX()@pre + 1; gety() == getY()@pre;
+     *          else if (!gameEngine().obstacle(getX()@pre + 1, getY()@pre - 1) &&
+     *          		 !gameEngine().obstacle(getX()@pre + 1, getY()@pre - 2))
+     *          	getX() == getX()@pre + 1; getY() == getY()@pre - 1
      *          else
-     *             getX() == getX()@pre + 1; gety() == getY()@pre; 
+     *          	getDir() == Gauche; getX() == getX()@pre; gety() == getY()@pre;
      *      else
-     *          if (gameEngine().level().nature(getX()@pre - 1, getY()@pre) != VIDE &&
-     *              gameEngine().level().nature(getX()@pre - 1, getY()@pre - 1) != VIDE)
-     *             getDir() == Gauche; getX() == getX()@pre; gety() == getY()@pre
+     *          if (!gameEngine().obstacle(getX()@pre - 1, getY()@pre) &&
+     *              !gameEngine().obstacle(getX()@pre - 1, getY()@pre - 1))
+     *             	getX() == getX()@pre - 1; gety() == getY()@pre;
+     *          else if (gameEngine().obstacle(getX()@pre - 1, getY()@pre - 1) &&
+     *          		 gameEngine().obstacle(getX()@pre - 1, getY()@pre - 2))
+     *             	getX() == getX()@pre - 1; getY() == getY()@pre;
      *          else
-     *             getX() == getX()@pre - 1; getY() == getY()@pre; 
+     *          	getDir() == Gauche; getX() == getX()@pre; gety() == getY()@pre 
      *   else if (Status == Tombeur)
-     *      if (gameEngine().level().nature(getX()@pre, getY()@pre + 1) != VIDE) 
+     *      if (gameEngine().obstacle(getX()@pre, getY()@pre + 1)) 
      *          if (timeFalling() < 8) 
      *             Status = Marcheur; getX() == getX()@pre; gety() == getY()@pre;
      *          else
      *             gameEngine().colony()@pre.size() == gameEngine().colony().size() - 1
      *      else
      *          getX() == getX()@pre; getY() == getY()@pre + 1;
-     *          
+     *   else if (Status == BUILDER)
+     *   	
+     *   else if (Status == FLOATER)
      *   else if (Status == STOP)
      *   	gameEngine().level().nature(getX(), getY()) == DIRT
      *   		&& gameEngine().level().nature(getX(), getY()-1) == Dirt
@@ -154,6 +169,7 @@ public interface ILemming {
 	 *  getDir(init(Le,G))=DROITIER;
 	 *  getStatus(init(Le,G))=TOMBEUR;
 	 *  timeFalling(init(Le,G))=0;
+	 *  fallingRate(init(Le,G)) = 1
 	 *  
 	 * [changeDir]
 	 * 	getX(changeDir(Le))=getX(Le);
