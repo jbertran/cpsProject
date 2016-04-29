@@ -65,20 +65,20 @@ public class LevelContrat extends LevelDecorateur{
 			throw new PreConditionError("goPlay error,error coordinate entry/exit");
 		if(ye<0 || ye <0 || ye >super.height() || ye>super.height())
 			throw new PreConditionError("goPlay error,error coordinate entry/exit");
-		for(int i =0;i<super.height();i++)
-			if(super.nature(i, 0)!=Nature.METAL || super.nature(i, super.width()-1)!=Nature.METAL)
-				throw new PreConditionError("goPlay error, Metal border missing");
-		for(int i =0;i<super.width();i++)
-			if(super.nature(0, i)!=Nature.METAL || super.nature(super.height()-1, i)!=Nature.METAL)
-				throw new PreConditionError("goPlay error, Metal border missing");
+//		for(int i =0;i<super.height();i++)
+//			if(super.nature(i, 0)!=Nature.METAL || super.nature(i, super.width()-1)!=Nature.METAL)
+//				throw new PreConditionError("goPlay error, Metal border missing");
+//		for(int i =0;i<super.width();i++)
+//			if(super.nature(0, i)!=Nature.METAL || super.nature(super.height()-1, i)!=Nature.METAL)
+//				throw new PreConditionError("goPlay error, Metal border missing");
 
 		super.goPlay(xe, ye, xs, ys);
 		//PostCondition
 		for(int i =0;i<super.height();i++)
-			if(super.nature(i, 0)!=Nature.METAL || super.nature(i, super.width()-1)!=Nature.METAL)
+			if(super.nature(0, i)!=Nature.METAL || super.nature(super.width()-1,i )!=Nature.METAL)
 				throw new PreConditionError("goPlay error, Metal border missing");
 		for(int i =0;i<super.width();i++)
-			if(super.nature(0, i)!=Nature.METAL || super.nature(super.height()-1, i)!=Nature.METAL)
+			if(super.nature(i, 0)!=Nature.METAL || super.nature(i, super.height()-1)!=Nature.METAL)
 				throw new PreConditionError("goPlay error, Metal border missing");
 
 		if(super.entree_x()!=xe || super.entree_y()!=ye || super.sortie_x() !=xs || super.sortie_y()!=ys)
@@ -91,7 +91,7 @@ public class LevelContrat extends LevelDecorateur{
 	public void remove(int x, int y){
 		checkInvariants();
 		//PreCondition
-		if(x<0 || x> super.width() ||y<0 || y>super.height() || super.nature(x, y)!=Nature.DIRT || super.editing()==false)
+		if(x<0 || x> super.width() ||y<0 || y>super.height() || (super.nature(x, y)!=Nature.DIRT  && super.nature(x, y)!=Nature.EMPTY))
 			throw new PreConditionError("remove error");
 
 
@@ -117,7 +117,7 @@ public class LevelContrat extends LevelDecorateur{
 	public void build(int x, int y){
 		checkInvariants();
 		//Precondition
-		if(x<0 || x> super.width() ||y<0 || y>super.height() || super.nature(x, y)!=Nature.DIRT || super.editing()==false)
+		if(x<0 || x> super.width() ||y<0 || y>super.height() || super.nature(x, y)!=Nature.DIRT)
 			throw new PreConditionError("remove error");
 
 
@@ -138,5 +138,7 @@ public class LevelContrat extends LevelDecorateur{
 						throw new PostConditionError("setNature error, nature hasn't changed");
 		checkInvariants();
 	}	
-
+	public String toString(){
+		return super.toString();
+	}
 }
