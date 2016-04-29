@@ -12,12 +12,10 @@ public class LemmingDecorateur implements ILemming{
 	public LemmingDecorateur(ILemming delegates){
 		this.delegate=delegates;
 	}
-
 	
 	public int getX() {
 		return delegate.getX();
 	}
-
 	
 	public int getY() {
 		return delegate.getY();
@@ -26,27 +24,43 @@ public class LemmingDecorateur implements ILemming{
 	public int getNumber() {
 		return delegate.getNumber();
 	}
-
 	
 	public Direction getDir() {
 		return delegate.getDir();
 	}
 
-	
 	public Status getStatus() {
 		return delegate.getStatus();
 	}
 
+	public int timeWaiting() {
+		return delegate.timeWaiting();
+	}
+
+	public int tilesBuilt() {
+		return delegate.tilesBuilt();
+	}
+
+	public void setWaiting(int i) {
+		delegate.setWaiting(i);
+	}
+
+	public void setTilesBuilt(int i) {
+		delegate.setTilesBuilt(i);
+	}
 	
 	public int timeFalling() {
 		return delegate.timeFalling();
 	}
+	
 	public int timeBashing(){
 		return delegate.timeBashing();
 	}
+	
 	public boolean isMiningDown(){
 		return delegate.isMiningDown();
 	}
+	
 	public int timeExploding(){
 		return delegate.timeExploding();
 	}
@@ -58,34 +72,33 @@ public class LemmingDecorateur implements ILemming{
 	
 	public void init(IGameEng gE) {
 		delegate.init(gE);
-		
 	}
 
 	
 	public void changeDir() {
 		delegate.changeDir();
-		
 	}
 
 	
 	public void setStatus(Status s) {
 		delegate.setStatus(s);
-		
 	}
 
 	
 	public void step() {
-		delegate.step();
-		
+		delegate.step();		
 	}
 
 	public boolean isBomber(){
 		return delegate.isBomber();
 	}
+	
 	public void setBomber() {
 		delegate.setBomber();
 	}
+	
 	public String toString(){
 		return delegate.toString();
 	}
+
 }

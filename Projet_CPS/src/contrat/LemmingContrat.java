@@ -1,5 +1,7 @@
 package contrat;
 
+import java.awt.image.TileObserver;
+
 import services.Direction;
 import services.IGameEng;
 import services.ILemming;
@@ -110,6 +112,8 @@ public class LemmingContrat extends LemmingDecorateur{
 		ILemming [] colonypre = gameEngine().colony().clone();
 		Direction dirpre = getDir();
 		int xpre = getX(), ypre = getY();
+		int tilespre = tilesBuilt();
+		int waitingpre = timeWaiting();
 		int timeEx_pre = -1;
 		Status Stat_pre=this.getStatus();
 		if(isBomber()){
@@ -119,7 +123,7 @@ public class LemmingContrat extends LemmingDecorateur{
 		checkInvariants();
 		super.step();
 		// POST
-		switch(getStatus()) {
+		switch(Stat_pre) {
 		case WALK:
 			if (!gameEngine().obstacle(xpre, ypre + 1)) { 
 				if (!(getStatus() == Status.FALL && getX() == xpre &&
@@ -164,20 +168,82 @@ public class LemmingContrat extends LemmingDecorateur{
 			}
 			break;
 		case FALL:
-			if (gameEngine().level().nature(xpre, ypre + 1) != Nature.EMPTY) { 
+			if (gameEngine().obstacle(xpre, ypre + 1)) { 
 				if (timeFalling() < 8) {
 					if (!(getStatus() == Status.WALK && getX() == xpre && getY() == ypre))
 						throw new Error("Lemming: step error - status || position fall recovery");
 				}
 				else
 					if (!(colonypre.length == gameEngine().colony().length - 1))
-						throw new Error("Lemming: step error - colony size");
+						throw new Error("Lemming: step error - not killed after landing");
 			}
 			else
 				if (!(getX() == xpre && getY() == ypre + 1))
 					throw new Error("Lemming: step error - position after falling");
 			break;
 		case BUILD:
+			if (tilespre >= 12) {
+				if (!(tilesBuilt() == 0 &&
+						timeWaiting() == -1 &&
+						getStatus() == Status.WALK))
+					throw new PostConditionError("Step BUILDER: reset to WALK");
+			}
+			else {
+				if (dirpre == Direction.DROITE) {
+					if (waitingpre == 0) {
+						if (!(timeWaiting() == -1 &&
+								gameEngine().level().nature(xpre + 1, ypre) == Nature.DIRT &&
+								gameEngine().level().nature(xpre + 2, ypre) == Nature.DIRT &&
+								gameEngine().level().nature(xpre + 2, ypre - 1) == Nature.DIRT &&
+								getX() == xpre + 2 && getY() == ypre - 1 &&
+								tilesBuilt() == tilespre + 3))
+							throw new PostConditionError("Step BUILDER: erreur au build");
+						else if (waitingpre > 0) {
+							if (timeWaiting() != waitingpre - 1)
+								throw new PostConditionError("Step BUILDER: decr waiting time");
+						}
+						else {
+							if (!gameEngine().obstacle(xpre + 1, ypre) &&
+									!gameEngine().obstacle(xpre + 2, ypre) &&
+									!gameEngine().obstacle(xpre + 2, ypre - 1)) {
+								if (! (waitingpre == 3))
+									throw new PostConditionError("Step BUILDER: new build");
+							}
+							else
+								if (!(tilesBuilt() == 0 && getStatus() == Status.WALK))
+									throw new PostConditionError("Step BUILDER: reset to walker");
+						}
+							
+					}
+				}
+				if (dirpre == Direction.GAUCHE) {
+					if (waitingpre == 0) {
+						if (!(timeWaiting() == -1) &&
+								(gameEngine().level().nature(xpre - 1, ypre) == Nature.DIRT) &&
+								(gameEngine().level().nature(xpre - 2, ypre) == Nature.DIRT) &&
+								(gameEngine().level().nature(xpre - 2, ypre - 1) == Nature.DIRT) &&
+								(getX() == xpre + 2) && (getY() == ypre - 1) &&
+								(tilesBuilt() == tilespre + 3))
+							throw new PostConditionError("Step BUILDER: erreur au build");
+						else if (waitingpre > 0) {
+							if (timeWaiting() != waitingpre - 1)
+								throw new PostConditionError("Step BUILDER: decr waiting time");
+						}
+						else {
+							if (!gameEngine().obstacle(xpre - 1, ypre) &&
+									!gameEngine().obstacle(xpre - 2, ypre) &&
+									!gameEngine().obstacle(xpre - 2, ypre - 1)) {
+								if (! (waitingpre == 3))
+									throw new PostConditionError("Step BUILDER: new build");
+							}
+							else
+								if (!(tilesBuilt() == 0 && getStatus() == Status.WALK))
+									throw new PostConditionError("Step BUILDER: reset to walker");
+						}
+							
+					}
+				}
+			}
 			break;
 		case FLOAT:
 			break;

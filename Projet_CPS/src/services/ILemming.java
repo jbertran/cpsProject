@@ -8,8 +8,9 @@ public interface ILemming {
     int getNumber();
     Direction getDir();
     Status getStatus();
+    int timeWaiting();
+    int tilesBuilt();
     int timeFalling();
-    int fallingRate();
     int timeBashing();
     int timeExploding();
     IGameEng gameEngine();
@@ -26,12 +27,18 @@ public interface ILemming {
      *  if (getDir()@pre == Gauche) getDir() == Droite
      */
     void changeDir();
-
+    
     /**
      * POST:
-     *  fallingRate() = i 
+     *  timeWaiting() = i
      */
-    void setFallingRate(int i);
+    void setWaiting(int i);
+    
+    /**
+     * POST:
+     *  tilesBuilt() = i
+     */
+    void setTilesBuilt(int i);
     
     /**
      * POST:
@@ -40,9 +47,9 @@ public interface ILemming {
     void setStatus(Status s);
     /**
      * POST:
-     *   if (Status == Marcheur)
+     *   if (getStatus()@pre == WALK)
      *      if (!gameEngine().obstacle(getX()@Pre, getY()@Pre + 1)) 
-     *          getStatus() == Tombeur; getX() == getX()@pre; gety() == getY()@pre
+     *          getgetStatus()@pre() == Tombeur; getX() == getX()@pre; gety() == getY()@pre
      *      else if (getDir()@pre == Droite)
      *          if (!gameEngine().obstacle(getX()@pre + 1, getY()@pre) &&
      *              !gameEngine().obstacle(getX()@pre + 1, getY()@pre - 1))
@@ -61,23 +68,66 @@ public interface ILemming {
      *             	getX() == getX()@pre - 1; getY() == getY()@pre;
      *          else
      *          	getDir() == Gauche; getX() == getX()@pre; gety() == getY()@pre 
-     *   else if (Status == Tombeur)
+     *   else if (getStatus()@pre == Tombeur)
      *      if (gameEngine().obstacle(getX()@pre, getY()@pre + 1)) 
      *          if (timeFalling() < 8) 
-     *             Status = Marcheur; getX() == getX()@pre; gety() == getY()@pre;
+     *             getStatus()@pre = Marcheur; getX() == getX()@pre; gety() == getY()@pre;
      *          else
      *             gameEngine().colony()@pre.size() == gameEngine().colony().size() - 1
      *      else
      *          getX() == getX()@pre; getY() == getY()@pre + 1;
-     *   else if (Status == BUILDER)
-     *   	
-     *   else if (Status == FLOATER)
-     *   else if (Status == STOP)
+     *   else if (getStatus()@pre == BUILDER)
+     *   	if tilesBuilt()@pre >= 12
+     *   			tilesBuilt() = 0
+     *   			timeWaiting() = -1
+     *   			getStatus() = WALK
+     *   	else
+     *   		if getDir()@pre == Droite
+     *   			if timeWaiting()@pre == O
+     *	   				timeWaiting() = -1;
+     *  	 			gameEngine().level().nature(getX()@pre + 1, getY()@pre) = DIRT;
+     *  	 			gameEngine().level().nature(getX()@pre + 2, getY()@pre) = DIRT;
+     *   				gameEngine().level().nature(getX()@pre + 2, getY()@pre - 1) = DIRT;
+     *   				getX() = getX()@pre + 2; getY() = getY()@pre - 1
+     *   				tilesBuilt() = tilesBuilt()@pre + 3;
+     *   			else if timeWaiting > 0
+     *   				timeWaiting() = timeWaiting()@pre - 1
+     *   			else 
+     *   				if !gameEngine().obstacle(getX()@pre + 1, getY()@pre) &&
+     *   					!gameEngine().obstacle(getX()@pre + 2, getY()@pre) &&
+     *   					!gameEngine().obstacle(getX()@pre + 2, getY()@pre - 1)
+     *   					timeWaiting() = 3
+     *   				else
+     *   					tilesBuilt() = 0
+     *   					timeWaiting() = -1
+     *   					getStatus() = WALK
+     *   		if getDir()@pre == Gauche
+     *   			if timeWaiting()@pre == O
+     *	   				timeWaiting() = -1;
+     *  	 			gameEngine().level().nature(getX()@pre - 1, getY()@pre) = DIRT;
+     *  	 			gameEngine().level().nature(getX()@pre - 2, getY()@pre) = DIRT;
+     *   				gameEngine().level().nature(getX()@pre - 2, getY()@pre - 1) = DIRT;
+     *   				getX() = getX()@pre - 2; getY() = getY()@pre - 1;
+     *   				tilesBuilt() = tilesBuilt()@pre + 3;
+     *   			else if timeWaiting()@pre > 0
+     *   				timeWaiting() = timeWaiting()@pre - 1
+     *   			else 
+     *   				if !gameEngine().obstacle(getX()@pre - 1, getY()@pre) &&
+     *   					!gameEngine().obstacle(getX()@pre - 2, getY()@pre) &&
+     *   					!gameEngine().obstacle(getX()@pre - 2, getY()@pre - 1)
+     *   					timeWaiting() = 3
+     *   				else
+     *   					tilesBuilt() = 0
+     *   					timeWaiting() = -1
+     *   					getStatus() = WALK
+     *   else if (getStatus()@pre == FLOATER)
+     *   
+     *   else if (getStatus()@pre == STOP)
      *   	gameEngine().level().nature(getX(), getY()) == DIRT
      *   		&& gameEngine().level().nature(getX(), getY()-1) == Dirt
      *   			&& gameEngine().getLemm(getNumber())==null
      *   
-     *   else if (Status == Miner)
+     *   else if (getStatus()@pre == Miner)
      *   	if(!isMiningDown())
      *   			if(gameEngine().level().nature(getX()@pre, getY()@pre+1)@pre!=Nature.METAL)then
      *   				gameEngine().level().nature(getX()@pre, getY()@pre+1)==Nature.EMPTY && getY()==getY()@pre+1
@@ -96,7 +146,7 @@ public interface ILemming {
 	 *						gameEngine().level()nature(getX()@pre-1,getY()@pre)==Nature.Dirt &&
 	 *							gameEngine().level()nature(getX()@pre-1,getY()-1@pre)==Nature.Dirt
 	 *
-     *   else if (Status == BASH)
+     *   else if (getStatus()@pre == BASH)
      *   	if(timeBashing()<19)
      *   		if(getDir()@pre == Droite)
      *   			if (gameEngine().level().nature(getX()@pre+1, getY()@pre)@pre!=Nature.METAL &&
@@ -148,10 +198,12 @@ public interface ILemming {
 	*      getX: [Lemming] -> int
 	*      getY: [Lemming] -> int
 	*	   getNumber: [Lemming] ->int
-	*      getDir(): [Lemming] -> Direction
-    *      getStatus(): [Lemming] -> Status
-    *      timeFalling(): [Lemming] -> int
-    *      gameEngine(): [Lemming] -> [gameEngine];
+	*      getDir: [Lemming] -> Direction
+    *      getStatus: [Lemming] -> Status
+    *      tilesBuilt: [Lemming] -> int
+    *      timeWaiting: [Lemming] -> int
+    *      timeFalling: [Lemming] -> int
+    *      gameEngine: [Lemming] -> [gameEngine];
 	*  Constructors:
 	*      init: [gameEngine] -> [Lemming]
 	*  Operators:
@@ -168,8 +220,8 @@ public interface ILemming {
 	 *  getY(init(Le,G))=gameEngine::entree_Y()
 	 *  getDir(init(Le,G))=DROITIER;
 	 *  getStatus(init(Le,G))=TOMBEUR;
-	 *  timeFalling(init(Le,G))=0;
-	 *  fallingRate(init(Le,G)) = 1
+	 *  timeWaiting(init(Le,G))=-1
+	 *  tilesBuilt(init(Le,G))=0
 	 *  
 	 * [changeDir]
 	 * 	getX(changeDir(Le))=getX(Le);

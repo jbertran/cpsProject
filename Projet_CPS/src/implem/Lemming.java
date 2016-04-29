@@ -12,6 +12,8 @@ public class Lemming implements ILemming{
 	IGameEng gameEngine;
 	Direction dir;
 	Status stat;
+	int timeWaiting;
+	int tilesBuilt;
 	int timeBashing;
 	int timeExploding;
 	boolean isBomber;
@@ -29,6 +31,36 @@ public class Lemming implements ILemming{
 
 	public int getNumber() {
 		return number;
+	}
+
+	
+	public int getTimeWaiting() {
+		return timeWaiting;
+	}
+
+
+	public void setTimeWaiting(int timeWaiting) {
+		this.timeWaiting = timeWaiting;
+	}
+
+
+	public int timeWaiting() {
+		return timeWaiting;
+	}
+
+
+	public void setWaiting(int timeWaiting) {
+		this.timeWaiting = timeWaiting;
+	}
+
+	
+	public int tilesBuilt() {
+		return tilesBuilt;
+	}
+
+
+	public void setTilesBuilt(int tilesBuilt) {
+		this.tilesBuilt = tilesBuilt;
 	}
 
 
@@ -74,6 +106,8 @@ public class Lemming implements ILemming{
 		number = gE.nextLemNo();
 		x = gE.level().entree_x();
 		y = gE.level().entree_y();
+		timeWaiting = -1;
+		tilesBuilt = 0;
 		timeFalling = 0;
 		timeBashing = 0;
 		minedown=true;
@@ -141,7 +175,63 @@ public class Lemming implements ILemming{
 				else 
 					y += 1;
 				break;
-
+			case BUILD:
+				if (tilesBuilt() >= 12) {
+					setTilesBuilt(0);
+					setWaiting(-1);
+					setStatus(Status.WALK);
+				}
+				else {
+					if (getDir() == Direction.DROITE) {
+						if (timeWaiting() == 0) {
+							setWaiting(-1);
+							gameEngine().level().setNature(x + 1, y, Nature.DIRT);
+							gameEngine().level().setNature(x + 2, y, Nature.DIRT);
+							gameEngine().level().setNature(x + 2, y - 1, Nature.DIRT);
+							x += 2;
+							y -= 1;
+							setTilesBuilt(tilesBuilt() + 3);
+						}
+						else if (timeWaiting() > 0)
+							setWaiting(timeWaiting() - 1);
+						else {
+							if (!gameEngine().obstacle(x + 1, y) &&
+									!gameEngine().obstacle(x + 2, y) &&
+									!gameEngine().obstacle(x + 2, y - 1))
+								setTimeWaiting(3);
+							else {
+								setTilesBuilt(0);
+								setWaiting(-1);
+								setStatus(Status.WALK);
+							}
+						}
+					}
+					if (getDir() == Direction.GAUCHE) {
+						if (timeWaiting() == 0) {
+							setWaiting(-1);
+							gameEngine().level().setNature(x - 1, y, Nature.DIRT);
+							gameEngine().level().setNature(x - 2, y, Nature.DIRT);
+							gameEngine().level().setNature(x - 2, y - 1, Nature.DIRT);
+							x += 2;
+							y -= 1;
+							setTilesBuilt(tilesBuilt() + 3);
+						}
+						else if (timeWaiting() > 0)
+							setWaiting(timeWaiting() - 1);
+						else {
+							if (!gameEngine().obstacle(x - 1, y) &&
+									!gameEngine().obstacle(x - 2, y) &&
+									!gameEngine().obstacle(x - 2, y - 1))
+								setTimeWaiting(3);
+							else {
+								setTilesBuilt(0);
+								setWaiting(-1);
+								setStatus(Status.WALK);
+							}
+						}
+					}
+				}
+				break;
 			case MINER:
 				if(minedown){
 					if(this.gameEngine().level().nature(this.x, y+1)==Nature.METAL ){
@@ -229,7 +319,7 @@ public class Lemming implements ILemming{
 				break;
 
 			default:
-				System.out.println("Shit.");
+				System.out.println("Weird.");
 				break;
 			}
 			if(isBomber){
