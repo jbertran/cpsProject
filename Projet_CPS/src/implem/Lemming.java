@@ -102,18 +102,35 @@ public class Lemming implements ILemming{
 				if (gameEngine().level().nature(getX(), getY() + 1) == Nature.EMPTY)
 					stat = Status.FALL;
 				else if (dir == Direction.DROITE) {
-					if (!(gameEngine().obstacle(getX()+1, getY())
-							|| gameEngine().obstacle(getX()+1, getY()-1)))
+					boolean canR = !(gameEngine().obstacle(getX()+1, getY())
+							|| gameEngine().obstacle(getX()+1, getY()-1));
+					boolean canUpR = !(getY() - 2 < 0 
+							|| gameEngine().obstacle(getX()+1, getY()-1)
+							|| gameEngine().obstacle(getX()+1, getY()-2));
+					if (canR) {
 						x += 1;
+					}
+					else if (canUpR) {
+						x += 1; y -= 1;
+					}
 					else
 						changeDir();
 				}
 				else if (dir == Direction.GAUCHE){
-					if (!(gameEngine().obstacle(getX()-1, getY())
-							|| gameEngine().obstacle(getX()-1, getY()-1)))
+					boolean canL = !(gameEngine().obstacle(getX()-1, getY())
+							|| gameEngine().obstacle(getX()-1, getY()-1));
+					boolean canUpL = !(getY() - 2 < 0 
+							|| gameEngine().obstacle(getX()-1, getY()-1)
+							|| gameEngine().obstacle(getX()-1, getY()-2));
+					if (canL) {
 						x -= 1;
-					else
+					}
+					else if (canUpL) {
+						x -= 1; y -= 1;
+					}
+					else {
 						changeDir();
+					}
 				}
 			case FALL:
 				if (gameEngine().obstacle(getX(), getY()+1))
