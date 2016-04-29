@@ -25,7 +25,7 @@
 
   <target name="run" depends="compile"
           description="run examples">
-          <java classname="filesprio.FilesPrioMain"
+          <java classname="test.testMain"
           classpath="${bin}">
        <arg value="30"/>
     </java>
