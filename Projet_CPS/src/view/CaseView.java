@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 import services.Direction;
 import services.IGameEng;
 import services.ILemming;
-import services.Status;
 
 @SuppressWarnings("serial")
 public class CaseView extends JPanel{

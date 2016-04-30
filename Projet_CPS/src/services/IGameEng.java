@@ -1,6 +1,5 @@
 package services;
 
-import implem.Level;
 
 public interface IGameEng {
 	

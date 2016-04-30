@@ -14,6 +14,7 @@ public interface ILemming {
     int timeBashing();
     int timeExploding();
     IGameEng gameEngine();
+    boolean isClimber();
     boolean isFloater();
     boolean isMiningDown();
     boolean isBomber();
@@ -55,7 +56,18 @@ public interface ILemming {
     /**
      * POST:
      *   if (getStatus()@pre == WALK)
-     *      if (!gameEngine().obstacle(getX()@Pre, getY()@Pre + 1)) 
+     *   	if (isClimber())
+     *   		if (getDir()@pre == Droite)
+     *				if (gameEngine().obstacle(getX()@pre+1, getY()@pre) && 
+     *					gameEngine().obstacle(getX()@pre+1, getY()@pre - 1) &&
+     *					!gameEngine().obstacle(getX()@pre, getY()@pre-2))
+     *					getX() = getX()@pre; getY() = getY()@pre - 1
+     *			if (getDir()@pre == Gauche)
+     *				if (gameEngine().obstacle(getX()@pre-1, getY()@pre) && 
+     *					gameEngine().obstacle(getX()@pre-1, getY()@pre - 1) &&
+     *					!gameEngine().obstacle(getX()@pre, getY()@pre-2))
+     *					getX() = getX()@pre; getY() = getY()@pre - 1					 
+     *      if (!gameEngine().obstacle(getX()@Pre, getY()@Pre + 1) && !isClimber()) 
      *          getgetStatus()@pre() == Tombeur; getX() == getX()@pre; gety() == getY()@pre
      *      else if (getDir()@pre == Droite)
      *          if (!gameEngine().obstacle(getX()@pre + 1, getY()@pre) &&
@@ -142,7 +154,6 @@ public interface ILemming {
      *   					tilesBuilt() = 0
      *   					timeWaiting() = -1
      *   					getStatus() = WALK
-     *   
      *   else if (getStatus()@pre == STOP)
      *   	gameEngine().level().nature(getX(), getY()) == DIRT
      *   		&& gameEngine().level().nature(getX(), getY()-1) == Dirt
@@ -194,25 +205,29 @@ public interface ILemming {
 	 *							if(gameEngine().level().nature(i, j)@pre==Nature.METAL)
 	 *								gameEngine().level().nature(i, j)==Nature.METAL)
 	 *							else
-	 *								gameEngine().level().nature(i, j)==Nature.EMPTY)	 *		
+	 *								gameEngine().level().nature(i, j)==Nature.EMPTY)	 
+	 * 					
      */
     void step();
     
     
     /**
      *  POST :
-     * 	isBomber()==true;
+     * 	isBomber() = true;
      */
 	void setBomber();
 
    /**
     * POST:
-    *  isFloater() == b; 
+    *  isFloater() = b; 
     */
 	void setFloater(boolean b);
 
-
-    
+	/**
+	 * POST:
+	 * 	isClimber() = true
+	 */
+    void setClimber();
     
     /**
 	*
@@ -226,6 +241,7 @@ public interface ILemming {
     *      getStatus: [Lemming] -> Status
     *      isBomber: [Lemming] -> bool
     *      isFloater: [Lemming] -> bool
+    *      isClimber: [Lemming] -> bool
     *      tilesBuilt: [Lemming] -> int
     *      timeWaiting: [Lemming] -> int
     *      timeFalling: [Lemming] -> int
@@ -235,6 +251,11 @@ public interface ILemming {
 	*  Operators:
 	*      changeDir: [Lemming] -> [Lemming]
 	*      setStatus: [Lemming] * Status -> [Lemming]
+	*      setTimeFalling: [Lemming] * int -> [Lemming]
+	*      setTimeWaiting: [Lemming] * int -> [Lemming]
+	*      setBomber: [Lemming] -> [Lemming]
+	*      setClimber: [Lemming] -> [Lemming]
+	*      setFloater: [Lemming] * bool -> [Lemming]
 	*      step: [Lemming] -> [Lemming]
 	*    
 	*/

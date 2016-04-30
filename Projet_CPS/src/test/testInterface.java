@@ -1,23 +1,17 @@
 package test;
 
+import implem.GameEngine;
+import implem.Joueur;
+import implem.Level;
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.Scanner;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import contrat.GameEngineContrat;
-import contrat.JoueurContrat;
-import contrat.LevelContrat;
-import implem.GameEngine;
-import implem.Joueur;
-import implem.Level;
 import services.IGameEng;
 import services.IJoueur;
 import services.ILevel;
@@ -25,6 +19,9 @@ import services.Nature;
 import services.Status;
 import view.Terrain;
 import view.Token;
+import contrat.GameEngineContrat;
+import contrat.JoueurContrat;
+import contrat.LevelContrat;
 
 public class testInterface {
 	public static Status StringToStatus(String n){

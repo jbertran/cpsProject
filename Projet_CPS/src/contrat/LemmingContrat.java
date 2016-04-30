@@ -125,7 +125,28 @@ public class LemmingContrat extends LemmingDecorateur{
 		// POST
 		switch(Stat_pre) {
 		case WALK:
-			if (!gameEngine().obstacle(xpre, ypre + 1)) { 
+			boolean cldUp = false;
+			if (isClimber()) {
+				if (getDir() == Direction.DROITE) {
+					if (gameEngine().obstacle(xpre + 1, ypre) &&
+							gameEngine().obstacle(xpre + 1, ypre - 1) &&
+							!gameEngine().obstacle(xpre, ypre - 2)){
+						if (! (getY() == ypre - 1))
+							throw new PostConditionError("Lemming: climber up err");
+						cldUp = true;
+					}	
+				}
+				else if (getDir() == Direction.GAUCHE){
+					if (gameEngine().obstacle(xpre - 1, ypre) &&
+							gameEngine().obstacle(xpre - 1, ypre - 1) &&
+							!gameEngine().obstacle(xpre, ypre - 2)){
+						if (! (getY() == ypre - 1))
+							throw new PostConditionError("Lemming: climber up err");
+						cldUp = true;
+					}
+				}
+			}
+			if (!gameEngine().obstacle(xpre, ypre + 1) && !isClimber()) { 
 				if (!(getStatus() == Status.FALL && getX() == xpre &&
 						getY() == ypre))
 					throw new Error("Lemming: step error");
@@ -136,15 +157,15 @@ public class LemmingContrat extends LemmingDecorateur{
 							&& !gameEngine().obstacle(xpre + 1, ypre - 2));
 					if (shouldR){
 						if (!(getX() == xpre + 1 && getY() == ypre))
-							throw new Error("Lemming: step error");
+							throw new Error("Lemming: step going right");
 					}
-					else if (shouldUpR) {
+					else if (shouldUpR && !cldUp) {
 						if (!(getX() == xpre + 1 && getY() == ypre - 1))
-							throw new Error("Lemming: step error");
+							throw new Error("Lemming: step going right & up");
 					}
-					else {
+					else if (!isClimber()){
 						if (!(getDir() == Direction.GAUCHE && getX() == xpre && getY() == ypre))
-							throw new Error("Lemming: step error");
+							throw new Error("Lemming: step changing");
 					}
 				}
 				else {
@@ -154,15 +175,15 @@ public class LemmingContrat extends LemmingDecorateur{
 							&& !gameEngine().obstacle(xpre - 1, ypre - 2));
 					if (shouldL){
 						if (!(getX() == xpre - 1 && getY() == ypre))
-							throw new Error("Lemming: step error");
+							throw new Error("Lemming: step going left");
 					}
-					else if (shouldUpL) {
+					else if (shouldUpL && !cldUp) {
 						if (!(getX() == xpre - 1 && getY() == ypre - 1))
-							throw new Error("Lemming: step error");
+							throw new Error("Lemming: step going left & up");
 					}
-					else {
+					else if (!isClimber()) {
 						if (!(getDir() == Direction.DROITE && getX() == xpre && getY() == ypre))
-							throw new Error("Lemming: step error");
+							throw new Error("Lemming: step changing");
 					}
 				}
 			}

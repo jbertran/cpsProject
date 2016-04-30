@@ -109,4 +109,14 @@ public class LemmingDecorateur implements ILemming{
 		delegate.setFloater(b);
 	}
 
+	@Override
+	public boolean isClimber() {
+		return delegate.isClimber();
+	}
+
+	@Override
+	public void setClimber() {
+		delegate.setClimber();
+	}
+
 }
