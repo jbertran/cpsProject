@@ -406,6 +406,7 @@ public class Lemming implements ILemming{
 				if(timeExploding>4){
 					for(int i=x-2;i<(x-2)+5;i++){
 						for(int j=y-1;j<(y-1)+3;j++){
+							if(i>0 && j>0 && i<gameEngine().level().width() && j<gameEngine().level().height())
 							if(gameEngine.level().nature(i, j)==Nature.DIRT)
 								gameEngine.level().remove(i, j);
 						}
