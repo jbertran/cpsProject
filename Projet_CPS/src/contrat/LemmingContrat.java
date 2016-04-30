@@ -6,6 +6,7 @@ import services.ILemming;
 import services.Nature;
 import services.Status;
 import decorateur.LemmingDecorateur;
+import error.InvariantError;
 import error.PostConditionError;
 
 public class LemmingContrat extends LemmingDecorateur{
@@ -16,9 +17,11 @@ public class LemmingContrat extends LemmingDecorateur{
 
 	public void checkInvariants() {
 		if (!(getX() >= 0 && getY() >= 0))
-			throw new Error("Lemming: erreur de position");
+			throw new InvariantError("Lemming: erreur de position");
 		if (!(getNumber() >= 0 && getNumber() < gameEngine().sizeColony()))
-			throw new Error("Lemming: erreur de numéro");
+			throw new InvariantError("Lemming: erreur de numéro");
+		if (!gameEngine().obstacle(getX(), getY()) || !gameEngine().obstacle(getX(), getY()-1))
+			throw new InvariantError("Lemming: pas de place en y & y-1");
 	}
 
 	public int getX() {
@@ -146,7 +149,7 @@ public class LemmingContrat extends LemmingDecorateur{
 					}
 				}
 			}
-			if (!gameEngine().obstacle(xpre, ypre + 1) && !isClimber()) { 
+			if (!gameEngine().obstacle(xpre, ypre + 1) && !cldUp) { 
 				if (!(getStatus() == Status.FALL && getX() == xpre &&
 						getY() == ypre))
 					throw new Error("Lemming: step error");
@@ -155,7 +158,7 @@ public class LemmingContrat extends LemmingDecorateur{
 							&& !gameEngine().obstacle(xpre + 1, ypre - 1));
 					boolean shouldUpR = (!gameEngine().obstacle(xpre + 1, ypre - 1) 
 							&& !gameEngine().obstacle(xpre + 1, ypre - 2));
-					if (shouldR){
+					if (shouldR && !cldUp){
 						if (!(getX() == xpre + 1 && getY() == ypre))
 							throw new Error("Lemming: step going right");
 					}

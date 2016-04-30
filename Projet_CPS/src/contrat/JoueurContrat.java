@@ -59,6 +59,10 @@ public class JoueurContrat extends JoueurDecorateur{
 		case FLOAT:
 			if (!l.isFloater())
 				throw new PostConditionError("Joueur: lemming status change error");
+		case CLIMB:
+			if (!l.isClimber())
+				throw new PostConditionError("Joueur: lemming status change error");
+			break;
 		default:
 			if (!(l.getStatus() == s))
 				throw new PostConditionError("Joueur: lemming status change error");

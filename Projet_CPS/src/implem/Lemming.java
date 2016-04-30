@@ -35,7 +35,7 @@ public class Lemming implements ILemming{
 		return number;
 	}
 
-	
+
 	public int getTimeWaiting() {
 		return timeWaiting;
 	}
@@ -55,7 +55,7 @@ public class Lemming implements ILemming{
 		this.timeWaiting = timeWaiting;
 	}
 
-	
+
 	public int tilesBuilt() {
 		return tilesBuilt;
 	}
@@ -74,15 +74,15 @@ public class Lemming implements ILemming{
 	public Status getStatus() {
 		return stat;
 	}
-	
+
 	public boolean isBomber(){
 		return isBomber;
 	}
-	
+
 	public void setBomber(){
 		isBomber=true;
 	}
-	
+
 	@Override
 	public boolean isFloater() {
 		return isFloater;
@@ -95,7 +95,7 @@ public class Lemming implements ILemming{
 	public int timeFalling() {
 		return timeFalling;
 	}
-	
+
 	public void setTimeFalling(int i) {
 		timeFalling = i;
 	}
@@ -103,11 +103,11 @@ public class Lemming implements ILemming{
 	public int timeBashing() {
 		return timeBashing;
 	}
-	
+
 	public boolean isMiningDown(){
 		return minedown;
 	}
-	
+
 	public int timeExploding() {
 		return timeExploding;
 	}
@@ -147,7 +147,7 @@ public class Lemming implements ILemming{
 				getY() == gameEngine().level().sortie_y())
 			gameEngine().saveLemming(number);
 		else {
-			switch (stat) {
+			switch (getStatus()) {
 			case WALK:
 				boolean cldUp = false;
 				if (isClimber()) {
@@ -159,24 +159,25 @@ public class Lemming implements ILemming{
 							cldUp = true;
 						}	
 					}
-					else if (getDir() == Direction.DROITE) {
+					else if (getDir() == Direction.GAUCHE) {
 						if (gameEngine().obstacle(getX() - 1, getY()) &&
 								gameEngine().obstacle(getX() - 1, getY() - 1) &&
 								!gameEngine().obstacle(getX(), getY() - 2)){
 							y--;
 							cldUp = true;
-						}	
+						}
 					}
 				}
-				if (!gameEngine().obstacle(getX(), getY() + 1) && !isClimber())
-					stat = Status.FALL;
+				if (!gameEngine().obstacle(getX(), getY() + 1) && !cldUp) {
+					setStatus(Status.FALL);
+				}
 				else if (dir == Direction.DROITE) {
 					boolean canR = !(gameEngine().obstacle(getX()+1, getY())
 							|| gameEngine().obstacle(getX()+1, getY()-1));
 					boolean canUpR = !(getY() - 2 < 0 
 							|| gameEngine().obstacle(getX()+1, getY()-1)
 							|| gameEngine().obstacle(getX()+1, getY()-2));
-					if (canR) {
+					if (canR && !cldUp) {
 						x++;
 					}
 					else if (canUpR && !cldUp) {
@@ -191,7 +192,7 @@ public class Lemming implements ILemming{
 					boolean canUpL = !(getY() - 2 < 0 
 							|| gameEngine().obstacle(getX()-1, getY()-1)
 							|| gameEngine().obstacle(getX()-1, getY()-2));
-					if (canL) {
+					if (canL && !cldUp) {
 						x--;
 					}
 					else if (canUpL && cldUp) {
@@ -200,6 +201,7 @@ public class Lemming implements ILemming{
 					else if (!isClimber())
 						changeDir();
 				}
+				break;
 			case FALL:
 				boolean obs = gameEngine().obstacle(getX(), getY()+1);
 				if (isFloater()) {

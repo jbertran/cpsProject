@@ -33,8 +33,12 @@ public class Joueur implements IJoueur{
 		case FLOAT:
 			gameEngine.getLemm(lemm).setFloater(true);
 			break;
+		case CLIMB:
+			gameEngine.getLemm(lemm).setClimber();
+			break;
 		default:
 			gameEngine.getLemm(lemm).setStatus(s);
+			System.out.println("lemno " + lemm + " st " + s);
 			tokens.put(s, tokens.get(s) - 1);
 			break;
 		}	
