@@ -14,6 +14,7 @@ public interface ILemming {
     int timeBashing();
     int timeExploding();
     IGameEng gameEngine();
+    boolean isFloater();
     boolean isMiningDown();
     boolean isBomber();
     // CONSTRUCTORS
@@ -69,13 +70,25 @@ public interface ILemming {
      *          else
      *          	getDir() == Gauche; getX() == getX()@pre; gety() == getY()@pre 
      *   else if (getStatus()@pre == Tombeur)
-     *      if (gameEngine().obstacle(getX()@pre, getY()@pre + 1)) 
-     *          if (timeFalling() < 8) 
-     *             getStatus()@pre = Marcheur; getX() == getX()@pre; gety() == getY()@pre;
-     *          else
-     *             gameEngine().colony()@pre.size() == gameEngine().colony().size() - 1
+     *      if (gameEngine().obstacle(getX()@pre, getY()@pre + 1))
+     *      	if (isFloater()@pre)
+     *      		getStatus() = Marcheur;
+     *      		isFloater() = false 
+     *      		getX() == getX()@pre; 
+     *      		gety() == getY()@pre;
+     *          else	
+     *          	if (timeFalling() < 8) 
+     *             		getStatus() = Marcheur; 
+     *             		getX() == getX()@pre; 
+     *             		gety() == getY()@pre;
+     *          	else
+     *             		gameEngine().colony()@pre.size() == gameEngine().colony().size() - 1
      *      else
-     *          getX() == getX()@pre; getY() == getY()@pre + 1;
+     *      	if (isFloater()@pre)
+     *      		if (timeFalling() % 2 == 0)
+     *      			getX() == getX()@pre; getY() == getY()@pre + 1;
+     *          else 
+     *          	getX() == getX()@pre; getY() == getY()@pre + 1;
      *   else if (getStatus()@pre == BUILDER)
      *   	if tilesBuilt()@pre >= 12
      *   			tilesBuilt() = 0
@@ -120,7 +133,6 @@ public interface ILemming {
      *   					tilesBuilt() = 0
      *   					timeWaiting() = -1
      *   					getStatus() = WALK
-     *   else if (getStatus()@pre == FLOATER)
      *   
      *   else if (getStatus()@pre == STOP)
      *   	gameEngine().level().nature(getX(), getY()) == DIRT
@@ -173,7 +185,7 @@ public interface ILemming {
 	 *							if(gameEngine().level().nature(i, j)@pre==Nature.METAL)
 	 *								gameEngine().level().nature(i, j)==Nature.METAL)
 	 *							else
-	 *								gameEngine().level().nature(i, j)==Nature.EMPTY)
+	 *								gameEngine().level().nature(i, j)==Nature.EMPTY)	 *		
      */
     void step();
     
@@ -184,8 +196,11 @@ public interface ILemming {
      */
 	void setBomber();
 
-    
-   
+   /**
+    * POST:
+    *  isFloater() == b; 
+    */
+	void setFloater(boolean b);
 
 
     
@@ -200,6 +215,8 @@ public interface ILemming {
 	*	   getNumber: [Lemming] ->int
 	*      getDir: [Lemming] -> Direction
     *      getStatus: [Lemming] -> Status
+    *      isBomber: [Lemming] -> bool
+    *      isFloater: [Lemming] -> bool
     *      tilesBuilt: [Lemming] -> int
     *      timeWaiting: [Lemming] -> int
     *      timeFalling: [Lemming] -> int
@@ -220,6 +237,8 @@ public interface ILemming {
 	 *  getY(init(Le,G))=gameEngine::entree_Y()
 	 *  getDir(init(Le,G))=DROITIER;
 	 *  getStatus(init(Le,G))=TOMBEUR;
+	 *  isBomber(init(Le,G))=false
+	 *  isFloater(init(Le,G))=false
 	 *  timeWaiting(init(Le,G))=-1
 	 *  tilesBuilt(init(Le,G))=0
 	 *  
@@ -243,8 +262,9 @@ public interface ILemming {
 	 *  getDir(setBomber(Le))= getDir(Le);
 	 *  getStatus(setBomber(Le))=s;
 	 *  timeFalling(setBomber(Le))=timeFalling(Le);
-	 * [step]
 	 * 
+	 * [step]
+	 *  
 	 * 
 	 */
 }

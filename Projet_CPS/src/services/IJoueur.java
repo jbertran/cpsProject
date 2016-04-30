@@ -10,7 +10,12 @@ public interface IJoueur {
 	void init(IGameEng gE);
 	
 	// OPERATORS
-	/* /pre : nbTokens(J,s)>0 */
+	/** 
+	 * PRE : nbTokens(J,s)>0
+	 * POST:
+	 *  getStatus(getLemm(gameEngine(spendToken(J,L,s)))) = s
+	 *  
+	 */
 	void spendToken(int lemm, Status s);
 	void reset();
 	
@@ -37,7 +42,13 @@ public interface IJoueur {
 	 *  
 	 * [spendToken]
 	 *  nbTokens(SpendToken(lemm,s),s)=nbTokens(s)-1
-	 *  
+	 *  s = Floater =>
+	 *  	Lemming::isFloater(gameEngine(spendToken(J,L,s)),L) = true
+	 *  s =  Bomber =>
+	 *  	Lemming::isFloater(gameEngine(spendToken(J,L,s)),L) = true
+	 *  (s != Floater ^ s != Bomber) => 
+	 *  	getStatus(getLemm(gameEngine(spendToken(J,L,s)),L)) = s
+	 * 
 	 * [reset]
 	 * 
 	 */

@@ -1,7 +1,5 @@
 package contrat;
 
-import java.awt.image.TileObserver;
-
 import services.Direction;
 import services.IGameEng;
 import services.ILemming;
@@ -112,9 +110,11 @@ public class LemmingContrat extends LemmingDecorateur{
 		ILemming [] colonypre = gameEngine().colony().clone();
 		Direction dirpre = getDir();
 		int xpre = getX(), ypre = getY();
+		int fallpre = timeFalling();
 		int tilespre = tilesBuilt();
 		int waitingpre = timeWaiting();
 		int timeEx_pre = -1;
+		boolean floatpre = isFloater();
 		Status Stat_pre=this.getStatus();
 		if(isBomber()){
 			timeEx_pre=timeExploding();
@@ -168,18 +168,30 @@ public class LemmingContrat extends LemmingDecorateur{
 			}
 			break;
 		case FALL:
-			if (gameEngine().obstacle(xpre, ypre + 1)) { 
-				if (timeFalling() < 8) {
-					if (!(getStatus() == Status.WALK && getX() == xpre && getY() == ypre))
-						throw new Error("Lemming: step error - status || position fall recovery");
+			if (floatpre) {
+				if (gameEngine().obstacle(xpre, ypre+1)) {
+					if (!(getStatus() == Status.WALK &&
+							!isFloater() && getX() == xpre && getY() == ypre))
+						throw new PostConditionError("Lemming: Floater reset error");
+				}
+				else if (timeFalling()%2 == 0)
+					if (getY() != ypre + 1 || timeFalling() != fallpre + 1)
+						throw new PostConditionError("Lemming: floater falling error");
+			}
+			else {
+				if (gameEngine().obstacle(xpre, ypre + 1)) {
+					if (timeFalling() < 8) {
+						if (!(getStatus() == Status.WALK && getX() == xpre && getY() == ypre))
+							throw new Error("Lemming: step error - status || position fall recovery");
+					}
+					else
+						if (!(colonypre.length == gameEngine().colony().length - 1))
+							throw new Error("Lemming: step error - not killed after landing");
 				}
 				else
-					if (!(colonypre.length == gameEngine().colony().length - 1))
-						throw new Error("Lemming: step error - not killed after landing");
+					if (!(getX() == xpre && getY() == ypre + 1 && timeFalling() == fallpre + 1))
+						throw new Error("Lemming: step error - position after falling");
 			}
-			else
-				if (!(getX() == xpre && getY() == ypre + 1))
-					throw new Error("Lemming: step error - position after falling");
 			break;
 		case BUILD:
 			if (tilespre >= 12) {

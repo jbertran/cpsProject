@@ -26,11 +26,18 @@ public class Joueur implements IJoueur{
 
 	
 	public void spendToken(int lemm, Status s) {
-		if(s==Status.BOMB)
+		switch (s) {
+		case BOMB:
 			gameEngine.getLemm(lemm).setBomber();
-		else
-		gameEngine.getLemm(lemm).setStatus(s);
-		tokens.put(s, tokens.get(s) - 1);
+			break;
+		case FLOAT:
+			gameEngine.getLemm(lemm).setFloater(true);
+			break;
+		default:
+			gameEngine.getLemm(lemm).setStatus(s);
+			tokens.put(s, tokens.get(s) - 1);
+			break;
+		}	
 	}
 
 	

@@ -2,8 +2,10 @@ package contrat;
 
 import services.IGameEng;
 import services.IJoueur;
+import services.ILemming;
 import services.Status;
 import decorateur.JoueurDecorateur;
+import error.PostConditionError;
 
 public class JoueurContrat extends JoueurDecorateur{
 
@@ -50,8 +52,19 @@ public class JoueurContrat extends JoueurDecorateur{
 		checkInvariants();
 		if (!(nbTokens(s) == nbpre - 1))
 			throw new Error("Joueur: token spend error");
-//		if (!(gameEngine().getLemm(lemm).getStatus() == s))
-//			throw new Error("Joueur: token spend lemming stat error");
+		ILemming l = gameEngine().getLemm(lemm);
+		switch (s) {
+		case BOMB:
+			if (!l.isBomber())
+				throw new PostConditionError("Joueur: lemming status change error");
+			break;
+		case FLOAT:
+			if (!l.isFloater())
+				throw new PostConditionError("Joueur: lemming status change error");
+		default:
+			if (!(l.getStatus() == s))
+				throw new PostConditionError("Joueur: lemming status change error");
+		}
 	}
 	
 	public void reset() {

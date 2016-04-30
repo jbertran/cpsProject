@@ -17,6 +17,7 @@ public class Lemming implements ILemming{
 	int timeBashing;
 	int timeExploding;
 	boolean isBomber;
+	boolean isFloater;
 	boolean minedown;
 
 	public int getX() {
@@ -72,6 +73,7 @@ public class Lemming implements ILemming{
 	public Status getStatus() {
 		return stat;
 	}
+	
 	public boolean isBomber(){
 		return isBomber;
 	}
@@ -79,6 +81,16 @@ public class Lemming implements ILemming{
 	public void setBomber(){
 		isBomber=true;
 	}
+	
+	@Override
+	public boolean isFloater() {
+		return isFloater;
+	}
+
+	public void setFloater(boolean b) {
+		isFloater = b;
+	}
+
 
 	public int timeFalling() {
 		return timeFalling;
@@ -275,7 +287,6 @@ public class Lemming implements ILemming{
 					}
 				}
 				break;
-
 			case STOP:
 				this.gameEngine().level().build(this.x, this.y);
 				this.gameEngine().level().build(this.x, this.y-1);
@@ -336,5 +347,4 @@ public class Lemming implements ILemming{
 			}
 		}
 	}
-
 }

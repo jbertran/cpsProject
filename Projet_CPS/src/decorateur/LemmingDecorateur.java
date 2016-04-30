@@ -68,22 +68,18 @@ public class LemmingDecorateur implements ILemming{
 	public IGameEng gameEngine() {
 		return delegate.gameEngine();
 	}
-
 	
 	public void init(IGameEng gE) {
 		delegate.init(gE);
 	}
-
 	
 	public void changeDir() {
 		delegate.changeDir();
 	}
-
 	
 	public void setStatus(Status s) {
 		delegate.setStatus(s);
 	}
-
 	
 	public void step() {
 		delegate.step();		
@@ -99,6 +95,14 @@ public class LemmingDecorateur implements ILemming{
 	
 	public String toString(){
 		return delegate.toString();
+	}
+
+	public boolean isFloater() {
+		return delegate.isFloater();
+	}
+
+	public void setFloater(boolean b) {
+		delegate.setFloater(b);
 	}
 
 }
