@@ -57,7 +57,7 @@ public class Settings extends JPanel{
 		ENTREE_Y.setText("1");
 		SORTIE_X.setText("25");
 		SORTIE_Y.setText("3");
-		this.setLayout(new GridLayout(20,2));
+		this.setLayout(new GridLayout(30,1));
 		this.add(new JLabel("WIDTH"));
 		this.add(WIDTH);
 		this.add(new JLabel("HEIGHT"));
@@ -77,13 +77,20 @@ public class Settings extends JPanel{
 		init();
 		this.add(button);
 		this.add(button2);
+		this.add(new JLabel("HELP : "));
+		this.add(new JLabel("1-Cliquer en premier sur : Init"));
+		this.add(new JLabel("2-Cliquer sur les cases"));
+		this.add(new JLabel("après avoir Init "));
+		this.add(new JLabel("pour mettre de la DIRT"));
+		this.add(new JLabel("3-Cliquer sur Play !"));
 		joueur.init(ge);
+		
 
 	}
 
 
 	public void init(){
-		button=new JButton("Dimensionner Terrain");
+		button=new JButton("Init Terrain");
 		button.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
