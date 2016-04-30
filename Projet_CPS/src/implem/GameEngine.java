@@ -191,4 +191,13 @@ public class GameEngine implements IGameEng {
 		spawnSpeed = i;
 	}
 
+	@Override
+	public void annihilate() {
+		spawned = sizeColony();
+		for (int i = 0; i < sizeColony(); i++) {
+			ILemming l = getLemm(i);
+			if (l != null)
+				l.setBomber();
+		}
+	}
 }

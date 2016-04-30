@@ -95,6 +95,13 @@ public interface IGameEng {
 	 */
 	void setSpawnSpeed(int i);
 	
+	/**
+	 * POST:
+	 *  \forall lemm in colony(), lemm.isBomber() = true
+	 *  spawned = sizeColony();
+	 */
+	void annihilate();
+	
 	int nextLemNo();
 	int peekNextLemNo();
 	
@@ -120,6 +127,7 @@ public interface IGameEng {
 	*      step: [gameEng] -> [gameEng]
 	*	   loadLevel: Level * int * int -> [gameEng]
 	*	   setSpawnSpeed: [gameEng] * int -> [gameEng]
+	*	   annihilate: [gameEng] -> [gameEng]
 	*    
 	*/
 	/**

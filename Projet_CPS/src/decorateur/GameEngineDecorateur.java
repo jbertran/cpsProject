@@ -123,4 +123,9 @@ public class GameEngineDecorateur implements IGameEng{
 		delegate.spawnSpeed();
 	}
 
+	@Override
+	public void annihilate() {
+		delegate.annihilate();
+	}
+
 }
