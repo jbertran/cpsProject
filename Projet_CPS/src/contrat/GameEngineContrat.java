@@ -116,7 +116,6 @@ public class GameEngineContrat extends GameEngineDecorateur{
 
 
 	public void saveLemming(int ln){
-
 		checkInvariants();
 		//PreCondition
 		if(ln <= 0 || ln >= super.sizeColony())
@@ -154,7 +153,6 @@ public class GameEngineContrat extends GameEngineDecorateur{
 		//PostCondition
 		if(x!=super.level())
 			throw new PostConditionError("Error step, level has changed !");
-
 		checkInvariants();
 	}
 
@@ -177,8 +175,28 @@ public class GameEngineContrat extends GameEngineDecorateur{
 
 		checkInvariants();
 	}
+	
+	public void annihilate() {
+		checkInvariants();
+		super.annihilate();
+		int count = 0;
+		for(int i = 0; i < sizeColony(); i++) {
+			if (getLemm(i).isBomber())
+				count++;
+		}
+		if (count != sizeColony())
+			throw new PostConditionError("GameEng: annihilate error");
+		checkInvariants();
+	}
 
-
+	public void setSpawnSpeed(int i) {
+		checkInvariants();
+		if (i <= 0)
+			throw new PreConditionError("GameEng: setspawnspeed error");
+		super.setSpawnSpeed(i);
+		if (spawnSpeed() != i)
+			throw new PostConditionError("wtf");
+	}
 
 	public int nextLemNo(){
 		checkInvariants();
@@ -188,6 +206,4 @@ public class GameEngineContrat extends GameEngineDecorateur{
 	public String toString(){
 		return super.toString();
 	}
-
-
 }

@@ -90,6 +90,8 @@ public interface IGameEng {
 	void loadLevel(ILevel lvl, int sc, int ss);
 	
 	/**
+	 * PRE:
+	 * 	i > 0
 	 * POST:
 	 *  spawnSpeed() = i
 	 */
