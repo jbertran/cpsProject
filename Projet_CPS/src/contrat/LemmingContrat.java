@@ -69,7 +69,63 @@ public class LemmingContrat extends LemmingDecorateur{
 		checkInvariants();
 		return super.gameEngine();
 	}
+	
+	public int timeWaiting() {
+		checkInvariants();
+		return super.timeWaiting();
+	}
 	 
+	public boolean isClimber() {
+		checkInvariants();
+		return super.isClimber();
+	}
+	
+	public boolean isFloater() {
+		checkInvariants();
+		return super.isFloater();
+	}
+	
+	public void setClimber() {
+		checkInvariants();
+		super.setClimber();
+		if (!isClimber())
+			throw new PostConditionError("Lemming: climber set error");
+		checkInvariants();
+	}
+	
+	public void setFloater(boolean b) {
+		boolean bpre = isFloater();
+		checkInvariants();
+		super.setFloater(b);
+		if (bpre != !b)
+			throw new PostConditionError("Lemming: setFloater error");
+		checkInvariants();
+	}
+	
+	public void setBomber() {
+		boolean bpre = isBomber();
+		checkInvariants();
+		super.setBomber();
+		if (bpre != !isBomber())
+			throw new PostConditionError("Lemming: setFloater error");
+		checkInvariants();
+	}
+	
+	public void setTimeFalling(int i) {
+		checkInvariants();
+		super.setTimeFalling(i);
+		if (timeFalling() != i)
+			throw new PostConditionError("Lemming: set fall time error");
+		checkInvariants();
+	}
+	
+	public void setTilesBuilt(int i) {
+		checkInvariants();
+		super.setTilesBuilt(i);
+		if (tilesBuilt() != i)
+			throw new PostConditionError("Lemming: set tiles built error");
+		checkInvariants();
+	}
 
 	public void init(IGameEng gE) {
 		int nextlpre = gE.peekNextLemNo();
