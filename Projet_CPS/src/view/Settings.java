@@ -8,6 +8,7 @@ import implem.GameEngine;
 import implem.Joueur;
 import implem.Level;
 
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -35,8 +36,12 @@ public class Settings extends JPanel{
 
 	JTextField SORTIE_X=new JTextField();
 	JTextField SORTIE_Y=new JTextField();
+	
+	JTextField SPEED=new JTextField();
 	JButton button;
 	JButton button2;
+	JButton button3;
+	JButton button4;
 	Terrain terrain;
 	JPanel root;
 	JFrame window;
@@ -57,6 +62,7 @@ public class Settings extends JPanel{
 		ENTREE_Y.setText("1");
 		SORTIE_X.setText("25");
 		SORTIE_Y.setText("3");
+		SPEED.setText("1");
 		this.setLayout(new GridLayout(30,1));
 		this.add(new JLabel("WIDTH"));
 		this.add(WIDTH);
@@ -77,6 +83,10 @@ public class Settings extends JPanel{
 		init();
 		this.add(button);
 		this.add(button2);
+		this.add(new JLabel("Modify Spawn Speed"));
+		this.add(SPEED);
+		this.add(button3);
+		this.add(button4);
 		this.add(new JLabel("HELP : "));
 		this.add(new JLabel("1-Cliquer en premier sur : Init"));
 		this.add(new JLabel("2-Cliquer sur les cases"));
@@ -84,6 +94,7 @@ public class Settings extends JPanel{
 		this.add(new JLabel("Clic Droit : METAL "));
 		this.add(new JLabel("Clic MILIEU : EMPTY "));
 		this.add(new JLabel("3-Cliquer sur Play !"));
+		
 		joueur.init(ge);
 		
 
@@ -122,6 +133,23 @@ public class Settings extends JPanel{
 				terrain.repaint();
 				window.repaint();
 				new Thread(new Boucle(x)).start();
+			}
+		});
+		button3=new JButton("Modify Speed");
+		button3.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				ge.setSpawnSpeed(Integer.parseInt(SPEED.getText()));
+			}
+		});
+		
+		button4=new JButton("Annihilation");
+		button4.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				ge.annihilate();
 			}
 		});
 	}

@@ -179,12 +179,15 @@ public class GameEngineContrat extends GameEngineDecorateur{
 	public void annihilate() {
 		checkInvariants();
 		super.annihilate();
+		int nbvpre = nbVivants();
 		int count = 0;
 		for(int i = 0; i < sizeColony(); i++) {
-			if (getLemm(i).isBomber())
-				count++;
+			ILemming l = getLemm(i);
+			if (l != null)
+				if (l.isBomber())
+					count++;
 		}
-		if (count != sizeColony())
+		if (count != nbvpre)
 			throw new PostConditionError("GameEng: annihilate error");
 		checkInvariants();
 	}

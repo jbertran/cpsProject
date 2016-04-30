@@ -30,6 +30,11 @@ public class CaseView extends JPanel{
 		this.add(no);
 		this.addMouseListener(new MouseListener(){
 			public void mouseClicked(MouseEvent e) {
+	
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
 				if(ge.level().editing()){
 					if(SwingUtilities.isLeftMouseButton(e))
 						ge.level().setNature(x, y, Nature.DIRT);
@@ -39,11 +44,6 @@ public class CaseView extends JPanel{
 						ge.level().setNature(x, y, Nature.EMPTY);
 					repaint();
 				}
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
