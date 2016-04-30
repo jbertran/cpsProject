@@ -118,4 +118,9 @@ public class GameEngineDecorateur implements IGameEng{
 		return delegate.nbVivants();
 	}
 
+	@Override
+	public void setSpawnSpeed(int i) {
+		delegate.spawnSpeed();
+	}
+
 }

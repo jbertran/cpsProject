@@ -89,7 +89,11 @@ public interface IGameEng {
 	 */
 	void loadLevel(ILevel lvl, int sc, int ss);
 	
-	
+	/**
+	 * POST:
+	 *  spawnSpeed() = i
+	 */
+	void setSpawnSpeed(int i);
 	
 	int nextLemNo();
 	int peekNextLemNo();
@@ -115,6 +119,7 @@ public interface IGameEng {
 	*      saveLemming: [gameEng] * int -> [gameEng]
 	*      step: [gameEng] -> [gameEng]
 	*	   loadLevel: Level * int * int -> [gameEng]
+	*	   setSpawnSpeed: [gameEng] * int -> [gameEng]
 	*    
 	*/
 	/**

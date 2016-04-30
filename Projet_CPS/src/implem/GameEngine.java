@@ -186,4 +186,9 @@ public class GameEngine implements IGameEng {
 		return nextLemNo();
 	}
 
+	@Override
+	public void setSpawnSpeed(int i) {
+		spawnSpeed = i;
+	}
+
 }
