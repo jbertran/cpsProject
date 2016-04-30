@@ -80,8 +80,9 @@ public class Settings extends JPanel{
 		this.add(new JLabel("HELP : "));
 		this.add(new JLabel("1-Cliquer en premier sur : Init"));
 		this.add(new JLabel("2-Cliquer sur les cases"));
-		this.add(new JLabel("après avoir Init "));
-		this.add(new JLabel("pour mettre de la DIRT"));
+		this.add(new JLabel("Clic Gauche : DIRT "));
+		this.add(new JLabel("Clic Droit : METAL "));
+		this.add(new JLabel("Clic MILIEU : EMPTY "));
 		this.add(new JLabel("3-Cliquer sur Play !"));
 		joueur.init(ge);
 		

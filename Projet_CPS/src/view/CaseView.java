@@ -8,6 +8,7 @@ import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import services.Direction;
 import services.IGameEng;
@@ -28,35 +29,40 @@ public class CaseView extends JPanel{
 		this.no = new JLabel("");
 		this.add(no);
 		this.addMouseListener(new MouseListener(){
-			 public void mouseClicked(MouseEvent e) {
-			       if(ge.level().editing()){
-			    	   ge.level().setNature(x, y, Nature.DIRT);
-			    	   repaint();
-			       }
-			    }
+			public void mouseClicked(MouseEvent e) {
+				if(ge.level().editing()){
+					if(SwingUtilities.isLeftMouseButton(e))
+						ge.level().setNature(x, y, Nature.DIRT);
+					if(SwingUtilities.isRightMouseButton(e))
+						ge.level().setNature(x, y, Nature.METAL);
+					if(SwingUtilities.isMiddleMouseButton(e))
+						ge.level().setNature(x, y, Nature.EMPTY);
+					repaint();
+				}
+			}
 
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
 	}
@@ -88,10 +94,10 @@ public class CaseView extends JPanel{
 		}
 		this.no.setText(lemms);
 		if(!ge.level().editing()){
-		if(ge.level().entree_x()==this.x && ge.level().entree_y()==this.y)
-			this.setBackground(Color.PINK);
-		if(ge.level().sortie_x()==this.x && ge.level().sortie_y()==this.y)
-			this.setBackground(Color.BLUE);
+			if(ge.level().entree_x()==this.x && ge.level().entree_y()==this.y)
+				this.setBackground(Color.PINK);
+			if(ge.level().sortie_x()==this.x && ge.level().sortie_y()==this.y)
+				this.setBackground(Color.BLUE);
 		}
 	}
 }
