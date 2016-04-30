@@ -69,6 +69,7 @@ public class LemmingContrat extends LemmingDecorateur{
 		checkInvariants();
 		return super.gameEngine();
 	}
+	 
 
 	public void init(IGameEng gE) {
 		int nextlpre = gE.peekNextLemNo();

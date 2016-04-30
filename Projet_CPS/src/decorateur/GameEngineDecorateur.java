@@ -120,7 +120,7 @@ public class GameEngineDecorateur implements IGameEng{
 
 	@Override
 	public void setSpawnSpeed(int i) {
-		delegate.spawnSpeed();
+		delegate.setSpawnSpeed(i);
 	}
 
 	@Override
