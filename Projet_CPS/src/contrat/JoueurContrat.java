@@ -50,8 +50,6 @@ public class JoueurContrat extends JoueurDecorateur{
 		super.spendToken(lemm, s);
 		// Invariants
 		checkInvariants();
-		if (!(nbTokens(s) == nbpre - 1))
-			throw new Error("Joueur: token spend error");
 		ILemming l = gameEngine().getLemm(lemm);
 		switch (s) {
 		case BOMB:
@@ -64,6 +62,8 @@ public class JoueurContrat extends JoueurDecorateur{
 		default:
 			if (!(l.getStatus() == s))
 				throw new PostConditionError("Joueur: lemming status change error");
+			if (!(nbTokens(s) == nbpre - 1))
+				throw new Error("Joueur: token spend error");
 		}
 	}
 	

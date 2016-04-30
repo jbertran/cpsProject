@@ -31,6 +31,12 @@ public interface ILemming {
     
     /**
      * POST:
+     *  timeFalling() = i
+     */
+    void setTimeFalling(int i);
+    
+    /**
+     * POST:
      *  timeWaiting() = i
      */
     void setWaiting(int i);
@@ -70,25 +76,28 @@ public interface ILemming {
      *          else
      *          	getDir() == Gauche; getX() == getX()@pre; gety() == getY()@pre 
      *   else if (getStatus()@pre == Tombeur)
-     *      if (gameEngine().obstacle(getX()@pre, getY()@pre + 1))
-     *      	if (isFloater()@pre)
+     *   	if (isFloater()@pre)
+     *      	if (gameEngine().obstacle(getX()@pre, getY()@pre + 1))
      *      		getStatus() = Marcheur;
+     *      		timeFalling() = 0
      *      		isFloater() = false 
      *      		getX() == getX()@pre; 
      *      		gety() == getY()@pre;
-     *          else	
-     *          	if (timeFalling() < 8) 
-     *             		getStatus() = Marcheur; 
+     *          else if (timeFalling()@pre % 2 == 0)
+     *          	getX() == getX()@pre; getY() == getY()@pre + 1;
+     *          	timeFalling() = timeFalling()@pre + 1
+     *      else
+     *      	if (gameEngine().obstacle(getX()@pre, getY()@pre + 1))
+     *      		if (timeFalling() < 8) 
+     *          		getStatus() = Marcheur;
+     *          		timeFalling() = 0 
      *             		getX() == getX()@pre; 
      *             		gety() == getY()@pre;
      *          	else
      *             		gameEngine().colony()@pre.size() == gameEngine().colony().size() - 1
-     *      else
-     *      	if (isFloater()@pre)
-     *      		if (timeFalling() % 2 == 0)
-     *      			getX() == getX()@pre; getY() == getY()@pre + 1;
-     *          else 
+     *      	else 
      *          	getX() == getX()@pre; getY() == getY()@pre + 1;
+     *          	timeFalling() = timeFalling()@pre + 1
      *   else if (getStatus()@pre == BUILDER)
      *   	if tilesBuilt()@pre >= 12
      *   			tilesBuilt() = 0
@@ -231,7 +240,7 @@ public interface ILemming {
 	*/
     /**
 	 * [invariants]
-	 * 
+	 * 	
 	 * [init]
 	 * 	getX(init(Le,G))=gameEngine::entree_X()
 	 *  getY(init(Le,G))=gameEngine::entree_Y()

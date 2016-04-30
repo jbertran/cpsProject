@@ -15,13 +15,13 @@ public class GameEngineContrat extends GameEngineDecorateur{
 	}
 
 	private void checkInvariants(){
-		if(super.gameOver()!=(super.colony().length==0))
+		if(gameOver()!= (nbVivants() == 0 && spawned() != 0))
 			throw new InvariantError("GameOver Error");
 		if(super.score()!=(super.nbSauves()/super.tours()))
 			throw new InvariantError("Score Error");
-		if(super.spawned()<0 || (super.spawned() >= super.sizeColony()))
+		if(super.spawned()<0 || (super.spawned() > super.sizeColony()))
 			throw new InvariantError("spawned() Error");
-		if(super.nbSauves()<0 || (super.spawned() >= super.sizeColony()))
+		if(super.nbSauves()<0 || (super.nbSauves() > super.sizeColony()))
 			throw new InvariantError("nbSauves() Error");
 	}
 

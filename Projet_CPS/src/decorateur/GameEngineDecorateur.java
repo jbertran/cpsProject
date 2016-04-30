@@ -71,7 +71,6 @@ public class GameEngineDecorateur implements IGameEng{
 	
 	public void init(ILevel lvl, int sc, int ss) {
 		delegate.init(lvl, sc, ss);
-		
 	}
 
 	
@@ -85,26 +84,22 @@ public class GameEngineDecorateur implements IGameEng{
 		delegate.killLemming(ln);
 		
 	}
-
 	
 	public void saveLemming(int ln) {
 		delegate.saveLemming(ln);
 		
 	}
-
 	
 	public void step() {
 		delegate.step();
 		
 	}
-
 	
 	public void loadLevel(ILevel lvl, int sc, int ss) {
 		delegate.loadLevel(lvl, sc, ss);
 		
 	}
 
-	
 	public int nextLemNo() {
 		return delegate.nextLemNo();
 	}
@@ -116,6 +111,11 @@ public class GameEngineDecorateur implements IGameEng{
 	
 	public String toString(){
 		return delegate.toString();
+	}
+
+	@Override
+	public int nbVivants() {
+		return delegate.nbVivants();
 	}
 
 }

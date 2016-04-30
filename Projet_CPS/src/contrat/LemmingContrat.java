@@ -174,7 +174,7 @@ public class LemmingContrat extends LemmingDecorateur{
 							!isFloater() && getX() == xpre && getY() == ypre))
 						throw new PostConditionError("Lemming: Floater reset error");
 				}
-				else if (timeFalling()%2 == 0)
+				else if (fallpre%2 == 0)
 					if (getY() != ypre + 1 || timeFalling() != fallpre + 1)
 						throw new PostConditionError("Lemming: floater falling error");
 			}

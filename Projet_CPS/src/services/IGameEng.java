@@ -15,6 +15,7 @@ public interface IGameEng {
 	ILevel levelInit();
 	int tours();
 	int nbSauves();
+	int nbVivants();
 	
 	/**
 	 * PRE:
@@ -106,6 +107,7 @@ public interface IGameEng {
 	*      level: [gameEng] -> Level
 	*      tours: [gameEng] -> int
 	*	   nbSauves: [gameEng] -> int
+	*	   nbVivants: [gameEng] -> int
 	*  Constructors:
 	*      init: Level * int * int-> [gameEng]
 	*  Operators:
@@ -118,16 +120,16 @@ public interface IGameEng {
 	*/
 	/**
 	 * [invariants]
-	 * 	gameOver() min= |colony()| == 0
-	 * 	score() min= nbSauves() / tours()
-	 * 	0 <= spawned() < sizeColony()
-	 * 	0 <= nbSauves() < sizeColony()
-	 *  obstacle(G,x,y)) minimisation = Level::nature(x,y)!=EMPTY;
+	 * 	gameOver() min= |colony(G)| == 0
+	 * 	score() min= nbSauves(G) / tours(G)
+	 * 	0 <= spawned(G) < sizeColony(G)
+	 * 	0 <= nbSauves(G) < sizeColony(G)
+	 *  obstacle(G,x,y)) minimisation = Level::nature((level(G),x,y)!=EMPTY;
      * [init]
 	 * 	sizeColony(init(G,sc,ss))=sc
 	 *  spawnSpeed(init(G,sc,ss))=ss
 	 *  spawned(init(G,sc,ss))=0
-	 *  tours(init(G,sc,ss))=0
+	 *  tours(init(G,sc,ss))=1
 	 *  nbSauves(init(G,sc,ss))=0
 	 *  
 	 * [addLeming]

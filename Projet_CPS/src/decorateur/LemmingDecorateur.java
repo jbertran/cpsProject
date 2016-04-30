@@ -49,6 +49,10 @@ public class LemmingDecorateur implements ILemming{
 		delegate.setTilesBuilt(i);
 	}
 	
+	public void setTimeFalling(int i) {
+		delegate.setTimeFalling(i);
+	}
+	
 	public int timeFalling() {
 		return delegate.timeFalling();
 	}

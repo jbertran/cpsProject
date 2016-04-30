@@ -62,6 +62,10 @@ public class GameEngine implements IGameEng {
 	public int nextLemNo() {
 		return nbLemm++;
 	}
+	
+	public int nbVivants() {
+		return nbVivants;
+	}
 
 	@Override
 	public boolean obstacle(int x, int y) {
@@ -79,7 +83,7 @@ public class GameEngine implements IGameEng {
 		sizeColony = sc;
 		spawnSpeed = ss;
 		spawned = 0;
-		tours = 0;
+		tours = 1;
 		nbSauves = 0;
 		this.lvl = lvl;
 		lvlInit = lvl;
@@ -153,7 +157,7 @@ public class GameEngine implements IGameEng {
 					res[i][j] = 'M';
 					break;
 				case DIRT:
-					res[i][j] = 'D';
+					res[i][j] = 'X';
 				}
 			}
 		for (ILemming l : colony)

@@ -91,9 +91,12 @@ public class Lemming implements ILemming{
 		isFloater = b;
 	}
 
-
 	public int timeFalling() {
 		return timeFalling;
+	}
+	
+	public void setTimeFalling(int i) {
+		timeFalling = i;
 	}
 
 	public int timeBashing() {
@@ -154,10 +157,10 @@ public class Lemming implements ILemming{
 							|| gameEngine().obstacle(getX()+1, getY()-1)
 							|| gameEngine().obstacle(getX()+1, getY()-2));
 					if (canR) {
-						x += 1;
+						x++;
 					}
 					else if (canUpR) {
-						x += 1; y -= 1;
+						x++; y--;
 					}
 					else
 						changeDir();
@@ -169,27 +172,45 @@ public class Lemming implements ILemming{
 							|| gameEngine().obstacle(getX()-1, getY()-1)
 							|| gameEngine().obstacle(getX()-1, getY()-2));
 					if (canL) {
-						x -= 1;
+						x--;
 					}
 					else if (canUpL) {
-						x -= 1; y -= 1;
+						x--; y--;
 					}
 					else {
 						changeDir();
 					}
 				}
 			case FALL:
-				if (gameEngine().obstacle(getX(), getY()+1))
-					if (timeFalling > 8)
-						gameEngine().killLemming(number);
-					else
-						stat = Status.WALK;
-				else 
-					y += 1;
+				boolean obs = gameEngine().obstacle(getX(), getY()+1);
+				if (isFloater()) {
+					if (obs) {
+						setStatus(Status.WALK);
+						setFloater(false);
+						setTimeFalling(0);
+					}
+					else if (timeFalling() % 2 == 0) {
+						y++;
+						timeFalling++;
+					}
+				}
+				else {
+					if (obs)
+						if (timeFalling() < 8) {
+							setStatus(Status.WALK);
+							setTimeFalling(0);
+						}
+						else
+							gameEngine().killLemming(getNumber());
+					else {
+						y++;
+						timeFalling++;
+					}
+				}
 				break;
 			case BUILD:
 				if (tilesBuilt() >= 12) {
-					setTilesBuilt(0);
+					tilesBuilt = 0;
 					setWaiting(-1);
 					setStatus(Status.WALK);
 				}
@@ -202,17 +223,17 @@ public class Lemming implements ILemming{
 							gameEngine().level().setNature(x + 2, y - 1, Nature.DIRT);
 							x += 2;
 							y -= 1;
-							setTilesBuilt(tilesBuilt() + 3);
+							tilesBuilt += 3;
 						}
 						else if (timeWaiting() > 0)
-							setWaiting(timeWaiting() - 1);
+							timeWaiting--;
 						else {
 							if (!gameEngine().obstacle(x + 1, y) &&
 									!gameEngine().obstacle(x + 2, y) &&
 									!gameEngine().obstacle(x + 2, y - 1))
-								setTimeWaiting(3);
+								timeWaiting = 3;
 							else {
-								setTilesBuilt(0);
+								tilesBuilt = 0;
 								setWaiting(-1);
 								setStatus(Status.WALK);
 							}
@@ -226,17 +247,17 @@ public class Lemming implements ILemming{
 							gameEngine().level().setNature(x - 2, y - 1, Nature.DIRT);
 							x += 2;
 							y -= 1;
-							setTilesBuilt(tilesBuilt() + 3);
+							tilesBuilt += 3;
 						}
 						else if (timeWaiting() > 0)
-							setWaiting(timeWaiting() - 1);
+							timeWaiting--;
 						else {
 							if (!gameEngine().obstacle(x - 1, y) &&
 									!gameEngine().obstacle(x - 2, y) &&
 									!gameEngine().obstacle(x - 2, y - 1))
-								setTimeWaiting(3);
+								timeWaiting = 3;
 							else {
-								setTilesBuilt(0);
+								tilesBuilt = 0;
 								setWaiting(-1);
 								setStatus(Status.WALK);
 							}
