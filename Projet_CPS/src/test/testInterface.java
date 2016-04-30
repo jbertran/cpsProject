@@ -79,6 +79,7 @@ public class testInterface {
 		window.setSize(800, 600);
 		JPanel root=new JPanel();
 		Terrain terrain=new Terrain(gameEng);
+		terrain.init();
 		window.setLayout(new GridLayout(1,1));
 		window.add(root);
 		root.setLayout(new GridBagLayout());

@@ -2,6 +2,8 @@ package view;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -10,21 +12,53 @@ import javax.swing.JPanel;
 import services.Direction;
 import services.IGameEng;
 import services.ILemming;
+import services.Nature;
 
-@SuppressWarnings("serial")
 public class CaseView extends JPanel{
 	IGameEng ge;
 	int x,y;
 	JLabel no;
 
-	public CaseView(IGameEng gameEng ,int x,int y){
-		this.setSize(20, 20);
+	public CaseView(IGameEng gameEng ,final int x,final int y){
+		this.setSize(30, 30);
 		this.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY,1));
 		this.ge = gameEng;
 		this.x=x;
 		this.y=y;
 		this.no = new JLabel("");
 		this.add(no);
+		this.addMouseListener(new MouseListener(){
+			 public void mouseClicked(MouseEvent e) {
+			       if(ge.level().editing()){
+			    	   ge.level().setNature(x, y, Nature.DIRT);
+			    	   repaint();
+			       }
+			    }
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	}
 
 	public void paintComponent( Graphics g ) {
@@ -53,9 +87,11 @@ public class CaseView extends JPanel{
 			}
 		}
 		this.no.setText(lemms);
+		if(!ge.level().editing()){
 		if(ge.level().entree_x()==this.x && ge.level().entree_y()==this.y)
 			this.setBackground(Color.PINK);
 		if(ge.level().sortie_x()==this.x && ge.level().sortie_y()==this.y)
 			this.setBackground(Color.BLUE);
+		}
 	}
 }
