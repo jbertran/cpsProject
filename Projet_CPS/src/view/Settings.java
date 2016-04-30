@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +16,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import contrat.GameEngineContrat;
+import contrat.JoueurContrat;
+import contrat.LevelContrat;
 import services.IGameEng;
 import services.IJoueur;
 import services.ILevel;
@@ -36,12 +40,13 @@ public class Settings extends JPanel{
 
 	JTextField SORTIE_X=new JTextField();
 	JTextField SORTIE_Y=new JTextField();
-	
+
 	JTextField SPEED=new JTextField();
 	JButton button;
 	JButton button2;
 	JButton button3;
 	JButton button4;
+	JButton button5;
 	Terrain terrain;
 	JPanel root;
 	JFrame window;
@@ -87,6 +92,7 @@ public class Settings extends JPanel{
 		this.add(SPEED);
 		this.add(button3);
 		this.add(button4);
+		this.add(button5);
 		this.add(new JLabel("HELP : "));
 		this.add(new JLabel("1-Cliquer en premier sur : Init"));
 		this.add(new JLabel("2-Cliquer sur les cases"));
@@ -94,9 +100,9 @@ public class Settings extends JPanel{
 		this.add(new JLabel("Clic Droit : METAL "));
 		this.add(new JLabel("Clic MILIEU : EMPTY "));
 		this.add(new JLabel("3-Cliquer sur Play !"));
-		
+
 		joueur.init(ge);
-		
+
 
 	}
 
@@ -143,7 +149,7 @@ public class Settings extends JPanel{
 				ge.setSpawnSpeed(Integer.parseInt(SPEED.getText()));
 			}
 		});
-		
+
 		button4=new JButton("Annihilation");
 		button4.addActionListener(new ActionListener()
 		{
@@ -152,6 +158,24 @@ public class Settings extends JPanel{
 				ge.annihilate();
 			}
 		});
+
+		button5=new JButton("Reset");
+		button5.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				if(ge.gameOver()){
+					joueur= new JoueurContrat(new Joueur());
+					level = new LevelContrat(new Level());
+					ge=new GameEngineContrat(new GameEngine());
+					root.remove(terrain);
+					root.repaint();
+					terrain=new Terrain(ge);
+					root.add(terrain,BorderLayout.CENTER);
+				}
+			}
+		});
+
 	}
 
 

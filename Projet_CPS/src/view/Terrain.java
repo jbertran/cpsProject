@@ -11,7 +11,7 @@ public class Terrain extends JPanel{
 
 	private IGameEng ge;
 	private CaseView cv[][];
-	private boolean ok=false;
+	boolean ok=false;
 	public Terrain(IGameEng gameEng){
 		this.ge=gameEng;
 	}
