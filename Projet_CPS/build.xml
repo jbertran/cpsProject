@@ -1,6 +1,6 @@
 <project name="filesprio" default="compile" basedir=".">
     <description>
-        The build file for the FilesPrio project
+        The build file for the final CPS Project
     </description>
   <!-- set global properties for this build -->
   <property name="src" location="src"/>
