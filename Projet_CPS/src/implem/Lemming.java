@@ -157,7 +157,12 @@ public class Lemming implements ILemming{
 								!gameEngine().obstacle(getX(), getY() - 2)){
 							y--;
 							cldUp = true;
-						}	
+						}
+						else if (gameEngine().obstacle(getX() + 1, getY()) &&
+								!gameEngine().obstacle(getX() + 1, getY() - 1) &&
+								!gameEngine().obstacle(getX() + 1, getY() - 2)) {
+						y--; x--;
+					}
 					}
 					else if (getDir() == Direction.GAUCHE) {
 						if (gameEngine().obstacle(getX() - 1, getY()) &&
@@ -165,6 +170,11 @@ public class Lemming implements ILemming{
 								!gameEngine().obstacle(getX(), getY() - 2)){
 							y--;
 							cldUp = true;
+						}
+						else if (gameEngine().obstacle(getX() - 1, getY()) &&
+									!gameEngine().obstacle(getX() - 1, getY() - 1) &&
+									!gameEngine().obstacle(getX() - 1, getY() - 2)) {
+							y--; x--;
 						}
 					}
 				}
