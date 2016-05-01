@@ -65,12 +65,6 @@ public class LevelContrat extends LevelDecorateur{
 			throw new PreConditionError("goPlay error,error coordinate entry/exit");
 		if(ye<0 || ye <0 || ye >super.height() || ye>super.height())
 			throw new PreConditionError("goPlay error,error coordinate entry/exit");
-//		for(int i =0;i<super.height();i++)
-//			if(super.nature(i, 0)!=Nature.METAL || super.nature(i, super.width()-1)!=Nature.METAL)
-//				throw new PreConditionError("goPlay error, Metal border missing");
-//		for(int i =0;i<super.width();i++)
-//			if(super.nature(0, i)!=Nature.METAL || super.nature(super.height()-1, i)!=Nature.METAL)
-//				throw new PreConditionError("goPlay error, Metal border missing");
 
 		super.goPlay(xe, ye, xs, ys);
 		//PostCondition
@@ -80,6 +74,19 @@ public class LevelContrat extends LevelDecorateur{
 		for(int i =0;i<super.width();i++)
 			if(super.nature(i, 0)!=Nature.METAL || super.nature(i, super.height()-1)!=Nature.METAL)
 				throw new PreConditionError("goPlay error, Metal border missing");
+		
+		if(super.nature(xe, ye-1)!=Nature.EMPTY)
+			throw new PreConditionError("Entrance not clear");
+		if(super.nature(xe, ye+1)!=Nature.EMPTY)
+			throw new PreConditionError("Entrance not clear");
+		if(super.nature(xe, ye)!=Nature.EMPTY)
+			throw new PreConditionError("Entrance not clear");
+		if(super.nature(xs, ys-1)!=Nature.EMPTY)
+			throw new PreConditionError("Exit not clear");
+		if(super.nature(xs, ys+1)!=Nature.EMPTY)
+			throw new PreConditionError("Exit not clear");
+		if(super.nature(xs, ys)!=Nature.EMPTY)
+			throw new PreConditionError("Exit not clear");
 
 		if(super.entree_x()!=xe || super.entree_y()!=ye || super.sortie_x() !=xs || super.sortie_y()!=ys)
 			throw new PreConditionError("goPlay error, Error coordinate entry/exit");
