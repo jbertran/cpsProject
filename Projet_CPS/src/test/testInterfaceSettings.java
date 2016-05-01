@@ -57,8 +57,9 @@ public class testInterfaceSettings {
 		window.add(root);
 		root.setLayout(new BorderLayout());
 		root.add(terrain, BorderLayout.CENTER);
-		root.add(new Token(joueur),BorderLayout.SOUTH);
-		Settings settings=new Settings(gameEng,level,joueur, root, terrain, window);
+		Token token=new Token(joueur);
+		root.add(token,BorderLayout.SOUTH);
+		Settings settings=new Settings(gameEng,level,token,joueur, root, terrain, window);
 		root.add(settings,BorderLayout.EAST);
 		window.setVisible(true);
 		root.setVisible(true);

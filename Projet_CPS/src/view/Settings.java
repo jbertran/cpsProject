@@ -50,10 +50,12 @@ public class Settings extends JPanel{
 	Terrain terrain;
 	JPanel root;
 	JFrame window;
+    Token token;
 
 
-	public Settings(IGameEng gameEng,ILevel level,IJoueur joueur,JPanel root,Terrain terrain,JFrame window){
+	public Settings(IGameEng gameEng,ILevel level,Token token, IJoueur joueur,JPanel root,Terrain terrain,JFrame window){
 		this.root=root;
+		this.token=token;
 		this.terrain=terrain;
 		this.window=window;
 		this.ge=gameEng;
@@ -61,10 +63,10 @@ public class Settings extends JPanel{
 		this.joueur=joueur;
 		WIDTH.setText("30");
 		HEIGHT.setText("13");
-		SPAWNSPEED.setText("4");
-		SIZECOLONY.setText("8");
-		ENTREE_X.setText("1");
-		ENTREE_Y.setText("1");
+		SPAWNSPEED.setText("3");
+		SIZECOLONY.setText("4");
+		ENTREE_X.setText("2");
+		ENTREE_Y.setText("2");
 		SORTIE_X.setText("25");
 		SORTIE_Y.setText("3");
 		SPEED.setText("1");
@@ -168,9 +170,13 @@ public class Settings extends JPanel{
 					joueur= new JoueurContrat(new Joueur());
 					level = new LevelContrat(new Level());
 					ge=new GameEngineContrat(new GameEngine());
+					root.remove(token);
 					root.remove(terrain);
 					root.repaint();
+					token=new Token(joueur);
+					joueur.init(ge);
 					terrain=new Terrain(ge);
+					root.add(token,BorderLayout.SOUTH);
 					root.add(terrain,BorderLayout.CENTER);
 				}
 			}
