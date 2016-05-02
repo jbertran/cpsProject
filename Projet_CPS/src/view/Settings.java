@@ -115,6 +115,8 @@ public class Settings extends JPanel{
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+				button.setVisible(false);
+				button2.setVisible(true);
 				level.init(Integer.parseInt(HEIGHT.getText()), Integer.parseInt(WIDTH.getText()));
 				ge.init(level, Integer.parseInt(SIZECOLONY.getText()), Integer.parseInt(SPAWNSPEED.getText()));
 				terrain.init();
@@ -126,10 +128,16 @@ public class Settings extends JPanel{
 			}
 		});
 		button2=new JButton("Lancer Jeu");
+		button2.setVisible(false);
 		button2.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+				button.setVisible(false);
+				button3.setVisible(true);
+				button4.setVisible(true);
+				button5.setVisible(true);
+				SPAWNSPEED.setVisible(true);
 				if(!dim){
 					level.init(Integer.parseInt(HEIGHT.getText()), Integer.parseInt(WIDTH.getText()));
 					ge.init(level, Integer.parseInt(SIZECOLONY.getText()), Integer.parseInt(SPAWNSPEED.getText()));
@@ -144,6 +152,7 @@ public class Settings extends JPanel{
 			}
 		});
 		button3=new JButton("Modify Speed");
+		button3.setVisible(false);
 		button3.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -153,6 +162,7 @@ public class Settings extends JPanel{
 		});
 
 		button4=new JButton("Annihilation");
+		button4.setVisible(false);
 		button4.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -167,6 +177,11 @@ public class Settings extends JPanel{
 			public void actionPerformed(ActionEvent e)
 			{
 				if(ge.gameOver()){
+					button.setVisible(true);
+					button2.setVisible(false);
+					button3.setVisible(false);
+					button4.setVisible(false);
+					SPAWNSPEED.setVisible(false);
 					joueur= new JoueurContrat(new Joueur());
 					level = new LevelContrat(new Level());
 					ge=new GameEngineContrat(new GameEngine());

@@ -26,6 +26,7 @@ public class CaseView extends JPanel{
 		this.ge = gameEng;
 		this.x=x;
 		this.y=y;
+		this.setToolTipText(" "+x+" : "+y);
 		this.no = new JLabel("");
 		this.add(no);
 		this.addMouseListener(new MouseListener(){
