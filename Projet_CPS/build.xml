@@ -45,6 +45,51 @@
 	  </junit>
   </target>
 	
+	  <target name="test2" depends="compile"
+		     description="run examples">
+		  <echo> ==== RUN TEST 2==== </echo>
+		  <junit printsummary="yes">
+		  	<classpath>
+		  		<pathelement location="${build}"/>
+				<pathelement location="${jar}/junit.jar"/>
+		  	</classpath>
+		  	
+		  	<formatter type="plain"/>
+		  	
+		    <test name="test.Lemmings2Test" outfile="report2"/>
+		  </junit>
+	  </target>
+	
+	  <target name="test3" depends="compile"
+		     description="run examples">
+		  <echo> ==== RUN TEST 3==== </echo>
+		  <junit printsummary="yes">
+		  	<classpath>
+		  		<pathelement location="${build}"/>
+				<pathelement location="${jar}/junit.jar"/>
+		  	</classpath>
+		  	
+		  	<formatter type="plain"/>
+		  	
+		    <test name="test.Lemmings3Test" outfile="report3"/>
+		  </junit>
+	  </target>
+	
+	  <target name="test4" depends="compile"
+		     description="run examples">
+		  <echo> ==== RUN TEST 4==== </echo>
+		  <junit printsummary="yes">
+		  	<classpath>
+		  		<pathelement location="${build}"/>
+				<pathelement location="${jar}/junit.jar"/>
+		  	</classpath>
+		  	
+		  	<formatter type="plain"/>
+		  	
+		    <test name="test.Lemmings4Test" outfile="report4"/>
+		  </junit>
+	  </target>
+	
   <target name="dist" depends="init,clean"
         description="Generate distribution distribution" >
     <!-- tout mettre dans l'archive -->
@@ -60,6 +105,6 @@
            </fileset>
         </delete>
         <echo>================ Removing build directory ================</echo>    
-    <delete dir="${bin}"/>
+    <delete dir="${build}"/>
   </target>
 </project>
