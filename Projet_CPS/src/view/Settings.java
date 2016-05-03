@@ -22,6 +22,7 @@ import contrat.LevelContrat;
 import services.IGameEng;
 import services.IJoueur;
 import services.ILevel;
+import services.Nature;
 import services.Status;
 
 public class Settings extends JPanel{
@@ -69,7 +70,7 @@ public class Settings extends JPanel{
 		ENTREE_X.setText("2");
 		ENTREE_Y.setText("2");
 		SORTIE_X.setText("25");
-		SORTIE_Y.setText("2");
+		SORTIE_Y.setText("3");
 		SPEED.setText("1");
 		this.setLayout(new GridLayout(30,1));
 		score=new JLabel("Spawned : -/ - | Saved : - | Tour : -");
@@ -146,6 +147,7 @@ public class Settings extends JPanel{
 					ge.init(level, Integer.parseInt(SIZECOLONY.getText()), Integer.parseInt(SPAWNSPEED.getText()));
 					terrain.init();
 				}
+				level.setNature(Integer.parseInt(SORTIE_X.getText()), Integer.parseInt(SORTIE_Y.getText())+1, Nature.METAL);
 				level.goPlay(Integer.parseInt(ENTREE_X.getText()), Integer.parseInt(ENTREE_Y.getText()), 
 						Integer.parseInt(SORTIE_X.getText()), Integer.parseInt(SORTIE_Y.getText()));
 				root.repaint();

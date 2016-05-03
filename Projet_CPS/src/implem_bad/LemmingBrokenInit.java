@@ -21,7 +21,7 @@ public class LemmingBrokenInit extends Lemming{
 		timeBashing = 0;
 		minedown=true;
 		timeExploding=0;
-		isBomber=false;
+		isBomber=true;
 	}
 
 }

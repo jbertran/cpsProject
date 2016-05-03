@@ -25,63 +25,44 @@ public class LemmingContrat extends LemmingDecorateur{
 	}
 
 	public int getX() {
-		// Invariants
-		checkInvariants();
 		return super.getX();
 	}
 
 	public int getY() {
-		// Invariants
-		checkInvariants();
 		return super.getY();
 	}
 
 	public int getNumber() {
-		// Invariants
-		checkInvariants();
 		return super.getNumber();
 	}
 
 	public Direction getDir() {
-		// Invariants
-		checkInvariants();
 		return super.getDir();
 	}
 	public boolean isBomber(){
-		// Invariants
-		checkInvariants();
 		return super.isBomber();
 	}
 	public Status getStatus() {
-		// Invariants
-		checkInvariants();
 		return super.getStatus();
 	}
 
 	public int timeFalling() {
-		// Invariants
-		checkInvariants();
 		return super.timeFalling();
 	}
 
 	public IGameEng gameEngine() {
-		// Invariants
-		checkInvariants();
 		return super.gameEngine();
 	}
 	
 	public int timeWaiting() {
-		checkInvariants();
 		return super.timeWaiting();
 	}
 	 
 	public boolean isClimber() {
-		checkInvariants();
 		return super.isClimber();
 	}
 	
 	public boolean isFloater() {
-		checkInvariants();
 		return super.isFloater();
 	}
 	
@@ -140,7 +121,7 @@ public class LemmingContrat extends LemmingDecorateur{
 				&& getNumber() == gameEngine().peekNextLemNo() 
 				&& nextlpre + 1 == gameEngine().peekNextLemNo() && isMiningDown() && !isBomber()
 				&& timeWaiting()==-1 && timeBashing() ==0 && timeExploding()==0))
-			throw new Error("Lemming: Initialization error");
+			throw new PostConditionError("Lemming: Initialization error");
 	}
 
 	public void changeDir() {

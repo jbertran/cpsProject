@@ -43,8 +43,8 @@ public class testMain {
 		int SPAWNSPEED = 4;
 		int SIZECOLONY = 8;
 
-		int ENTREE_X = 1;
-		int ENTREE_Y = 1;
+		int ENTREE_X = 3;
+		int ENTREE_Y = 3;
 
 		int SORTIE_X=25;
 		int SORTIE_Y=3;
@@ -63,10 +63,11 @@ public class testMain {
 		level.init(HEIGHT, WIDTH);
 		for(int i=0;i<HEIGHT;i++){
 			for(int j=0;j<WIDTH;j++){
-				if(i>3 || ((j < 22) && (j > 10)))
+				if(i>5 || ((j < 22) && (j > 10)))
 					level.setNature(j, i, Nature.DIRT);
 			}
 		}
+		level.setNature(SORTIE_X, SORTIE_Y+1, Nature.METAL);
 		gameEng.init(level, SIZECOLONY, SPAWNSPEED);
 		level.goPlay(ENTREE_X, ENTREE_Y, SORTIE_X, SORTIE_Y);
 		
