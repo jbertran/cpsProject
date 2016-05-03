@@ -1,134 +1,138 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="Content-Style-Type" content="text/css" />
-  <meta name="generator" content="pandoc" />
-  <title></title>
-  <style type="text/css">code{white-space: pre;}</style>
-</head>
-<body>
-<p>Service: gameEng</p>
-<p>Types:</p>
-<ul>
-<li>int</li>
-<li>bool</li>
-<li>Lemming</li>
-<li>Level</li>
-</ul>
-<p>Observators:</p>
-<ul>
-<li>sizeColony: [gameEng] → int</li>
-<li>colony: [gameEng] → Set<Lemming></li>
-<li>getLemm: [gameEng] *int → Lemming
-<ul>
-<li>pre getLemm(G, i) require 0 ≤ i &lt; sizeColony(G)</li>
-</ul></li>
-<li>obstacle: [gameEng] * int * int → bool
-<ul>
-<li>pre obstacle(G, i, j) require 0 ≤ i &lt; Level::width(level(G)) ^ 0 ≤ j &lt; Level::height(level(G))</li>
-</ul></li>
-<li>spawned: [gameEng] → int</li>
-<li>spawnSpeed: [gameEng] → int</li>
-<li>level: [gameEng] → Level</li>
-<li>tours: [gameEng] → int</li>
-<li>score: [gameEng] → int</li>
-<li>getNextLemNo: [gameEng] → int</li>
-<li>gameOver: [gameEng] → bool</li>
-<li>nbSauves: [gameEng] → int</li>
-<li>nbVivants: [gameEng] → int</li>
-</ul>
-<p>Constructors:</p>
-<ul>
-<li>init: int * int → [gameEng]
-<ul>
-<li>pre init(sc, ss) require sc &gt; 0 ^ ss &gt; 0</li>
-</ul></li>
-</ul>
-<p>Operators:</p>
-<ul>
-<li>addLemming: [gameEng] * Lemming → [gameEng]</li>
-<li>killLemming: [gameEng] * int → [gameEng]
-<ul>
-<li>pre killLemming(G, i) require 0 ≤ i &lt; sizeColony(G)</li>
-</ul></li>
-<li>saveLemming: [gameEng] * int → [gameEng]
-<ul>
-<li>pre saveLemming(G, i) require 0 ≤ i &lt; sizeColony(G)</li>
-</ul></li>
-<li>loadLevel: Level * int * int → [gameEng]
-<ul>
-<li>pre loadLevel(L, sc, ss) require sc &gt; 0 ^ ss &gt; 0</li>
-</ul></li>
-<li>step: [gameEng] → [gameEng]</li>
-<li>annihilate: [gameEng] → [gameEng]</li>
-</ul>
-<p>Observations:</p>
-<ul>
-<li>[invariants]
-<ul>
-<li>gameOver() min= |colony(G)| == 0</li>
-<li>score() min= nbSauves(G) / tours(G)</li>
-<li>0 ≤ spawned(G) &lt; sizeColony(G)</li>
-<li>0 ≤ nbSauves(G) &lt; sizeColony(G)</li>
-<li>obstacle(G,x,y)) min=
-<ul>
-<li>Level::nature((level(G),x,y) != EMPTY v</li>
-<li>∀ i 0 ≤ i &lt; sizeColony(G)
-<ul>
-<li>Lemming::getStatus(getLemm(G, i)) = STOP ^</li>
-<li>Lemming::getX(getLemm(G, i)) = x ^ Lemming::getY(getLemm(G, i)) = y v</li>
-<li>Lemming::getX(getLemm(G, i)) = x ^ Lemming::getY(getLemm(G, i)) = y - 1 *</li>
-</ul></li>
-</ul></li>
-</ul></li>
-<li>[init]
-<ul>
-<li>sizeColony(init(G,sc,ss))=sc</li>
-<li>spawnSpeed(init(G,sc,ss))=ss</li>
-<li>spawned(init(G,sc,ss))=0</li>
-<li>tours(init(G,sc,ss))=1</li>
-<li>nbSauves(init(G,sc,ss))=0</li>
-<li>nbVivants(init(G,sc,ss))=0</li>
-</ul></li>
-<li>[addLeming]
-<ul>
-<li>sizeColony(addLeming(G,L,numero))=sizeColony(G)</li>
-<li>spawnSpeed(addLeming(G,L,numero)=spawnSpeed(G)</li>
-<li>spawned(addLeming(G,L,numero))=spawned(G)</li>
-<li>tours(addLeming(G,L,numero)=tours(G)</li>
-<li>nbSauves(addLeming(G,L,sc,ss))=0</li>
-</ul></li>
-<li>[killLeming]
-<ul>
-<li>sizeColony(killLeming(G,L,numero))=sizeColony(G)</li>
-<li>spawnSpeed(killLeming(G,L,numero)=spawnSpeed(G)</li>
-<li>spawned(killLeming(G,L,numero))=spawned(G)</li>
-<li>tours(killLeming(G,L,numero)=tours(G)</li>
-<li>nbSauves(killLeming(G,L,sc,ss))=nbSauves(G)</li>
-</ul></li>
-<li>[step]
-<ul>
-<li>sizeColony(step(G))=sizeColony(G)</li>
-<li>spawnSpeed(step(G))=spawnSpeed(G)</li>
-<li>tours(step(G))=tours(G)+1</li>
-</ul></li>
-<li>[loadLevel]
-<ul>
-<li>sizeColony(loadLevel(G,L,sc,ss))=sc</li>
-<li>spawnSpeed(loadLevel(G,L,sc,ss))=ss</li>
-<li>spawned(loadLevel(G,L,sc,ss))=0</li>
-<li>tours(loadLevel(G,L,sc,ss))=0</li>
-<li>nbSauves(loadLevel(G,L,sc,ss))=0</li>
-</ul></li>
-<li>[annihilate]
-<ul>
-<li>∀ i 0 ≤ i &lt; sizeColony(G):
-<ul>
-<li>isBomber(getLemming(annihilate(G)), i) = true</li>
-</ul></li>
-<li>spawned(G) = sizeCOlony(G)</li>
-</ul></li>
-</ul>
-</body>
-</html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <meta name="generator" content="pandoc" />
+    <title>Service: GameEngine</title>
+    <style type="text/css">code{white-space: pre;}</style>
+  </head>
+  <body>
+    <p>Service: gameEng</p>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+	<h3>Types:</h3>
+      </div>
+    <ul>
+      <li>int</li>
+      <li>bool</li>
+      <li>Lemming</li>
+      <li>Level</li>
+    </ul>
+    </div>
+    <p>Observators:</p>
+    <ul>
+      <li>sizeColony: [gameEng] → int</li>
+      <li>colony: [gameEng] → Set<Lemming></li>
+      <li>getLemm: [gameEng] *int → Lemming
+	<ul>
+	  <li>pre getLemm(G, i) require 0 ≤ i &lt; sizeColony(G)</li>
+      </ul></li>
+      <li>obstacle: [gameEng] * int * int → bool
+	<ul>
+	  <li>pre obstacle(G, i, j) require 0 ≤ i &lt; Level::width(level(G)) ^ 0 ≤ j &lt; Level::height(level(G))</li>
+      </ul></li>
+      <li>spawned: [gameEng] → int</li>
+      <li>spawnSpeed: [gameEng] → int</li>
+      <li>level: [gameEng] → Level</li>
+      <li>tours: [gameEng] → int</li>
+      <li>score: [gameEng] → int</li>
+      <li>getNextLemNo: [gameEng] → int</li>
+      <li>gameOver: [gameEng] → bool</li>
+      <li>nbSauves: [gameEng] → int</li>
+      <li>nbVivants: [gameEng] → int</li>
+      </ul>
+      <p>Constructors:</p>
+      <ul>
+	<li>init: int * int → [gameEng]
+	  <ul>
+	    <li>pre init(sc, ss) require sc &gt; 0 ^ ss &gt; 0</li>
+	</ul></li>
+      </ul>
+      <p>Operators:</p>
+      <ul>
+	<li>addLemming: [gameEng] * Lemming → [gameEng]</li>
+	<li>killLemming: [gameEng] * int → [gameEng]
+	  <ul>
+	    <li>pre killLemming(G, i) require 0 ≤ i &lt; sizeColony(G)</li>
+	</ul></li>
+	<li>saveLemming: [gameEng] * int → [gameEng]
+	  <ul>
+	    <li>pre saveLemming(G, i) require 0 ≤ i &lt; sizeColony(G)</li>
+	</ul></li>
+	<li>loadLevel: Level * int * int → [gameEng]
+	  <ul>
+	    <li>pre loadLevel(L, sc, ss) require sc &gt; 0 ^ ss &gt; 0</li>
+	</ul></li>
+	<li>step: [gameEng] → [gameEng]</li>
+	<li>annihilate: [gameEng] → [gameEng]</li>
+      </ul>
+      <p>Observations:</p>
+      <ul>
+	<li>[invariants]
+	  <ul>
+	    <li>gameOver() min= |colony(G)| == 0</li>
+	    <li>score() min= nbSauves(G) / tours(G)</li>
+	    <li>0 ≤ spawned(G) &lt; sizeColony(G)</li>
+	    <li>0 ≤ nbSauves(G) &lt; sizeColony(G)</li>
+	    <li>obstacle(G,x,y)) min=
+	      <ul>
+		<li>Level::nature((level(G),x,y) != EMPTY v</li>
+		<li>∀ i 0 ≤ i &lt; sizeColony(G)
+		  <ul>
+		    <li>Lemming::getStatus(getLemm(G, i)) = STOP ^</li>
+		    <li>Lemming::getX(getLemm(G, i)) = x ^ Lemming::getY(getLemm(G, i)) = y v</li>
+		    <li>Lemming::getX(getLemm(G, i)) = x ^ Lemming::getY(getLemm(G, i)) = y - 1 *</li>
+		</ul></li>
+	    </ul></li>
+	</ul></li>
+	<li>[init]
+	  <ul>
+	    <li>sizeColony(init(G,sc,ss))=sc</li>
+	    <li>spawnSpeed(init(G,sc,ss))=ss</li>
+	    <li>spawned(init(G,sc,ss))=0</li>
+	    <li>tours(init(G,sc,ss))=1</li>
+	    <li>nbSauves(init(G,sc,ss))=0</li>
+	    <li>nbVivants(init(G,sc,ss))=0</li>
+	</ul></li>
+	<li>[addLeming]
+	  <ul>
+	    <li>sizeColony(addLeming(G,L,numero))=sizeColony(G)</li>
+	    <li>spawnSpeed(addLeming(G,L,numero)=spawnSpeed(G)</li>
+	    <li>spawned(addLeming(G,L,numero))=spawned(G)</li>
+	    <li>tours(addLeming(G,L,numero)=tours(G)</li>
+	    <li>nbSauves(addLeming(G,L,sc,ss))=0</li>
+	</ul></li>
+	<li>[killLeming]
+	  <ul>
+	    <li>sizeColony(killLeming(G,L,numero))=sizeColony(G)</li>
+	    <li>spawnSpeed(killLeming(G,L,numero)=spawnSpeed(G)</li>
+	    <li>spawned(killLeming(G,L,numero))=spawned(G)</li>
+	    <li>tours(killLeming(G,L,numero)=tours(G)</li>
+	    <li>nbSauves(killLeming(G,L,sc,ss))=nbSauves(G)</li>
+	</ul></li>
+	<li>[step]
+	  <ul>
+	    <li>sizeColony(step(G))=sizeColony(G)</li>
+	    <li>spawnSpeed(step(G))=spawnSpeed(G)</li>
+	    <li>tours(step(G))=tours(G)+1</li>
+	</ul></li>
+	<li>[loadLevel]
+	  <ul>
+	    <li>sizeColony(loadLevel(G,L,sc,ss))=sc</li>
+	    <li>spawnSpeed(loadLevel(G,L,sc,ss))=ss</li>
+	    <li>spawned(loadLevel(G,L,sc,ss))=0</li>
+	    <li>tours(loadLevel(G,L,sc,ss))=0</li>
+	    <li>nbSauves(loadLevel(G,L,sc,ss))=0</li>
+	</ul></li>
+	<li>[annihilate]
+	  <ul>
+	    <li>∀ i 0 ≤ i &lt; sizeColony(G):
+	      <ul>
+		<li>isBomber(getLemming(annihilate(G)), i) = true</li>
+	    </ul></li>
+	    <li>spawned(G) = sizeCOlony(G)</li>
+	</ul></li>
+      </ul>
+    </body>
+  </html>
