@@ -4,7 +4,8 @@
     </description>
   <!-- set global properties for this build -->
   <property name="src" location="src"/>
-  <property name="bin" location="bin"/>
+  <property name="build" location="build"/>
+  <property name="jar" location="jar"/>
 
   <!-- METTRE ICI LE NOM DU BINOME -->
   <property name="nom1" value="RIBEIRO Cedric"/>
@@ -14,23 +15,36 @@
     <!-- Create the time stamp -->
     <tstamp/>
     <!-- Create the build directory structure used by compile -->
-    <mkdir dir="${bin}"/>
+    <mkdir dir="${build}"/>
   </target>
 
   <target name="compile" depends="init"
         description="compile the source " >
     <!-- Compile the java code from ${src} into ${build} -->
-    <javac debug="true" srcdir="${src}" excludes="" destdir="${bin}" includeantruntime="false" />
+    <javac debug="true" classpath="${jar}/junit.jar" srcdir="${src}" excludes="" destdir="${build}" includeantruntime="false" />
   </target>
 
   <target name="run" depends="compile"
           description="run examples">
-          <java classname="test.testMain"
-          classpath="${bin}">
-       <arg value="30"/>
-    </java>
+  	<java fork="true" classpath="${build}" 
+  		classname="test.testInterfaceSettings"/>
   </target>
-
+	
+  <target name="test1" depends="compile"
+	     description="run examples">
+	  <echo> ==== RUN TEST 1==== </echo>
+	  <junit printsummary="yes">
+	  	<classpath>
+	  		<pathelement location="${build}"/>
+			<pathelement location="${jar}/junit.jar"/>
+	  	</classpath>
+	  	
+	  	<formatter type="plain"/>
+	  	
+	    <test name="test.Lemmings1Test" outfile="report1"/>
+	  </junit>
+  </target>
+	
   <target name="dist" depends="init,clean"
         description="Generate distribution distribution" >
     <!-- tout mettre dans l'archive -->
