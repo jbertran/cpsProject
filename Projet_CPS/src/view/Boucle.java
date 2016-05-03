@@ -20,6 +20,8 @@ public class Boucle implements Runnable{
 			System.out.println("------------------------------------");
 			System.out.println("************************************");
 			s.ge.step();
+			s.score.setText("Spawned : "+s.ge.spawned()+"/"+s.ge.sizeColony()+
+					" | Saved : "+s.ge.nbSauves()+" | Tour : "+s.ge.tours());
 			s.root.repaint();
 			s.terrain.repaint();
 			s.window.repaint();
@@ -30,6 +32,9 @@ public class Boucle implements Runnable{
 				ee.printStackTrace();
 			}
 		}
+		
+		s.score.setText("Score : "+s.ge.score()+ "| Sp : "+s.ge.spawned()+"/"+s.ge.sizeColony()+
+				" | S : "+s.ge.nbSauves()+" | T : "+s.ge.tours());
 		System.out.println(s.ge.score());
 		
 	}

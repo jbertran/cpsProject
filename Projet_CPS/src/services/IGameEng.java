@@ -1,5 +1,7 @@
 package services;
 
+import error.PostConditionError;
+
 
 public interface IGameEng {
 	
@@ -27,6 +29,14 @@ public interface IGameEng {
 	 * 	obstacle(x, y) require 0 <= x < level().height() ^ 
 	 * 		               0 <= y < level().width()
 	 */
+	/**
+	 * POST:
+	 * if(level.nature(x,y)@pre!=EMPTY)
+	 * 	obstacle(x,y)==true
+	 *  for lem in colony()@pre
+	 * 		if(( lem.getX()==x && lem.getY()==y) || lem.getX()==x && lem.getY()==y+1)
+	 * 			obstacle(x,y)==true
+	 */
 	boolean obstacle(int x, int y);
 	boolean gameOver();
 	
@@ -34,6 +44,16 @@ public interface IGameEng {
 	/**
 	 * PRE:
 	 * 	init(sc, ss) require sc > 0 ^ ss > 0 	
+	 */
+	/**
+	 * 
+	 * POST:
+	 * tour()==1
+	 * spawnSpeed()==ss
+	 * sizeColony==sc
+	 * spawned()==0
+	 * nbSauves()==0
+	 * nbVivants()==0
 	 */
 	void init(ILevel lvl, int sc, int ss);
 	

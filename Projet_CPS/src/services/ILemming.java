@@ -19,6 +19,20 @@ public interface ILemming {
     boolean isMiningDown();
     boolean isBomber();
     // CONSTRUCTORS
+    
+    /**
+     * POST:
+	 * getX()=gameEngine().level().entree_x()
+	 * getY()=gameEngine().level().entree_y()
+	 * getDir()=DROITE
+	 * getStatus()=FALL
+	 * timeFalling()=0
+	 * isMiningDown()=true
+	 * isBomber()=false
+	 * timeWaiting()=-1
+	 * timeBashing()=0
+	 * timeExploding()=0
+     */
     void init(IGameEng gE);
 	
     // OPERATORS
@@ -155,9 +169,7 @@ public interface ILemming {
      *   					timeWaiting() = -1
      *   					getStatus() = WALK
      *   else if (getStatus()@pre == STOP)
-     *   	gameEngine().level().nature(getX(), getY()) == DIRT
-     *   		&& gameEngine().level().nature(getX(), getY()-1) == Dirt
-     *   			&& gameEngine().getLemm(getNumber())==null
+     *   	getX()@pre==getX() && getY()@pre==getY()
      *   
      *   else if (getStatus()@pre == Miner)
      *   	if(!isMiningDown())
@@ -268,8 +280,11 @@ public interface ILemming {
 	 *  getDir(init(Le,G))=DROITIER;
 	 *  getStatus(init(Le,G))=TOMBEUR;
 	 *  isBomber(init(Le,G))=false
+	 *  isMiningDown(init(Le,G))=true
 	 *  isFloater(init(Le,G))=false
 	 *  timeWaiting(init(Le,G))=-1
+	 *  timeBashing(init(Le,G))=0
+	 *  timeExploding(init(Le,G))=0
 	 *  tilesBuilt(init(Le,G))=0
 	 *  
 	 * [changeDir]

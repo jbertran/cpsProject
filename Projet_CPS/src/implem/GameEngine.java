@@ -8,12 +8,12 @@ import services.Status;
 
 public class GameEngine implements IGameEng {
 
-	static int nbLemm = 0;
-	ILemming [] colony;
-	ILevel lvl, lvlInit;
-	int spawned, tours, nbSauves;
-	int sizeColony, spawnSpeed, nbVivants;
-	boolean gameOver;
+	static protected int nbLemm = 0;
+	protected ILemming [] colony;
+	protected ILevel lvl, lvlInit;
+	protected int spawned, tours, nbSauves;
+	protected int sizeColony, spawnSpeed, nbVivants;
+	protected boolean gameOver;
 
 	@Override
 	public ILemming [] colony() {

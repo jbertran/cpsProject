@@ -8,18 +8,18 @@ import services.Status;
 
 public class Lemming implements ILemming{
 
-	int x, y, number, timeFalling;
-	IGameEng gameEngine;
-	Direction dir;
-	Status stat;
-	int timeWaiting;
-	int tilesBuilt;
-	int timeBashing;
-	int timeExploding;
-	boolean isClimber;
-	boolean isBomber;
-	boolean isFloater;
-	boolean minedown;
+	protected int x, y, number, timeFalling;
+	protected IGameEng gameEngine;
+	protected Direction dir;
+	protected Status stat;
+	protected int timeWaiting;
+	protected int tilesBuilt;
+	protected int timeBashing;
+	protected int timeExploding;
+	protected boolean isClimber;
+	protected boolean isBomber;
+	protected boolean isFloater;
+	protected boolean minedown;
 
 	public int getX() {
 		return x;

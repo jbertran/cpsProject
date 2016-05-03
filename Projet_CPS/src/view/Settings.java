@@ -51,6 +51,7 @@ public class Settings extends JPanel{
 	JPanel root;
 	JFrame window;
     Token token;
+    JLabel score;
 
 
 	public Settings(IGameEng gameEng,ILevel level,Token token, IJoueur joueur,JPanel root,Terrain terrain,JFrame window){
@@ -71,6 +72,8 @@ public class Settings extends JPanel{
 		SORTIE_Y.setText("2");
 		SPEED.setText("1");
 		this.setLayout(new GridLayout(30,1));
+		score=new JLabel("Spawned : -/ - | Saved : - | Tour : -");
+		this.add(score);
 		this.add(new JLabel("WIDTH"));
 		this.add(WIDTH);
 		this.add(new JLabel("HEIGHT"));
@@ -95,7 +98,6 @@ public class Settings extends JPanel{
 		this.add(button3);
 		this.add(button4);
 		this.add(button5);
-		this.add(new JLabel("HELP : "));
 		this.add(new JLabel("1-Cliquer en premier sur : Init"));
 		this.add(new JLabel("2-Cliquer sur les cases"));
 		this.add(new JLabel("Clic Gauche : DIRT "));
@@ -115,6 +117,7 @@ public class Settings extends JPanel{
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+				score.setText("Spawned : -/ - | Saved : - | Tour : -");
 				button.setVisible(false);
 				button2.setVisible(true);
 				level.init(Integer.parseInt(HEIGHT.getText()), Integer.parseInt(WIDTH.getText()));

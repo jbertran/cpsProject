@@ -5,10 +5,11 @@ import services.Nature;
 
 public class Level implements ILevel {
 
-	int height, width;
-	boolean editing;
-	int e_x, e_y, s_x, s_y;
-	Nature [][] cases;
+	protected int height;
+	protected int width;
+	protected boolean editing;
+	protected int e_x, e_y, s_x, s_y;
+	protected Nature [][] cases;
 	
 	public Level() {}
 	

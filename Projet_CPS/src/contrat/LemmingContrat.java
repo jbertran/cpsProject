@@ -138,7 +138,8 @@ public class LemmingContrat extends LemmingDecorateur{
 		if (!(getX() == gameEngine().level().entree_x() && getY() == gameEngine().level().entree_y()
 				&& getDir() == Direction.DROITE && getStatus() == Status.FALL && timeFalling() == 0
 				&& getNumber() == gameEngine().peekNextLemNo() 
-				&& nextlpre + 1 == gameEngine().peekNextLemNo()))
+				&& nextlpre + 1 == gameEngine().peekNextLemNo() && isMiningDown() && !isBomber()
+				&& timeWaiting()==-1 && timeBashing() ==0 && timeExploding()==0))
 			throw new Error("Lemming: Initialization error");
 	}
 

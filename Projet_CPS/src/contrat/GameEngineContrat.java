@@ -1,5 +1,6 @@
 package contrat;
 
+import implem.Lemming;
 import error.InvariantError;
 import error.PostConditionError;
 import error.PreConditionError;
@@ -54,6 +55,18 @@ public class GameEngineContrat extends GameEngineDecorateur{
 		if(sc < 0 || ss < 0)
 			throw new PreConditionError("error init ss or sc < 0");
 		super.init(lvl, sc, ss);
+		if(tours()!=1)
+			throw new PostConditionError("init GameEng, tour not starting at 1");
+		if(spawnSpeed()!=ss)
+			throw new PostConditionError("init GameEng, SpawnSpeed");
+		if(sizeColony()!=sc)
+			throw new PostConditionError("init GameEng, SizeColony");
+		if(spawned()!=0)
+			throw new PostConditionError("init GameEng,spawned should be 0");
+		if(nbSauves()!=0)
+			throw new PostConditionError("init GameEng,nbSauves should be 0");
+		if(nbVivants()!=0)
+			throw new PostConditionError("init GameEng,nbVivants should be 0");
 	}
 
 	// OPERATORS

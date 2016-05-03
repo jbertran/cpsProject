@@ -52,7 +52,7 @@ public abstract class AbstractLemmingsTest {
 		public void initPrePosTest(){
 			boolean b=true;
 			try{
-				getLevel().init(10, 10);
+				getLevel().init(15, 10);
 				getGameEngine().init(getLevel(), 8, 4);
 			}catch(Error e){
 				b=false;
@@ -74,9 +74,9 @@ public abstract class AbstractLemmingsTest {
 		
 		@Test
 		public void initAutoTest(){
-			getLevel().init(10, 10);
+			getLevel().init(15, 10);
 			getGameEngine().init(getLevel(), 8, 4);
-			assertTrue(getLevel().height()==10);
+			assertTrue(getLevel().height()==15);
 			assertTrue(getLevel().width()==10);
 			assertTrue(getGameEngine().spawnSpeed()==4);
 			assertTrue(getGameEngine().sizeColony()==8);		
