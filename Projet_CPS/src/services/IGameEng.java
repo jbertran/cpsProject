@@ -34,7 +34,8 @@ public interface IGameEng {
 	 * if(level.nature(x,y)@pre!=EMPTY)
 	 * 	obstacle(x,y)==true
 	 *  for lem in colony()@pre
-	 * 		if(( lem.getX()==x && lem.getY()==y) || lem.getX()==x && lem.getY()==y+1)
+	 * 		if( (lem.getX()==x && lem.getY()==y) || lem.getX()==x && lem.getY()==y+1) 
+	 * 		&& lem.getStatus==STOP)
 	 * 			obstacle(x,y)==true
 	 */
 	boolean obstacle(int x, int y);
