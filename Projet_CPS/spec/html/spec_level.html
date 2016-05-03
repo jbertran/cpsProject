@@ -1,131 +1,177 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="Content-Style-Type" content="text/css" />
-  <meta name="generator" content="pandoc" />
-  <title>Spécification du service Level</title>
-  <style type="text/css">code{white-space: pre;}</style>
-</head>
-<body>
-<div id="header">
-<h1 class="title">Spécification du service Level</h1>
-</div>
-<p>Service: level</p>
-<p>Types:</p>
-<ul>
-<li>int</li>
-<li>bool</li>
-<li>enum Nature = {DIRT, METAL, EMPTY}</li>
-</ul>
-<p>Observators:</p>
-<ul>
-<li>height: [Level] → int</li>
-<li>width: [Level] → int</li>
-<li>editing: [Level] → bool</li>
-<li>nature: [Level] * int * int → Nature
-<ul>
-<li>pre nature(L, x, y, n) require 0 ≤ x ≤ width(L) ^ 0 ≤ y ≤ height(L)</li>
-</ul></li>
-<li>entree_x: [Level] → int</li>
-<li>entree_y: [Level] → int</li>
-<li>sortie_x: [Level] → int</li>
-<li>sortie_y: [Level] → int</li>
-</ul>
-<p>Constructors:</p>
-<ul>
-<li>init: int * int → [Level]
-<ul>
-<li>pre init(w, h) require h &gt; 0 ^ w &gt; 0</li>
-</ul></li>
-</ul>
-<p>Operators:</p>
-<ul>
-<li>setNature: [Level] <em>int </em> int * Nature → [Level]
-<ul>
-<li>pre setNature(L, x, y, n) require 0 ≤ x ≤ width(L) ^ 0 ≤ y ≤ height(L) ^ editing(L)</li>
-</ul></li>
-<li>goPlay: [Level] → [Level]</li>
-<li>remove: [Level] * int * int → [Level]
-<ul>
-<li>pre remove(L, x, y) require 0 ≤ x ≤ width(L) ^ 0 ≤ y ≤ height(L) ^ nature(L, x, y) = DIRT ^ not(editing(L))</li>
-</ul></li>
-<li>build: [Level] * int * int → [Level]
-<ul>
-<li>pre build(L, x, y) require 0 ≤ x ≤ width(L) ^ 0 ≤ y ≤ height(L) ^ nature(L, x, y) = EMPTY ^ not(editing(L))</li>
-</ul></li>
-</ul>
-<p>Observations:</p>
-<ul>
-<li>[invariants]
-<ul>
-<li>height(L) &gt; 0; width(L) &gt; 0</li>
-</ul></li>
-<li>[init]
-<ul>
-<li>width(init(w, h)) = w;</li>
-<li>height(init(w, h)) = h;</li>
-<li>editing(init(w, h)) = true;</li>
-<li>entree_x(init(w, h))= null;</li>
-<li>entree_y(init(w, h))= null;</li>
-<li>sortie_x(init(w, h))= null;</li>
-<li>sortie_y(init(w, h))= null;</li>
-<li>∀ x, y, 0 ≤ x &lt; w, 0 ≤ y &lt; h: nature(init(w,h), x, y)= DIRT;</li>
-</ul></li>
-<li>[setNature]
-<ul>
-<li>width(setNature(L, x, y))=width(L)</li>
-<li>height(setNature(L, x, y))=height(L)</li>
-<li>editing(setNature(L, x, y))=true;</li>
-<li>entree_x(setNature(L, x, y))= null;</li>
-<li>entree_y(setNature(L, x, y))= null;</li>
-<li>sortie_x(setNature(L, x, y))= null;</li>
-<li>sortie_y(setNature(L, x, y))= null;</li>
-<li>nature(setNature(L, x, y, n), x, y) = n;</li>
-<li>nature(setNature(L, x, y, n), i, j) = nature(L, i, j) forall (i, j) != (x, y)</li>
-</ul></li>
-<li>[goPlay]
-<ul>
-<li>width(goPlay(L))=width(L)</li>
-<li>height(goPlay(L))=height(L)</li>
-<li>editing(goPlay(L)) = false;</li>
-<li>entree_x(goPlay(L, , xe, ye, xs, ys)) == xe;</li>
-<li>entree_y(goPlay(L, , xe, ye, xs, ys)) == ye;</li>
-<li>sortie_x(goPlay(L, , xe, ye, xs, ys)) == xs;</li>
-<li>sortie_y(goPlay(L, , xe, ye, xs, ys)) == ys;</li>
-<li>∀ x 0 ≤ x &lt; width(L):
-<ul>
-<li>nature(goPlay(L, xe, ye, xs, ys), i, 0) == METAL ^ nature(goPlay(L, xe, ye, xs, ys), i, width(L)-1) == METAL</li>
-</ul></li>
-<li>∀ y 0 ≤ y &lt; height(L):
-<ul>
-<li>nature(goPlay(L, xe, ye, xs, ys), 0, j) == METAL ^ nature(goPlay(L, xe, ye, xs, ys), height(L)-1, j) == METAL</li>
-</ul></li>
-</ul></li>
-<li>[remove]
-<ul>
-<li>width(remove(L, x, y))=width(L)</li>
-<li>height(remove(L, x, y))=height(L)</li>
-<li>editing(remove(L, x, y)) = false;</li>
-<li>entree_x(remove(L, x, y)) = entree_x(L)</li>
-<li>entree_y(remove(L, x, y)) = entree_y(L)</li>
-<li>sortie_x(remove(L, x, y)) = sortie_x(L)</li>
-<li>sortie_y(remove(L, x, y)) = sortie_y(L)</li>
-<li>nature(remove(L, x, y), x, y) == EMPTY</li>
-<li>nature(remove(L, x, y), i, j) == nature(L, i, j) forall (i, j) != (x, y)</li>
-</ul></li>
-<li>[build]
-<ul>
-<li>width(build(L, x, y))=width(L)</li>
-<li>height(build(L, x, y))=height(L)</li>
-<li>editing(build(L, x, y)) = false;</li>
-<li>entree_x(build(L, x, y)) = entree_x(L)</li>
-<li>entree_y(build(L, x, y)) = entree_y(L)</li>
-<li>sortie_x(build(L, x, y)) = sortie_x(L)</li>
-<li>sortie_y(build(L, x, y)) = sortie_y(L)</li>
-<li>nature(build(L, x, y), x, y) == DIRT</li>
-<li>nature(build(L, x, y), i, j) == nature(L, i, j) forall (i, j) != (x, y)</li>
-</ul></li>
-</ul>
-</body>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <meta name="generator" content="pandoc" />
+    <title>Service: Level</title>
+    <style type="text/css">code{white-space: pre;}</style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="style.css"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  </head>
+  <body class="container">
+    <div class="jumbotron container">
+      <h1><a href="index.html">Lemmings!</a></h1>
+    </div>
+    <div class="container">
+      <ul class="nav nav-pills">
+	<li><a href='spec_lemming.html'> Lemming </a></li>
+	<li><a href='spec_gameeng.html'> GameEngine </a></li>
+	<li><a href='spec_joueur.html'> Joueur </a></li>  
+	<li><a href='spec_level.html'> Level </a></li>
+      </ul>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+	<h3 class="service-title panel-title">Service: level</h3>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+	<h3 class="panel-title">Types:</h3>
+      </div>
+      <div class="panel-body">
+	<ul>
+	  <li>int</li>
+	  <li>bool</li>
+	  <li>enum Nature = {DIRT, METAL, EMPTY}</li>
+	</ul>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+	<h3 class="panel-title">Observators:</h3>
+      </div>
+      <div class="panel-body">
+	<ul>
+	  <li>height: [Level] → int</li>
+	  <li>width: [Level] → int</li>
+	  <li>editing: [Level] → bool</li>
+	  <li>nature: [Level] * int * int → Nature
+	    <ul>
+	      <li class="require">pre nature(L, x, y, n) require 0 ≤ x ≤ width(L) ^ 0 ≤ y ≤ height(L)</li>
+	  </ul></li>
+	  <li>entree_x: [Level] → int</li>
+	  <li>entree_y: [Level] → int</li>
+	  <li>sortie_x: [Level] → int</li>
+	  <li>sortie_y: [Level] → int</li>
+	</ul>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+	<h3 class="panel-title">Constructors:</h3>
+      </div>
+      <div class="panel-body">
+	<ul>
+	  <li>init: int * int → [Level]
+	    <ul>
+	      <li class="require">pre init(w, h) require h &gt; 0 ^ w &gt; 0</li>
+	  </ul></li>
+	</ul>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+	<h3 class="panel-title">Operators:</h3>
+      </div>
+      <div class="panel-body">
+	<ul>
+	  <li>setNature: [Level] <em>int </em> int * Nature → [Level]
+	    <ul>
+	      <li class="require">pre setNature(L, x, y, n) require 0 ≤ x ≤ width(L) ^ 0 ≤ y ≤ height(L) ^ editing(L)</li>
+	  </ul></li>
+	  <li>goPlay: [Level] → [Level]</li>
+	  <li>remove: [Level] * int * int → [Level]
+	    <ul>
+	      <li class="require">pre remove(L, x, y) require 0 ≤ x ≤ width(L) ^ 0 ≤ y ≤ height(L) ^ nature(L, x, y) = DIRT ^ not(editing(L))</li>
+	  </ul></li>
+	  <li>build: [Level] * int * int → [Level]
+	    <ul>
+	      <li class="require">pre build(L, x, y) require 0 ≤ x ≤ width(L) ^ 0 ≤ y ≤ height(L) ^ nature(L, x, y) = EMPTY ^ not(editing(L))</li>
+	  </ul></li>
+	</ul>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+	<h3 class="panel-title">Observations:</h3>
+      </div>
+      <div class="panel-body">
+	<ul>
+	  <li>[invariants]
+	    <ul>
+	      <li>height(L) &gt; 0; width(L) &gt; 0</li>
+	  </ul></li>
+	  <li>[init]
+	    <ul>
+	      <li>width(init(w, h)) = w;</li>
+	      <li>height(init(w, h)) = h;</li>
+	      <li>editing(init(w, h)) = true;</li>
+	      <li>entree_x(init(w, h))= null;</li>
+	      <li>entree_y(init(w, h))= null;</li>
+	      <li>sortie_x(init(w, h))= null;</li>
+	      <li>sortie_y(init(w, h))= null;</li>
+	      <li>∀ x, y, 0 ≤ x &lt; w, 0 ≤ y &lt; h: nature(init(w,h), x, y)= DIRT;</li>
+	  </ul></li>
+	  <li>[setNature]
+	    <ul>
+	      <li>width(setNature(L, x, y))=width(L)</li>
+	      <li>height(setNature(L, x, y))=height(L)</li>
+	      <li>editing(setNature(L, x, y))=true;</li>
+	      <li>entree_x(setNature(L, x, y))= null;</li>
+	      <li>entree_y(setNature(L, x, y))= null;</li>
+	      <li>sortie_x(setNature(L, x, y))= null;</li>
+	      <li>sortie_y(setNature(L, x, y))= null;</li>
+	      <li>nature(setNature(L, x, y, n), x, y) = n;</li>
+	      <li>nature(setNature(L, x, y, n), i, j) = nature(L, i, j) forall (i, j) != (x, y)</li>
+	  </ul></li>
+	  <li>[goPlay]
+	    <ul>
+	      <li>width(goPlay(L))=width(L)</li>
+	      <li>height(goPlay(L))=height(L)</li>
+	      <li>editing(goPlay(L)) = false;</li>
+	      <li>entree_x(goPlay(L, , xe, ye, xs, ys)) == xe;</li>
+	      <li>entree_y(goPlay(L, , xe, ye, xs, ys)) == ye;</li>
+	      <li>sortie_x(goPlay(L, , xe, ye, xs, ys)) == xs;</li>
+	      <li>sortie_y(goPlay(L, , xe, ye, xs, ys)) == ys;</li>
+	      <li>∀ x 0 ≤ x &lt; width(L):
+		<ul>
+		  <li>nature(goPlay(L, xe, ye, xs, ys), i, 0) == METAL ^ nature(goPlay(L, xe, ye, xs, ys), i, width(L)-1) == METAL</li>
+	      </ul></li>
+	      <li>∀ y 0 ≤ y &lt; height(L):
+		<ul>
+		  <li>nature(goPlay(L, xe, ye, xs, ys), 0, j) == METAL ^ nature(goPlay(L, xe, ye, xs, ys), height(L)-1, j) == METAL</li>
+	      </ul></li>
+	  </ul></li>
+	  <li>[remove]
+	    <ul>
+	      <li>width(remove(L, x, y))=width(L)</li>
+	      <li>height(remove(L, x, y))=height(L)</li>
+	      <li>editing(remove(L, x, y)) = false;</li>
+	      <li>entree_x(remove(L, x, y)) = entree_x(L)</li>
+	      <li>entree_y(remove(L, x, y)) = entree_y(L)</li>
+	      <li>sortie_x(remove(L, x, y)) = sortie_x(L)</li>
+	      <li>sortie_y(remove(L, x, y)) = sortie_y(L)</li>
+	      <li>nature(remove(L, x, y), x, y) == EMPTY</li>
+	      <li>nature(remove(L, x, y), i, j) == nature(L, i, j) forall (i, j) != (x, y)</li>
+	  </ul></li>
+	  <li>[build]
+	    <ul>
+	      <li>width(build(L, x, y))=width(L)</li>
+	      <li>height(build(L, x, y))=height(L)</li>
+	      <li>editing(build(L, x, y)) = false;</li>
+	      <li>entree_x(build(L, x, y)) = entree_x(L)</li>
+	      <li>entree_y(build(L, x, y)) = entree_y(L)</li>
+	      <li>sortie_x(build(L, x, y)) = sortie_x(L)</li>
+	      <li>sortie_y(build(L, x, y)) = sortie_y(L)</li>
+	      <li>nature(build(L, x, y), x, y) == DIRT</li>
+	      <li>nature(build(L, x, y), i, j) == nature(L, i, j) forall (i, j) != (x, y)</li>
+	  </ul></li>
+	</ul>
+      </div>
+    </div>
+  </body>
 </html>
