@@ -341,11 +341,8 @@ public class LemmingContrat extends LemmingDecorateur{
 		case FLOAT:
 			break;
 		case STOP:
-			if(gameEngine().level().nature(this.getX(), this.getY())!=Nature.DIRT 
-			&& gameEngine().level().nature(this.getX(), this.getY()-1)!=Nature.DIRT)
-				throw new PostConditionError("Error, STOPPER  didn't generate DIRT");	
-			if(gameEngine().getLemm(getNumber())!=null)
-				throw new PostConditionError("Error, STOPPER didn't die");
+			if(this.getX()!=xpre || this.getY()!=ypre)
+			throw new PostConditionError("STOPPER Error, he moved");
 			break;
 		case BASH:
 			if(this.getDir()==Direction.DROITE){

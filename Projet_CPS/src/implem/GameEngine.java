@@ -4,6 +4,7 @@ import services.IGameEng;
 import services.ILemming;
 import services.ILevel;
 import services.Nature;
+import services.Status;
 
 public class GameEngine implements IGameEng {
 
@@ -69,7 +70,13 @@ public class GameEngine implements IGameEng {
 
 	@Override
 	public boolean obstacle(int x, int y) {
-		return lvl.nature(x, y) != Nature.EMPTY;
+		boolean obst = false;
+		for(ILemming lem  : colony())
+			if(lem!=null)
+			if(lem.getStatus()==Status.STOP)
+			if((lem.getX()==x && lem.getY()==y)||(lem.getX()==x && lem.getY()==y+1))
+				obst=true;
+		return (lvl.nature(x, y) != Nature.EMPTY || obst);
 	}
 
 	@Override

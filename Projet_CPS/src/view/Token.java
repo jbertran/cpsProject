@@ -22,7 +22,7 @@ public class Token extends JPanel{
 	public Token( IJoueur player){
 		this.player=player;
 		this.setLayout(new GridLayout(1,3));
-		Status[] x = {Status.CLIMB, Status.BUILD, Status.FLOAT, Status.BOMB, Status.STOP, Status.BASH,Status.MINER};
+		Status[] x = {Status.WALK,Status.CLIMB, Status.BUILD, Status.FLOAT, Status.BOMB, Status.STOP, Status.BASH,Status.MINER};
 		this.box= new JComboBox<Status>(x);
 		this.add(box);
 		lem=new JTextField("0");

@@ -356,9 +356,6 @@ public class Lemming implements ILemming{
 				}
 				break;
 			case STOP:
-				this.gameEngine().level().build(this.x, this.y);
-				this.gameEngine().level().build(this.x, this.y-1);
-				this.gameEngine().killLemming(this.number);
 				break;
 
 			case BASH:

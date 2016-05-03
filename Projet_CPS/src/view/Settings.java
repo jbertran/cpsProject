@@ -68,7 +68,7 @@ public class Settings extends JPanel{
 		ENTREE_X.setText("2");
 		ENTREE_Y.setText("2");
 		SORTIE_X.setText("25");
-		SORTIE_Y.setText("3");
+		SORTIE_Y.setText("2");
 		SPEED.setText("1");
 		this.setLayout(new GridLayout(30,1));
 		this.add(new JLabel("WIDTH"));

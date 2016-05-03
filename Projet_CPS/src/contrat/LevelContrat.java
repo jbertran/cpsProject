@@ -39,6 +39,8 @@ public class LevelContrat extends LevelDecorateur{
 		for(int i=0;i<super.width();i++)
 			for(int j=0;j<super.height();j++)
 				level_pre[i][j]=super.nature(i, j);
+		if(x<0 || y<0 || x>=this.width() || y>=this.height())
+			throw new PreConditionError("SetNature error, outbound");
 		super.setNature(x, y, n);
 		//PostCondition
 		if(x<0 || y <0 || super.editing()==false)
@@ -61,9 +63,9 @@ public class LevelContrat extends LevelDecorateur{
 		//PreCondition
 		if(super.editing()==false )
 			throw new PreConditionError("goPlay error, editing is false");
-		if(xs<0 || xs <0 || xe >super.width() || xs >super.width())
+		if(xs<0 || xs <0 || xe >=super.width() || xs >=super.width())
 			throw new PreConditionError("goPlay error,error coordinate entry/exit");
-		if(ye<0 || ye <0 || ye >super.height() || ye>super.height())
+		if(ye<0 || ye <0 || ye >=super.height() || ye>=super.height())
 			throw new PreConditionError("goPlay error,error coordinate entry/exit");
 
 		super.goPlay(xe, ye, xs, ys);
@@ -75,7 +77,7 @@ public class LevelContrat extends LevelDecorateur{
 			if(super.nature(i, 0)!=Nature.METAL || super.nature(i, super.height()-1)!=Nature.METAL)
 				throw new PreConditionError("goPlay error, Metal border missing");
 		
-		if((ys+1)>=this.height() || ys-1<0 || xs-1<0 || (xs+1)>=this.height())
+		if((ys+1)>=this.height() || ys-1<0 || xs-1<0 || (xs+1)>=this.width())
 			throw new PreConditionError("Entrance or exit outside the map");
 		if(super.nature(xe, ye-1)!=Nature.EMPTY)
 			throw new PreConditionError("Entrance not clear");
@@ -100,7 +102,7 @@ public class LevelContrat extends LevelDecorateur{
 	public void remove(int x, int y){
 		checkInvariants();
 		//PreCondition
-		if(x<0 || x> super.width() ||y<0 || y>super.height() || (super.nature(x, y)!=Nature.DIRT  && super.nature(x, y)!=Nature.EMPTY))
+		if(x<0 || x>=super.width() ||y<0 || y>=super.height() || (super.nature(x, y)!=Nature.DIRT  && super.nature(x, y)!=Nature.EMPTY))
 			throw new PreConditionError("remove error");
 
 
@@ -126,7 +128,7 @@ public class LevelContrat extends LevelDecorateur{
 	public void build(int x, int y){
 		checkInvariants();
 		//Precondition
-		if(x<0 || x> super.width() ||y<0 || y>super.height() || super.nature(x, y) == Nature.METAL)
+		if(x<0 || x>=super.width() ||y<0 || y>=super.height() || super.nature(x, y) == Nature.METAL)
 			throw new PreConditionError("remove error");
 
 

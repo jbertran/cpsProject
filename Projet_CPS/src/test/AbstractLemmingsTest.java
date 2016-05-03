@@ -9,6 +9,7 @@ import org.junit.Test;
 import services.IGameEng;
 import services.IJoueur;
 import services.ILevel;
+import services.Nature;
 
 public abstract class AbstractLemmingsTest {
 		private IGameEng ge;
@@ -82,6 +83,40 @@ public abstract class AbstractLemmingsTest {
 		}
 		
 		@Test
+		public void setNaturePrePosTest(){
+			getLevel().init(10, 10);
+			getGameEngine().init(getLevel(), 8, 4);
+			boolean b=true;
+			try{
+				getLevel().setNature(3, 3, Nature.DIRT);
+			}catch(Error e){
+				b=!b;
+			}
+			assertTrue(b);	
+		}
+		
+		@Test
+		public void setNaturePreNegTest(){
+			getLevel().init(10, 10);
+			getGameEngine().init(getLevel(), 8, 4);
+			boolean b=true;
+			try{
+				getLevel().setNature(12, 13, Nature.DIRT);
+			}catch(Error e){
+				b=!b;
+			}
+			assertFalse(b);	
+		}
+		
+		@Test
+		public void setNatureAutoTest(){
+			getLevel().init(10, 10);
+			getGameEngine().init(getLevel(), 8, 4);
+			getLevel().setNature(5, 5, Nature.DIRT);
+			assertTrue(getLevel().nature(5, 5)==Nature.DIRT);
+		}
+		
+		@Test
 		public void goPlayPrePosTest(){
 			getLevel().init(10, 10);
 			getGameEngine().init(getLevel(), 8, 4);
@@ -106,6 +141,7 @@ public abstract class AbstractLemmingsTest {
 			}
 			assertFalse(b);
 		}
+		
 		
 		@Test
 		public void goPlayAutoTest(){
