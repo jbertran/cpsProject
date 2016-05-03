@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Spécification du service Joueur</title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Spécification du service Joueur</h1>
+</div>
+<p>Service: Joueur</p>
+<p>Types:</p>
+<ul>
+<li>int</li>
+<li>bool</li>
+<li>enum Status = {WALK, FALL, BUILD, CLIMB, FLOAT, BOMB, STOP, BASH, MINER}</li>
+</ul>
+<p>Observators:</p>
+<ul>
+<li>nbTokens: [Joueur] * Status → [Joueur]</li>
+<li>gameEngine: [Joueur] → gameEngine</li>
+</ul>
+<p>Constructors:</p>
+<ul>
+<li>init → Joueur</li>
+</ul>
+<p>Operators:</p>
+<ul>
+<li>spendToken: [Joueur] * int * Status → [Joueur]
+<ul>
+<li>pre spendToken(J, l, s) require nbTokens(J, s) &gt; 0</li>
+</ul></li>
+</ul>
+<p>Observations:</p>
+<ul>
+<li>[Invariants]</li>
+<li>[Init]
+<ul>
+<li>∀ s in Status, nbToken(init()) = 10</li>
+</ul></li>
+<li>[spendToken]
+<ul>
+<li>s = FLOAT ⇒ Lemming::isFloater(gameEngine(spendToken(J, l, s)), l) = true</li>
+<li>s = CLIMB ⇒ Lemming::isClimber(gameEngine(spendToken(J, l, s)), l) = true</li>
+<li>s = BOMB ⇒ Lemming::isBomber(gameEngine(spendToken(J, l, s)), l) = true</li>
+<li>s != (FLOAT v CLIMB v BOMB) ⇒ Lemming::getStatus(gameEngine::getLemm(gameEngine(spendToken(J, l, s)), l)) = true</li>
+</ul></li>
+</ul>
+</body>
+</html>
