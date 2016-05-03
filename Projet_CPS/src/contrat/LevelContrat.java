@@ -75,6 +75,8 @@ public class LevelContrat extends LevelDecorateur{
 			if(super.nature(i, 0)!=Nature.METAL || super.nature(i, super.height()-1)!=Nature.METAL)
 				throw new PreConditionError("goPlay error, Metal border missing");
 		
+		if((ys+1)>=this.height() || ys-1<0 || xs-1<0 || (xs+1)>=this.height())
+			throw new PreConditionError("Entrance or exit outside the map");
 		if(super.nature(xe, ye-1)!=Nature.EMPTY)
 			throw new PreConditionError("Entrance not clear");
 		if(super.nature(xe, ye+1)!=Nature.EMPTY)
@@ -83,8 +85,8 @@ public class LevelContrat extends LevelDecorateur{
 			throw new PreConditionError("Entrance not clear");
 		if(super.nature(xs, ys-1)!=Nature.EMPTY)
 			throw new PreConditionError("Exit not clear");
-		if(super.nature(xs, ys+1)!=Nature.EMPTY)
-			throw new PreConditionError("Exit not clear");
+		if(super.nature(xs, ys+1)!=Nature.METAL)
+			throw new PreConditionError("Exit metal platform not here");
 		if(super.nature(xs, ys)!=Nature.EMPTY)
 			throw new PreConditionError("Exit not clear");
 
