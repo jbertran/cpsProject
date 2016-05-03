@@ -1,5 +1,3 @@
-% Spécification du service GameEngine
-
 Service: gameEng
 
 Types:
@@ -51,13 +49,20 @@ Observations:
 	* score() min= nbSauves(G) / tours(G)
 	* 0 ≤ spawned(G) < sizeColony(G)
 	* 0 ≤ nbSauves(G) < sizeColony(G)
-	* obstacle(G,x,y)) minimisation = Level::nature((level(G),x,y)!=EMPTY;
+	* obstacle(G,x,y)) min= 
+		* Level::nature((level(G),x,y) != EMPTY v
+		* ∀ i 0 ≤ i < sizeColony(G)
+			* Lemming::getStatus(getLemm(G, i)) = STOP ^
+			* Lemming::getX(getLemm(G, i)) = x ^ Lemming::getY(getLemm(G, i)) = y v
+			* Lemming::getX(getLemm(G, i)) = x ^ Lemming::getY(getLemm(G, i)) = y - 1
+					* 
 * [init]
 	* sizeColony(init(G,sc,ss))=sc
 	* spawnSpeed(init(G,sc,ss))=ss
 	* spawned(init(G,sc,ss))=0
 	* tours(init(G,sc,ss))=1
 	* nbSauves(init(G,sc,ss))=0
+	* nbVivants(init(G,sc,ss))=0
 * [addLeming]
 	* sizeColony(addLeming(G,L,numero))=sizeColony(G)
 	* spawnSpeed(addLeming(G,L,numero)=spawnSpeed(G)

@@ -1,5 +1,3 @@
-% Spécification du service Lemming
-
 Service: lemming
 
 Types:
@@ -19,7 +17,7 @@ Observators:
 * getDir: [Lemming] → Direction
 * getStatus: [Lemming] → Status
 * isMiningDown: [Lemming] → int
-    * isBomber: [Lemming] → bool
+* isBomber: [Lemming] → bool
 * isFloater: [Lemming] → bool
 * isClimber: [Lemming] → bool
 * tilesBuilt: [Lemming] → int
@@ -49,8 +47,9 @@ Observations:
 * [init]
 	* getX(init(Le,G)) = gameEngine::entree_X()
 	* getY(init(Le,G)) = gameEngine::entree_Y()
-	* getDir(init(Le,G)) = DROITIER
-	* getStatus(init(Le,G)) = TOMBEUR
+	* getDir(init(Le,G)) = DROIT
+	* getStatus(init(Le,G)) = FALL
+	* isMiningDown(init(Le,G)) = true
 	* isBomber(init(Le,G)) = false
 	* isFloater(init(Le,G)) = false
 	* isClimber(init(Le,G)) = false
@@ -216,10 +215,8 @@ Observations:
 							 * timeWaiting(step(L)) = -1
 							 * getStatus(step(L)) = WALK
 	* getStatus(L) == STOP ⇒
-		* Level::nature(GameEngine::level(gameEngine(step(L))), getX(step(L)), getY(step(L))) = DIRT
-		* Level::nature(GameEngine::level(gameEngine(step(L))), getX(step(L)), getY(step(L)) - 1) = DIRT
-		* GameEngine::nbVivants(gameEngine(step(L))) = GameEngine::nbVivants(gameEngine(L)) - 1
-		* GameEngine::getLemm(gameEngine(step(L)), getNumber(L)) = null
+		* getX(step(L)) = getX(L)
+		* getY(step(L)) = getY(L)
 	* getStatus(L) == MINE ⇒
 		* !isMiningDown(L) ⇒
 			* Level::nature(GameEngine::level(gameEngine(L)), getX(L), getY(L) + 1) != METAL ⇒

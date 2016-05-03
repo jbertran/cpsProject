@@ -4,13 +4,10 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
-  <title>Spécification du service Lemming</title>
+  <title></title>
   <style type="text/css">code{white-space: pre;}</style>
 </head>
 <body>
-<div id="header">
-<h1 class="title">Spécification du service Lemming</h1>
-</div>
 <p>Service: lemming</p>
 <p>Types:</p>
 <ul>
@@ -28,10 +25,8 @@
 <li>getNumber: [Lemming] →int</li>
 <li>getDir: [Lemming] → Direction</li>
 <li>getStatus: [Lemming] → Status</li>
-<li>isMiningDown: [Lemming] → int
-<ul>
+<li>isMiningDown: [Lemming] → int</li>
 <li>isBomber: [Lemming] → bool</li>
-</ul></li>
 <li>isFloater: [Lemming] → bool</li>
 <li>isClimber: [Lemming] → bool</li>
 <li>tilesBuilt: [Lemming] → int</li>
@@ -64,8 +59,9 @@
 <ul>
 <li>getX(init(Le,G)) = gameEngine::entree_X()</li>
 <li>getY(init(Le,G)) = gameEngine::entree_Y()</li>
-<li>getDir(init(Le,G)) = DROITIER</li>
-<li>getStatus(init(Le,G)) = TOMBEUR</li>
+<li>getDir(init(Le,G)) = DROIT</li>
+<li>getStatus(init(Le,G)) = FALL</li>
+<li>isMiningDown(init(Le,G)) = true</li>
 <li>isBomber(init(Le,G)) = false</li>
 <li>isFloater(init(Le,G)) = false</li>
 <li>isClimber(init(Le,G)) = false</li>
@@ -236,10 +232,8 @@
 <li>getStatus(L) == BUILD ⇒<br /> * tilesBuilt(L) ≥ 12 ⇒ * tilesBuiltstep(L) = 0 * timeWaitingstep(L) = -1 * getStatusstep(L) = WALK * ELSE * getDir(L) == DROITE ⇒ * timeWaiting(L) == O ⇒ * timeWaitingstep(L) = -1 * Level::nature(GameEngine::level(gameEngine(step(L))), getX(L) + 1, getY(L)) = DIRT * Level::nature(GameEngine::level(gameEngine(step(L))), getX(L) + 2, getY(L) - 1) = DIRT * Level::nature(GameEngine::level(gameEngine(step(L))), getX(L) + 2, getY(L)) = DIRT * !GameEngine::obstacle(gameEngine(L), getX(L) + 2, getY(L) - 2) ^ * !GameEngine::obstacle(gameEngine(L), getX(L) + 2, getY(L) - 3) ⇒ * getX(step(L)) = getX(L) + 2 * getY(step(L)) = getY(L) - 2 * tilesBuild(step(L)) = tilesBuilt(L) + 3 * timeWaiting &gt; 0 ⇒ timeWaiting(step(L)) = timeWaiting(L) + 1 * ELSE * !GameEngine::obstacle(gameEngine(L), getX(L) + 1, getY(L)) ^ * !GameEngine::obstacle(gameEngine(L), getX(L) + 2, getY(L)) ^ * !GameEngine::obstacle(gameEngine(L), getX(L) + 2, getY(L) - 1) ⇒ * timeWaiting(step(L)) = 3 * ELSE * tilesBuilt(step(L)) = 0 * timeWaiting(step(L)) = -1 * getStatus(step(L)) = WALK * getDir(L) == GAUCHE ⇒ * timeWaiting(L) == O ⇒ * timeWaitingstep(L) = -1 * Level::nature(GameEngine::level(gameEngine(step(L))), getX(L) - 1, getY(L)) = DIRT * Level::nature(GameEngine::level(gameEngine(step(L))), getX(L) - 2, getY(L) - 1) = DIRT * Level::nature(GameEngine::level(gameEngine(step(L))), getX(L) - 2, getY(L)) = DIRT * !GameEngine::obstacle(gameEngine(L), getX(L) - 2, getY(L) - 2) ^ * !GameEngine::obstacle(gameEngine(L), getX(L) - 2, getY(L) - 3) ⇒ * getX(step(L)) = getX(L) - 2 * getY(step(L)) = getY(L) - 2 * tilesBuild(step(L)) = tilesBuilt(L) + 3 * timeWaiting &gt; 0 ⇒ timeWaiting(step(L)) = timeWaiting(L) + 1 * ELSE * !GameEngine::obstacle(gameEngine(L), getX(L) - 1, getY(L)) ^ * !GameEngine::obstacle(gameEngine(L), getX(L) - 2, getY(L)) ^ * !GameEngine::obstacle(gameEngine(L), getX(L) - 2, getY(L) - 1) ⇒ * timeWaiting(step(L)) = 3 * ELSE * tilesBuilt(step(L)) = 0 * timeWaiting(step(L)) = -1 * getStatus(step(L)) = WALK</li>
 <li>getStatus(L) == STOP ⇒
 <ul>
-<li>Level::nature(GameEngine::level(gameEngine(step(L))), getX(step(L)), getY(step(L))) = DIRT</li>
-<li>Level::nature(GameEngine::level(gameEngine(step(L))), getX(step(L)), getY(step(L)) - 1) = DIRT</li>
-<li>GameEngine::nbVivants(gameEngine(step(L))) = GameEngine::nbVivants(gameEngine(L)) - 1</li>
-<li>GameEngine::getLemm(gameEngine(step(L)), getNumber(L)) = null</li>
+<li>getX(step(L)) = getX(L)</li>
+<li>getY(step(L)) = getY(L)</li>
 </ul></li>
 <li>getStatus(L) == MINE ⇒
 <ul>

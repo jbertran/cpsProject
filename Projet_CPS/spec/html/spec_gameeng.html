@@ -4,13 +4,10 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
-  <title>Spécification du service GameEngine</title>
+  <title></title>
   <style type="text/css">code{white-space: pre;}</style>
 </head>
 <body>
-<div id="header">
-<h1 class="title">Spécification du service GameEngine</h1>
-</div>
 <p>Service: gameEng</p>
 <p>Types:</p>
 <ul>
@@ -74,7 +71,16 @@
 <li>score() min= nbSauves(G) / tours(G)</li>
 <li>0 ≤ spawned(G) &lt; sizeColony(G)</li>
 <li>0 ≤ nbSauves(G) &lt; sizeColony(G)</li>
-<li>obstacle(G,x,y)) minimisation = Level::nature((level(G),x,y)!=EMPTY;</li>
+<li>obstacle(G,x,y)) min=
+<ul>
+<li>Level::nature((level(G),x,y) != EMPTY v</li>
+<li>∀ i 0 ≤ i &lt; sizeColony(G)
+<ul>
+<li>Lemming::getStatus(getLemm(G, i)) = STOP ^</li>
+<li>Lemming::getX(getLemm(G, i)) = x ^ Lemming::getY(getLemm(G, i)) = y v</li>
+<li>Lemming::getX(getLemm(G, i)) = x ^ Lemming::getY(getLemm(G, i)) = y - 1 *</li>
+</ul></li>
+</ul></li>
 </ul></li>
 <li>[init]
 <ul>
@@ -83,6 +89,7 @@
 <li>spawned(init(G,sc,ss))=0</li>
 <li>tours(init(G,sc,ss))=1</li>
 <li>nbSauves(init(G,sc,ss))=0</li>
+<li>nbVivants(init(G,sc,ss))=0</li>
 </ul></li>
 <li>[addLeming]
 <ul>
