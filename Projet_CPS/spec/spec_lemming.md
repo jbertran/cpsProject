@@ -165,55 +165,54 @@ Observations:
 					  *	getX(step(L)) == getX(L) getY() == getY(L) + 1
                   * timeFalling(step(L)) = timeFalling(L) + 1
 	* getStatus(L) == BUILD ⇒	
-			 * tilesBuilt(L) ≥ 12 ⇒
-					 * tilesBuiltstep(L) = 0
-					 * timeWaitingstep(L) = -1
-					 * getStatusstep(L) = WALK
-			 * ELSE
-				 * getDir(L) == DROITE ⇒
-					 * timeWaiting(L) == O ⇒
-						 * timeWaitingstep(L) = -1
-						 * Level::nature(GameEngine::level(gameEngine(step(L))), getX(L) + 1, getY(L)) = DIRT
-						 * Level::nature(GameEngine::level(gameEngine(step(L))), getX(L) + 2, getY(L) - 1) = DIRT
-						 * Level::nature(GameEngine::level(gameEngine(step(L))), getX(L) + 2, getY(L)) = DIRT
-						 * !GameEngine::obstacle(gameEngine(L), getX(L) + 2, getY(L) - 2) ^
-						 * !GameEngine::obstacle(gameEngine(L), getX(L) + 2, getY(L) - 3) ⇒
-							 * getX(step(L)) = getX(L) + 2
-							 * getY(step(L)) = getY(L) - 2
-						 * tilesBuild(step(L)) = tilesBuilt(L) + 3
-					 * timeWaiting > 0 ⇒
-						 timeWaiting(step(L)) = timeWaiting(L) + 1
-					 * ELSE
-						 * !GameEngine::obstacle(gameEngine(L), getX(L) + 1, getY(L)) ^
-						 * !GameEngine::obstacle(gameEngine(L), getX(L) + 2, getY(L)) ^
-						 * !GameEngine::obstacle(gameEngine(L), getX(L) + 2, getY(L) - 1) ⇒ 
-							 * timeWaiting(step(L)) = 3
-						 * ELSE
-							 * tilesBuilt(step(L)) = 0
-							 * timeWaiting(step(L)) = -1
-							 * getStatus(step(L)) = WALK
-				 * getDir(L) == GAUCHE ⇒
-					 * timeWaiting(L) == O ⇒
-						 * timeWaitingstep(L) = -1
-						 * Level::nature(GameEngine::level(gameEngine(step(L))), getX(L) - 1, getY(L)) = DIRT
-						 * Level::nature(GameEngine::level(gameEngine(step(L))), getX(L) - 2, getY(L) - 1) = DIRT
-						 * Level::nature(GameEngine::level(gameEngine(step(L))), getX(L) - 2, getY(L)) = DIRT
-						 * !GameEngine::obstacle(gameEngine(L), getX(L) - 2, getY(L) - 2) ^
-						 * !GameEngine::obstacle(gameEngine(L), getX(L) - 2, getY(L) - 3) ⇒
-							 * getX(step(L)) = getX(L) - 2
-							 * getY(step(L)) = getY(L) - 2
-						 * tilesBuild(step(L)) = tilesBuilt(L) + 3
-					 * timeWaiting > 0 ⇒
-						 timeWaiting(step(L)) = timeWaiting(L) + 1
-					 * ELSE
-						 * !GameEngine::obstacle(gameEngine(L), getX(L) - 1, getY(L)) ^
-						 * !GameEngine::obstacle(gameEngine(L), getX(L) - 2, getY(L)) ^
-						 * !GameEngine::obstacle(gameEngine(L), getX(L) - 2, getY(L) - 1) ⇒ 
-							 * timeWaiting(step(L)) = 3
-						 * ELSE
-							 * tilesBuilt(step(L)) = 0
-							 * timeWaiting(step(L)) = -1
-							 * getStatus(step(L)) = WALK
+			* tilesBuilt(L) ≥ 12 ⇒
+				* tilesBuiltstep(L) = 0
+				* timeWaitingstep(L) = -1
+				* getStatusstep(L) = WALK
+			* ELSE getDir(L) == DROITE ⇒
+				* timeWaiting(L) == O ⇒
+					* timeWaitingstep(L) = -1
+					* Level::nature(GameEngine::level(gameEngine(step(L))), getX(L) + 1, getY(L)) = DIRT
+					* Level::nature(GameEngine::level(gameEngine(step(L))), getX(L) + 2, getY(L) - 1) = DIRT
+					* Level::nature(GameEngine::level(gameEngine(step(L))), getX(L) + 2, getY(L)) = DIRT
+					* !GameEngine::obstacle(gameEngine(L), getX(L) + 2, getY(L) - 2) ^
+					* !GameEngine::obstacle(gameEngine(L), getX(L) + 2, getY(L) - 3) ⇒
+						* getX(step(L)) = getX(L) + 2
+						* getY(step(L)) = getY(L) - 2
+						* tilesBuild(step(L)) = tilesBuilt(L) + 3
+					* timeWaiting > 0 ⇒
+						* timeWaiting(step(L)) = timeWaiting(L) + 1
+					* ELSE
+						* !GameEngine::obstacle(gameEngine(L), getX(L) + 1, getY(L)) ^
+					    * !GameEngine::obstacle(gameEngine(L), getX(L) + 2, getY(L)) ^
+						* !GameEngine::obstacle(gameEngine(L), getX(L) + 2, getY(L) - 1) ⇒ 
+							* timeWaiting(step(L)) = 3
+						* ELSE
+							* tilesBuilt(step(L)) = 0
+							* timeWaiting(step(L)) = -1
+							* getStatus(step(L)) = WALK
+			* ELSE getDir(L) == GAUCHE ⇒
+				* timeWaiting(L) == O ⇒
+					* timeWaitingstep(L) = -1
+						* Level::nature(GameEngine::level(gameEngine(step(L))), getX(L) - 1, getY(L)) = DIRT
+						* Level::nature(GameEngine::level(gameEngine(step(L))), getX(L) - 2, getY(L) - 1) = DIRT
+						* Level::nature(GameEngine::level(gameEngine(step(L))), getX(L) - 2, getY(L)) = DIRT
+					* !GameEngine::obstacle(gameEngine(L), getX(L) - 2, getY(L) - 2) ^
+					* !GameEngine::obstacle(gameEngine(L), getX(L) - 2, getY(L) - 3) ⇒
+						* getX(step(L)) = getX(L) - 2
+						* getY(step(L)) = getY(L) - 2
+						* tilesBuild(step(L)) = tilesBuilt(L) + 3
+					* timeWaiting > 0 ⇒
+						* timeWaiting(step(L)) = timeWaiting(L) + 1
+					* ELSE
+						* !GameEngine::obstacle(gameEngine(L), getX(L) - 1, getY(L)) ^
+						* !GameEngine::obstacle(gameEngine(L), getX(L) - 2, getY(L)) ^
+						* !GameEngine::obstacle(gameEngine(L), getX(L) - 2, getY(L) - 1) ⇒ 
+							* timeWaiting(step(L)) = 3
+						* ELSE
+							* tilesBuilt(step(L)) = 0
+							* timeWaiting(step(L)) = -1
+							* getStatus(step(L)) = WALK
 	* getStatus(L) == STOP ⇒
 		* getX(step(L)) = getX(L)
 		* getY(step(L)) = getY(L)

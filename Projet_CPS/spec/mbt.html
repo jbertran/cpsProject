@@ -1,0 +1,246 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<h1 id="cps---projet-lemmings">CPS - Projet Lemmings</h1>
+<h2 id="model-based-testing">Model-based testing</h2>
+<ol style="list-style-type: decimal">
+<li><strong>init -- Level, GameEngine, Service</strong>
+<ol style="list-style-type: decimal">
+<li>Test <em>positif</em>
+<ul>
+<li><em>Conditions initiales</em>: aucune</li>
+<li><em>Opération</em>:
+<ul>
+<li>L = Level::init(15, 10)</li>
+<li>G = GameEngine::init(L, 8, 4)</li>
+<li>J = Joueur::init(G)</li>
+</ul></li>
+<li><em>Oracle</em>: <strong>pas</strong> d'exception levée</li>
+</ul></li>
+<li>Test <em>négatif</em>
+<ul>
+<li><em>Conditions initiales</em>: aucune</li>
+<li><em>Opération</em>:
+<ul>
+<li>L = Level::init(15, 10)</li>
+<li>G = GameEngine::init(L, -1, 4)</li>
+<li>J = Joueur::init(G)</li>
+</ul></li>
+<li><em>Oracle</em>: Exception levée</li>
+</ul></li>
+<li>Test en termes <em>d'automates</em>
+<ul>
+<li><em>Conditions initiales</em>: aucune</li>
+<li><em>Opération</em>:
+<ul>
+<li>L = Level::init(15, 10)</li>
+<li>G = GameEngine::init(L, 8, 4)</li>
+<li>J = Joueur::init(G)</li>
+<li>GameEngine::step(GameEngine::step(GameEngine::step(GameEngine::step(G))))</li>
+</ul></li>
+<li><em>Oracle</em>:
+<ul>
+<li>height(L)==15</li>
+<li>width(L)==10</li>
+<li>spawnSpeed(G)==4</li>
+<li>sizeColony(G)==8</li>
+</ul></li>
+</ul></li>
+</ol></li>
+<li><strong>setNature -- Level</strong>
+<ol style="list-style-type: decimal">
+<li>Test <em>positif</em>
+<ul>
+<li><em>Conditions initiales</em>:
+<ul>
+<li>L = Level::init(15, 10)</li>
+<li>G = GameEngine::init(L, 8, 4)</li>
+<li>J = Joueur::init(G)</li>
+</ul></li>
+<li><em>Opération</em>:
+<ul>
+<li>L = Level::setNature(L, 8, 8, Nature.DIRT);</li>
+</ul></li>
+<li><em>Oracle</em>: <strong>pas</strong> d'exception levée</li>
+</ul></li>
+<li>Test <em>négatif</em>
+<ul>
+<li><em>Conditions initiales</em>:
+<ul>
+<li>L = Level::init(15, 10)</li>
+<li>G = GameEngine::init(L, 8, 4)</li>
+<li>J = Joueur::init(G)</li>
+</ul></li>
+<li><em>Opération</em>:
+<ul>
+<li>L01 = Level::setNature(L, 12, 13, Nature.DIRT);</li>
+</ul></li>
+<li><em>Oracle</em>: Exception levée</li>
+</ul></li>
+<li>Test en termes <em>d'automates</em>
+<ul>
+<li><em>Conditions initiales</em>:
+<ul>
+<li>L = Level::init(15, 10)</li>
+<li>G = GameEngine::init(L, 8, 4)</li>
+<li>J = Joueur::init(G)</li>
+</ul></li>
+<li><em>Opération</em>:
+<ul>
+<li>L01 = Level::setNature(L, 5, 5, Nature.DIRT);</li>
+</ul></li>
+<li><em>Oracle</em>: nature(5, 5)==Nature.DIRT</li>
+</ul></li>
+</ol></li>
+<li><strong>goPlay -- Level</strong>
+<ol style="list-style-type: decimal">
+<li>Test <em>positif</em>
+<ul>
+<li><em>Conditions initiales</em>:
+<ul>
+<li>L = Level::init(15, 10)</li>
+<li>G = GameEngine::init(L, 8, 4)</li>
+<li>J = Joueur::init(G)</li>
+</ul></li>
+<li><em>Opération</em>:
+<ul>
+<li>L01 = getLevel().goPlay(2,2,4,8);</li>
+</ul></li>
+<li><em>Oracle</em>: <strong>pas</strong> d'exception levée</li>
+</ul></li>
+<li>Test <em>négatif</em>
+<ul>
+<li><em>Conditions initiales</em>:
+<ul>
+<li>L = Level::init(15, 10)</li>
+<li>G = GameEngine::init(L, 8, 4)</li>
+<li>J = Joueur::init(G)</li>
+</ul></li>
+<li><em>Opération</em>:
+<ul>
+<li>L01 = getLevel().goPlay(2,2,4,9)</li>
+</ul></li>
+<li><em>Oracle</em>: Exception levée</li>
+</ul></li>
+<li>Test en termes <em>d'automates</em>
+<ul>
+<li><em>Conditions initiales</em>:
+<ul>
+<li>L = Level::init(15, 10)</li>
+<li>G = GameEngine::init(L, 8, 4)</li>
+<li>J = Joueur::init(G)</li>
+</ul></li>
+<li><em>Opération</em>:
+<ul>
+<li>L01 = getLevel().goPlay(2, 2, 4, 8);</li>
+</ul></li>
+<li><em>Oracle</em>:
+<ul>
+<li>editing(L01)==false</li>
+<li>entree_x(L01)==2</li>
+<li>entree_y(L01)==2</li>
+<li>sortie_x(L01)==4</li>
+<li>sortie_y(L01)==8</li>
+</ul></li>
+</ul></li>
+</ol></li>
+<li><strong>Step -- GameEngine</strong>
+<ol style="list-style-type: decimal">
+<li>Test <em>positif</em>:
+<ul>
+<li><em>Conditions initiales</em>:
+<ul>
+<li>L = Level::init(15, 10)</li>
+<li>G = GameEngine::init(L, 8, 4)</li>
+<li>J = Joueur::init(G)</li>
+</ul></li>
+<li><em>Opérations</em>:
+<ul>
+<li>step(G)</li>
+</ul></li>
+<li><em>Oracle</em>: <strong>pas</strong> d'exception levée</li>
+</ul></li>
+<li>Test <em>multiple</em>:
+<ul>
+<li><em>Conditions initiales</em>:
+<ul>
+<li>L = Level::init(15, 10)</li>
+<li>G = GameEngine::init(L, 8, 4)</li>
+<li>J = Joueur::init(G)</li>
+</ul></li>
+<li><em>Opérations</em>:
+<ul>
+<li>G01 = step(step(step(step(step(step(step(step(G))))))))</li>
+</ul></li>
+<li><em>Oracle</em>: <strong>pas</strong> d'exception levée</li>
+</ul></li>
+</ol></li>
+<li><strong>SpendToken -- Joueur</strong>
+<ol style="list-style-type: decimal">
+<li>Test <em>positif</em>:
+<ul>
+<li><em>Conditions initiales</em>:
+<ul>
+<li>L = Level::init(15, 10)</li>
+<li>G = GameEngine::init(L, 8, 4)</li>
+<li>J = Joueur::init(G)</li>
+<li>L01 for i = 0 to 20 setNature(i, 4, METAL)</li>
+<li>Level::goPlay(L01, 2, 2, 18, 3)</li>
+<li>G01 = GameEngine::step(GameEngine::step(GameEngine::step(G)))</li>
+</ul></li>
+<li><em>Opérations</em>:
+<ul>
+<li>spendToken(J, 0, STOP)</li>
+</ul></li>
+<li><em>Oracle</em>: pas d'exception levée</li>
+</ul></li>
+<li>Test <em>négatif</em>:
+<ul>
+<li><em>Conditions initiales</em>:
+<ul>
+<li>L = Level::init(15, 10)</li>
+<li>G = GameEngine::init(L, 8, 4)</li>
+<li>J = Joueur::init(G)</li>
+<li>L01 for i = 0 to 20 setNature(i, 4, METAL)</li>
+<li>Level::goPlay(L01, 2, 2, 18, 3)</li>
+<li>G01 = GameEngine::step(GameEngine::step(GameEngine::step(G)))</li>
+</ul></li>
+<li><em>Opérations</em>:
+<ul>
+<li>spendToken(J, 5, STOP)</li>
+</ul></li>
+<li><em>Oracle</em>: exception levée</li>
+</ul></li>
+<li>Test en terms <em>d'automates</em>:
+<ul>
+<li><em>Conditions initiales</em>:
+<ul>
+<li>L = Level::init(15, 10)</li>
+<li>G = GameEngine::init(L, 8, 4)</li>
+<li>J = Joueur::init(G)</li>
+<li>L01 for i = 0 to 20 setNature(i, 4, METAL)</li>
+<li>Level::goPlay(L01, 2, 2, 18, 3)</li>
+<li>G01 = GameEngine::step(GameEngine::step(GameEngine::step(G)))</li>
+</ul></li>
+<li><em>Opérations</em>:
+<ul>
+<li>J01 = spendToken(J, 5, STOP)</li>
+<li>G02 = GameEngine::step(gameEngine(J01))</li>
+</ul></li>
+<li><em>Oracle</em>:
+<ul>
+<li>Lemming::getX(GameEngine::getLemm(G02, 0)) = Lemming::getX(GameEngine::getLemm(G01, 0))</li>
+<li>Lemming::getY(GameEngine::getLemm(G02, 0)) = Lemming::getY(GameEngine::getLemm(G01, 0))</li>
+</ul></li>
+</ul></li>
+</ol></li>
+</ol>
+</body>
+</html>

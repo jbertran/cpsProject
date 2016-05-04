@@ -1,0 +1,24 @@
+############################################
+Spécification dans spec/html/*
+Description des tests MBT dans spec/mbt.html
+
+###########################################
+Build :
+	-> run : Lance l'interface pour tester
+	-> test1 : Lance les tests pour une implem fonctionnelle
+	-> test2 : Lance les tests pour une implem non correcte (init du Terrain fausse)
+	-> test3 : Lance les tests pour une implem non correcte (init du GameEngine fausse)
+	-> test4 : Lance les tests pour une implem non correcte (init du Lemming fausse)
+Des rapports sont générés à la racine du projet.
+
+###########################################
+Interface -> testInterfaceSettings
+	-> Rentrer les paramètres
+	-> Init Terrain pour initialiser la taille du terrain
+		-> Clic Gauche -> Mettre de la dirt
+		-> Clic Droit -> Mettre du métal
+		-> Clic Milieu -> Effacer case
+	-> Lancer Jeu pour lancer le jeu
+	-> Spend Token (Status + Numero du Lemming) pour changer le statut du lemming
+	...
+	->Reset utilisable seulement après avoir eu un score (gameOver)
