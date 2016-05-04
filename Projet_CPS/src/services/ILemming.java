@@ -172,6 +172,8 @@ public interface ILemming {
      *   	getX()@pre==getX() && getY()@pre==getY()
      *   
      *   else if (getStatus()@pre == Miner)
+     *      if(gameEngine().level().nature(getX()@pre, getY()@pre+1)@pre==Nature.EMPTY)
+     *      	getStatus()==FALL
      *   	if(!isMiningDown())
      *   			if(gameEngine().level().nature(getX()@pre, getY()@pre+1)@pre!=Nature.METAL)then
      *   				gameEngine().level().nature(getX()@pre, getY()@pre+1)==Nature.EMPTY && getY()==getY()@pre+1

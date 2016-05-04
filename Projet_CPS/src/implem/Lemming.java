@@ -313,6 +313,10 @@ public class Lemming implements ILemming{
 				}
 				break;
 			case MINER:
+				if(this.gameEngine().level().nature(this.x, y+1)==Nature.EMPTY){
+					stat=Status.FALL;
+					break;
+				}
 				if(minedown){
 					if(this.gameEngine().level().nature(this.x, y+1)==Nature.METAL ){
 						stat= Status.WALK;
@@ -321,6 +325,10 @@ public class Lemming implements ILemming{
 						this.gameEngine().level().remove(this.x, this.y+1);
 						y+=1;
 						minedown=!minedown;
+					}
+					if(this.gameEngine().level().nature(this.x, y+1)==Nature.EMPTY){
+						stat=Status.FALL;
+						break;
 					}
 					if( this.gameEngine().level().nature(this.x, y+1)==Nature.METAL){
 						stat= Status.WALK;
