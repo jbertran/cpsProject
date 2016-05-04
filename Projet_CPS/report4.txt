@@ -1,0 +1,69 @@
+Testsuite: test.Lemmings4Test
+Tests run: 14, Failures: 0, Errors: 4, Skipped: 0, Time elapsed: 0,032 sec
+
+Testcase: initPreNegTest took 0,011 sec
+Testcase: initAutoTest took 0,002 sec
+Testcase: setNaturePrePosTest took 0 sec
+Testcase: setNaturePreNegTest took 0 sec
+Testcase: initPrePosTest took 0 sec
+Testcase: setNatureAutoTest took 0,001 sec
+Testcase: goPlayPrePosTest took 0 sec
+Testcase: goPlayPreNegTest took 0 sec
+Testcase: goPlayAutoTest took 0 sec
+Testcase: stepPrePosTest took 0 sec
+Testcase: stepMultiPrePosTest took 0,004 sec
+	Caused an ERROR
+null
+java.lang.NullPointerException
+	at contrat.LemmingContrat.checkInvariants(LemmingContrat.java:21)
+	at contrat.LemmingContrat.init(LemmingContrat.java:114)
+	at implem_bad.GameEngineLemmingBroken.step(GameEngineLemmingBroken.java:30)
+	at decorateur.GameEngineDecorateur.step(GameEngineDecorateur.java:94)
+	at contrat.GameEngineContrat.step(GameEngineContrat.java:165)
+	at test.AbstractLemmingsTest.stepMultiPrePosTest(AbstractLemmingsTest.java:194)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:452)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:139)
+
+Testcase: spendTokenPrePosTest took 0,001 sec
+	Caused an ERROR
+null
+java.lang.NullPointerException
+	at contrat.LemmingContrat.checkInvariants(LemmingContrat.java:21)
+	at contrat.LemmingContrat.init(LemmingContrat.java:114)
+	at implem_bad.GameEngineLemmingBroken.step(GameEngineLemmingBroken.java:30)
+	at decorateur.GameEngineDecorateur.step(GameEngineDecorateur.java:94)
+	at contrat.GameEngineContrat.step(GameEngineContrat.java:165)
+	at test.AbstractLemmingsTest.spendTokenPrePosTest(AbstractLemmingsTest.java:209)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:452)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:139)
+
+Testcase: spendTokenPreNegTest took 0,002 sec
+	Caused an ERROR
+null
+java.lang.NullPointerException
+	at contrat.LemmingContrat.checkInvariants(LemmingContrat.java:21)
+	at contrat.LemmingContrat.init(LemmingContrat.java:114)
+	at implem_bad.GameEngineLemmingBroken.step(GameEngineLemmingBroken.java:30)
+	at decorateur.GameEngineDecorateur.step(GameEngineDecorateur.java:94)
+	at contrat.GameEngineContrat.step(GameEngineContrat.java:165)
+	at test.AbstractLemmingsTest.spendTokenPreNegTest(AbstractLemmingsTest.java:229)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:452)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:139)
+
+Testcase: spendTokenAutoTest took 0,001 sec
+	Caused an ERROR
+null
+java.lang.NullPointerException
+	at contrat.LemmingContrat.checkInvariants(LemmingContrat.java:21)
+	at contrat.LemmingContrat.init(LemmingContrat.java:114)
+	at implem_bad.GameEngineLemmingBroken.step(GameEngineLemmingBroken.java:30)
+	at decorateur.GameEngineDecorateur.step(GameEngineDecorateur.java:94)
+	at contrat.GameEngineContrat.step(GameEngineContrat.java:165)
+	at test.AbstractLemmingsTest.spendTokenAutoTest(AbstractLemmingsTest.java:251)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:452)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:139)
+

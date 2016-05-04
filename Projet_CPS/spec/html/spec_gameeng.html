@@ -103,6 +103,10 @@
 	      <li class="require">pre loadLevel(L, sc, ss) require sc &gt; 0 ^ ss &gt; 0</li>
 	  </ul></li>
 	  <li>step: [gameEng] → [gameEng]</li>
+	  <li>setSpawnSpeed: [gameEng] * int → [gameEng]
+	    <ul>
+	      <li class="require">pre setSpawnSpeed(i) require i &gt; 0</li>
+	    </ul>
 	  <li>annihilate: [gameEng] → [gameEng]</li>
 	</ul>
       </div>
@@ -169,13 +173,21 @@
 	      <li>tours(loadLevel(G,L,sc,ss))=0</li>
 	      <li>nbSauves(loadLevel(G,L,sc,ss))=0</li>
 	  </ul></li>
+	  <li>[setSpawnSpeed]
+	    <ul>
+	      <li>spawnSpeed(setSpawnSpeed(G, i)) = i</li>
+	      <li>sizeColony(setSpawnSpeed(G, i)) = sizeColony(G)</li>
+	      <li>spawned(setSpawnSpeed(G, i))=spawned(G)</li>
+	      <li>tours(setSpawnSpeed(G, i))=tours(G)</li>
+	      <li>nbSauves(setSpawnSpeed(G, i))=nbSauves(G)</li>
+	    </ul>
 	  <li>[annihilate]
 	    <ul>
 	      <li>∀ i 0 ≤ i &lt; sizeColony(G):
 		<ul>
 		  <li>isBomber(getLemming(annihilate(G)), i) = true</li>
 	      </ul></li>
-	      <li>spawned(G) = sizeCOlony(G)</li>
+	      <li>spawned(G) = sizeColony(G)</li>
 	  </ul></li>
 	</ul>
       </div>

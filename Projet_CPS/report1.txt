@@ -1,0 +1,21 @@
+Testsuite: test.Lemmings1Test
+Tests run: 14, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0,04 sec
+------------- Standard Output ---------------
+lemno 0 st STOP
+lemno 0 st STOP
+------------- ---------------- ---------------
+
+Testcase: initPreNegTest took 0,015 sec
+Testcase: initAutoTest took 0,002 sec
+Testcase: setNaturePrePosTest took 0,001 sec
+Testcase: setNaturePreNegTest took 0 sec
+Testcase: initPrePosTest took 0 sec
+Testcase: setNatureAutoTest took 0 sec
+Testcase: goPlayPrePosTest took 0 sec
+Testcase: goPlayPreNegTest took 0 sec
+Testcase: goPlayAutoTest took 0 sec
+Testcase: stepPrePosTest took 0 sec
+Testcase: stepMultiPrePosTest took 0,002 sec
+Testcase: spendTokenPrePosTest took 0,004 sec
+Testcase: spendTokenPreNegTest took 0,001 sec
+Testcase: spendTokenAutoTest took 0,001 sec

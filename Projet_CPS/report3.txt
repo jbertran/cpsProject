@@ -1,0 +1,133 @@
+Testsuite: test.Lemmings3Test
+Tests run: 14, Failures: 1, Errors: 12, Skipped: 0, Time elapsed: 0,03 sec
+
+Testcase: initPreNegTest took 0,013 sec
+Testcase: initAutoTest took 0,003 sec
+	Caused an ERROR
+init GameEng, tour not starting at 1
+error.PostConditionError: init GameEng, tour not starting at 1
+	at contrat.GameEngineContrat.init(GameEngineContrat.java:59)
+	at test.AbstractLemmingsTest.initAutoTest(AbstractLemmingsTest.java:82)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:452)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:139)
+
+Testcase: setNaturePrePosTest took 0 sec
+	Caused an ERROR
+init GameEng, tour not starting at 1
+error.PostConditionError: init GameEng, tour not starting at 1
+	at contrat.GameEngineContrat.init(GameEngineContrat.java:59)
+	at test.AbstractLemmingsTest.setNaturePrePosTest(AbstractLemmingsTest.java:93)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:452)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:139)
+
+Testcase: setNaturePreNegTest took 0 sec
+	Caused an ERROR
+init GameEng, tour not starting at 1
+error.PostConditionError: init GameEng, tour not starting at 1
+	at contrat.GameEngineContrat.init(GameEngineContrat.java:59)
+	at test.AbstractLemmingsTest.setNaturePreNegTest(AbstractLemmingsTest.java:107)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:452)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:139)
+
+Testcase: initPrePosTest took 0 sec
+	FAILED
+null
+junit.framework.AssertionFailedError
+	at test.AbstractLemmingsTest.initPrePosTest(AbstractLemmingsTest.java:62)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:452)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:139)
+
+Testcase: setNatureAutoTest took 0 sec
+	Caused an ERROR
+init GameEng, tour not starting at 1
+error.PostConditionError: init GameEng, tour not starting at 1
+	at contrat.GameEngineContrat.init(GameEngineContrat.java:59)
+	at test.AbstractLemmingsTest.setNatureAutoTest(AbstractLemmingsTest.java:121)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:452)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:139)
+
+Testcase: goPlayPrePosTest took 0 sec
+	Caused an ERROR
+init GameEng, tour not starting at 1
+error.PostConditionError: init GameEng, tour not starting at 1
+	at contrat.GameEngineContrat.init(GameEngineContrat.java:59)
+	at test.AbstractLemmingsTest.goPlayPrePosTest(AbstractLemmingsTest.java:130)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:452)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:139)
+
+Testcase: goPlayPreNegTest took 0 sec
+	Caused an ERROR
+init GameEng, tour not starting at 1
+error.PostConditionError: init GameEng, tour not starting at 1
+	at contrat.GameEngineContrat.init(GameEngineContrat.java:59)
+	at test.AbstractLemmingsTest.goPlayPreNegTest(AbstractLemmingsTest.java:144)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:452)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:139)
+
+Testcase: goPlayAutoTest took 0 sec
+	Caused an ERROR
+init GameEng, tour not starting at 1
+error.PostConditionError: init GameEng, tour not starting at 1
+	at contrat.GameEngineContrat.init(GameEngineContrat.java:59)
+	at test.AbstractLemmingsTest.goPlayAutoTest(AbstractLemmingsTest.java:159)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:452)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:139)
+
+Testcase: stepPrePosTest took 0 sec
+	Caused an ERROR
+init GameEng, tour not starting at 1
+error.PostConditionError: init GameEng, tour not starting at 1
+	at contrat.GameEngineContrat.init(GameEngineContrat.java:59)
+	at test.AbstractLemmingsTest.stepPrePosTest(AbstractLemmingsTest.java:173)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:452)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:139)
+
+Testcase: stepMultiPrePosTest took 0 sec
+	Caused an ERROR
+init GameEng, tour not starting at 1
+error.PostConditionError: init GameEng, tour not starting at 1
+	at contrat.GameEngineContrat.init(GameEngineContrat.java:59)
+	at test.AbstractLemmingsTest.stepMultiPrePosTest(AbstractLemmingsTest.java:188)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:452)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:139)
+
+Testcase: spendTokenPrePosTest took 0 sec
+	Caused an ERROR
+init GameEng, tour not starting at 1
+error.PostConditionError: init GameEng, tour not starting at 1
+	at contrat.GameEngineContrat.init(GameEngineContrat.java:59)
+	at test.AbstractLemmingsTest.spendTokenPrePosTest(AbstractLemmingsTest.java:205)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:452)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:139)
+
+Testcase: spendTokenPreNegTest took 0,001 sec
+	Caused an ERROR
+init GameEng, tour not starting at 1
+error.PostConditionError: init GameEng, tour not starting at 1
+	at contrat.GameEngineContrat.init(GameEngineContrat.java:59)
+	at test.AbstractLemmingsTest.spendTokenPreNegTest(AbstractLemmingsTest.java:225)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:452)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:139)
+
+Testcase: spendTokenAutoTest took 0 sec
+	Caused an ERROR
+init GameEng, tour not starting at 1
+error.PostConditionError: init GameEng, tour not starting at 1
+	at contrat.GameEngineContrat.init(GameEngineContrat.java:59)
+	at test.AbstractLemmingsTest.spendTokenAutoTest(AbstractLemmingsTest.java:247)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:452)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:139)
+

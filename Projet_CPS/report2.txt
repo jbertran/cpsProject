@@ -1,0 +1,133 @@
+Testsuite: test.Lemmings2Test
+Tests run: 14, Failures: 1, Errors: 12, Skipped: 0, Time elapsed: 0,046 sec
+
+Testcase: initPreNegTest took 0,014 sec
+Testcase: initAutoTest took 0,002 sec
+	Caused an ERROR
+init error, h and w has changed
+error.PreConditionError: init error, h and w has changed
+	at contrat.LevelContrat.init(LevelContrat.java:28)
+	at test.AbstractLemmingsTest.initAutoTest(AbstractLemmingsTest.java:81)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:452)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:139)
+
+Testcase: setNaturePrePosTest took 0,001 sec
+	Caused an ERROR
+init error, h and w has changed
+error.PreConditionError: init error, h and w has changed
+	at contrat.LevelContrat.init(LevelContrat.java:28)
+	at test.AbstractLemmingsTest.setNaturePrePosTest(AbstractLemmingsTest.java:92)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:452)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:139)
+
+Testcase: setNaturePreNegTest took 0 sec
+	Caused an ERROR
+init error, h and w has changed
+error.PreConditionError: init error, h and w has changed
+	at contrat.LevelContrat.init(LevelContrat.java:28)
+	at test.AbstractLemmingsTest.setNaturePreNegTest(AbstractLemmingsTest.java:106)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:452)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:139)
+
+Testcase: initPrePosTest took 0,001 sec
+	FAILED
+null
+junit.framework.AssertionFailedError
+	at test.AbstractLemmingsTest.initPrePosTest(AbstractLemmingsTest.java:62)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:452)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:139)
+
+Testcase: setNatureAutoTest took 0 sec
+	Caused an ERROR
+init error, h and w has changed
+error.PreConditionError: init error, h and w has changed
+	at contrat.LevelContrat.init(LevelContrat.java:28)
+	at test.AbstractLemmingsTest.setNatureAutoTest(AbstractLemmingsTest.java:120)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:452)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:139)
+
+Testcase: goPlayPrePosTest took 0 sec
+	Caused an ERROR
+init error, h and w has changed
+error.PreConditionError: init error, h and w has changed
+	at contrat.LevelContrat.init(LevelContrat.java:28)
+	at test.AbstractLemmingsTest.goPlayPrePosTest(AbstractLemmingsTest.java:129)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:452)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:139)
+
+Testcase: goPlayPreNegTest took 0 sec
+	Caused an ERROR
+init error, h and w has changed
+error.PreConditionError: init error, h and w has changed
+	at contrat.LevelContrat.init(LevelContrat.java:28)
+	at test.AbstractLemmingsTest.goPlayPreNegTest(AbstractLemmingsTest.java:143)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:452)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:139)
+
+Testcase: goPlayAutoTest took 0 sec
+	Caused an ERROR
+init error, h and w has changed
+error.PreConditionError: init error, h and w has changed
+	at contrat.LevelContrat.init(LevelContrat.java:28)
+	at test.AbstractLemmingsTest.goPlayAutoTest(AbstractLemmingsTest.java:158)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:452)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:139)
+
+Testcase: stepPrePosTest took 0 sec
+	Caused an ERROR
+init error, h and w has changed
+error.PreConditionError: init error, h and w has changed
+	at contrat.LevelContrat.init(LevelContrat.java:28)
+	at test.AbstractLemmingsTest.stepPrePosTest(AbstractLemmingsTest.java:172)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:452)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:139)
+
+Testcase: stepMultiPrePosTest took 0,001 sec
+	Caused an ERROR
+init error, h and w has changed
+error.PreConditionError: init error, h and w has changed
+	at contrat.LevelContrat.init(LevelContrat.java:28)
+	at test.AbstractLemmingsTest.stepMultiPrePosTest(AbstractLemmingsTest.java:187)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:452)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:139)
+
+Testcase: spendTokenPrePosTest took 0 sec
+	Caused an ERROR
+init error, h and w has changed
+error.PreConditionError: init error, h and w has changed
+	at contrat.LevelContrat.init(LevelContrat.java:28)
+	at test.AbstractLemmingsTest.spendTokenPrePosTest(AbstractLemmingsTest.java:204)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:452)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:139)
+
+Testcase: spendTokenPreNegTest took 0 sec
+	Caused an ERROR
+init error, h and w has changed
+error.PreConditionError: init error, h and w has changed
+	at contrat.LevelContrat.init(LevelContrat.java:28)
+	at test.AbstractLemmingsTest.spendTokenPreNegTest(AbstractLemmingsTest.java:224)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:452)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:139)
+
+Testcase: spendTokenAutoTest took 0 sec
+	Caused an ERROR
+init error, h and w has changed
+error.PreConditionError: init error, h and w has changed
+	at contrat.LevelContrat.init(LevelContrat.java:28)
+	at test.AbstractLemmingsTest.spendTokenAutoTest(AbstractLemmingsTest.java:246)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:452)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:139)
+

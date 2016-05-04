@@ -366,16 +366,28 @@
 	      </ul></li>
 	      <li>getStatus(L) == MINE ⇒
 		<ul>
+		  <li>!GameEngine::obstacle(gameEngine(L), getX(L), getY(L) + 1) ⇒
+		    <ul>
+		      <li>getStatus(step(L)) = FALL</li>
+		    </ul>
+		  </li>
 		  <li>!isMiningDown(L) ⇒
 		    <ul>
 		      <li>Level::nature(GameEngine::level(gameEngine(L)), getX(L), getY(L) + 1) != METAL ⇒
 			<ul>
 			  <li>Level::nature(GameEngine::level(gameEngine(step(L))), getX(L), getY(L) + 1) = EMPTY</li>
 		      </ul></li>
-		      <li>Level::nature(GameEngine::level(gameEngine(L)), getX(L), getY(L) + 2) != METAL ⇒
+		      <li>Level::nature(GameEngine::level(gameEngine(L)), getX(L), getY(L) + 2) == DIRT ⇒
 			<ul>
 			  <li>Level::nature(GameEngine::level(gameEngine(step(L))), getX(L), getY(L) + 2) = EMPTY</li>
-		      </ul></li>
+			</ul>
+		      <li>ELSE !GameEngine::obstacle(gameEngine(L), getX(L), getY(L) + 1) ⇒
+			<ul>
+			  <li>getStatus(step(L)) = FALL</li>
+			</ul>
+		      </li>
+		      
+		      </li>
 		  </ul></li>
 		  <li>ELSE
 		    <ul>
